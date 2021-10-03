@@ -4,8 +4,6 @@
  * If you want to learn more about Jest
  * please visit https://jestjs.io/docs
  */
-
-// @ts-ignore
 describe("example test suite", () => {
     it("unit test 1", () => {
         const num = 5;
