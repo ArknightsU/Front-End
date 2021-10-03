@@ -12,11 +12,6 @@
             "url": "https://github.com/vercel/styled-jsx"
         },
         {
-            "name": "Fetch",
-            "description": "Next.js has a built-in polyfill for the fetch API. You don't need to worry about using it on either server or client side.",
-            "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"
-        },
-        {
             "name": "Axios",
             "description": "Promise based HTTP client for the browser and node.js.",
             "url": "https://github.com/axios/axios"
@@ -27,11 +22,6 @@
             "url": "https://storybook.js.org/docs/react/get-started/introduction"
         },
         {
-            "name": "Environment Variables",
-            "description": "Use environment variables in your next.js project for server side, client or both.",
-            "url": "https://github.com/vercel/next.js/tree/canary/examples/environment-variables"
-        },
-        {
             "name": "Reverse Proxy",
             "description": "Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain.",
             "url": "https://webpack.js.org/configuration/dev-server/#devserverproxy"
@@ -40,11 +30,6 @@
             "name": "Bundle Analyzer",
             "description": "Use webpack-bundle-analyzer in your Next.js project. Visualize size of webpack output files with an interactive zoomable treemap.",
             "url": "https://github.com/vercel/next.js/tree/canary/packages/next-bundle-analyzer"
-        },
-        {
-            "name": "React Query",
-            "description": "Hooks for fetching, caching and updating asynchronous data in React.",
-            "url": "https://react-query.tanstack.com/overview"
         },
         {
             "name": "react-use",

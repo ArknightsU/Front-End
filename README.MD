@@ -46,13 +46,6 @@ Next.js comes with built-in support for CSS and styled-jsx. Styled-jsx is full, 
 [Go To Documentation](https://github.com/vercel/styled-jsx)
 
 
-### **Fetch**
-
-Next.js has a built-in polyfill for the fetch API. You don&#39;t need to worry about using it on either server or client side.
-
-[Go To Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
-
-
 ### **Axios**
 
 Promise based HTTP client for the browser and node.js.
@@ -67,13 +60,6 @@ Storybook is an open source tool for developing UI components in isolation for R
 [Go To Documentation](https://storybook.js.org/docs/react/get-started/introduction)
 
 
-### **Environment Variables**
-
-Use environment variables in your next.js project for server side, client or both.
-
-[Go To Documentation](https://github.com/vercel/next.js/tree/canary/examples/environment-variables)
-
-
 ### **Reverse Proxy**
 
 Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain.
@@ -86,13 +72,6 @@ Proxying some URLs can be useful when you have a separate API backend developmen
 Use webpack-bundle-analyzer in your Next.js project. Visualize size of webpack output files with an interactive zoomable treemap.
 
 [Go To Documentation](https://github.com/vercel/next.js/tree/canary/packages/next-bundle-analyzer)
-
-
-### **React Query**
-
-Hooks for fetching, caching and updating asynchronous data in React.
-
-[Go To Documentation](https://react-query.tanstack.com/overview)
 
 
 ### **react-use**
