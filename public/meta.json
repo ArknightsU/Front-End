@@ -1,0 +1,85 @@
+{
+    "name": "frontend",
+    "plugins": [
+        {
+            "name": "TailwindCSS",
+            "description": "A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.",
+            "url": "https://tailwindcss.com/docs"
+        },
+        {
+            "name": "CSS / styled-jsx",
+            "description": "Next.js comes with built-in support for CSS and styled-jsx. Styled-jsx is full, scoped and component-friendly CSS support for JSX (rendered on the server or the client).",
+            "url": "https://github.com/vercel/styled-jsx"
+        },
+        {
+            "name": "Fetch",
+            "description": "Next.js has a built-in polyfill for the fetch API. You don't need to worry about using it on either server or client side.",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"
+        },
+        {
+            "name": "Axios",
+            "description": "Promise based HTTP client for the browser and node.js.",
+            "url": "https://github.com/axios/axios"
+        },
+        {
+            "name": "Storybook",
+            "description": "Storybook is an open source tool for developing UI components in isolation for React, Vue, Angular, and more. It makes building stunning UIs organized and efficient.",
+            "url": "https://storybook.js.org/docs/react/get-started/introduction"
+        },
+        {
+            "name": "Environment Variables",
+            "description": "Use environment variables in your next.js project for server side, client or both.",
+            "url": "https://github.com/vercel/next.js/tree/canary/examples/environment-variables"
+        },
+        {
+            "name": "Reverse Proxy",
+            "description": "Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain.",
+            "url": "https://webpack.js.org/configuration/dev-server/#devserverproxy"
+        },
+        {
+            "name": "Bundle Analyzer",
+            "description": "Use webpack-bundle-analyzer in your Next.js project. Visualize size of webpack output files with an interactive zoomable treemap.",
+            "url": "https://github.com/vercel/next.js/tree/canary/packages/next-bundle-analyzer"
+        },
+        {
+            "name": "React Query",
+            "description": "Hooks for fetching, caching and updating asynchronous data in React.",
+            "url": "https://react-query.tanstack.com/overview"
+        },
+        {
+            "name": "react-use",
+            "description": "A Collection of useful React hooks.",
+            "url": "https://github.com/streamich/react-use"
+        },
+        {
+            "name": "Recoil",
+            "description": "Recoil works and thinks like React. Add some to your app and get fast and flexible shared state.",
+            "url": "https://recoiljs.org/docs/introduction/installation"
+        },
+        {
+            "name": "next-i18next",
+            "description": "next-i18next is a plugin for Next.js projects that allows you to get translations up and running quickly and easily, while fully supporting SSR, multiple namespaces with codesplitting, etc.",
+            "url": "https://github.com/isaachinman/next-i18next"
+        },
+        {
+            "name": "ESLint",
+            "description": "A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript. Maintain your code quality with ease.",
+            "url": "https://eslint.org/docs/user-guide/getting-started"
+        },
+        {
+            "name": "Prettier",
+            "description": "An opinionated code formatter; Supports many languages; Integrates with most editors.",
+            "url": "https://prettier.io/docs/en/index.html"
+        },
+        {
+            "name": "Jest",
+            "description": "Jest is a delightful JavaScript Testing Framework with a focus on simplicity.",
+            "url": "https://jestjs.io/docs/en/getting-started"
+        },
+        {
+            "name": "Github Actions",
+            "description": "GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub.",
+            "url": "https://docs.github.com/en/actions"
+        }
+    ]
+}
