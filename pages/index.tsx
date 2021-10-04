@@ -1,15 +1,11 @@
 import React from "react";
-
-import { Container, Header, Main, Footer, Cards } from "@components";
+import { ResponsiveGrid, TestElement } from "@components";
 
 const Home: React.FC = () => {
     return (
-        <Container>
-            <Header />
-            <Main />
-            <Cards />
-            <Footer />
-        </Container>
+        <ResponsiveGrid>
+            <TestElement text={"hello"} />
+        </ResponsiveGrid>
     );
 };
 
