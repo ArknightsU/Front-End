@@ -1,29 +1,55 @@
 import React from "react";
-import { ResponsiveGrid } from "@components";
-import { Operator, Gacha, Music, Calculation } from "@components";
+import {
+    ResponsiveGrid,
+    Operator,
+    Gacha,
+    Calculation,
+    Music,
+    Login,
+    Settings,
+    Ads,
+    Dev,
+    Theme,
+    Logo,
+    GridItem,
+} from "@components";
 import { Container } from "@components/Container";
-import { ResponsiveGridLib } from "@components/main_page_with_library/ResponsiveGridLib";
 
 const Home: React.FC = () => {
-    /*
     return (
         <Container>
             <ResponsiveGrid>
-                <Operator />
-                <Gacha />
-                <Music />
-                <Calculation />
+                <GridItem key={"operator"}>
+                    <Operator />
+                </GridItem>
+                <GridItem key={"gacha"}>
+                    <Gacha />
+                </GridItem>
+                <GridItem key={"calc"}>
+                    <Calculation />
+                </GridItem>
+                <GridItem key={"music"}>
+                    <Music />
+                </GridItem>
+                <GridItem key={"login"}>
+                    <Login />
+                </GridItem>
+                <GridItem key={"settings"}>
+                    <Settings />
+                </GridItem>
+                <GridItem key={"ads"}>
+                    <Ads />
+                </GridItem>
+                <GridItem key={"dev"}>
+                    <Dev />
+                </GridItem>
+                <GridItem key={"theme"}>
+                    <Theme />
+                </GridItem>
+                <GridItem key={"logo"}>
+                    <Logo />
+                </GridItem>
             </ResponsiveGrid>
-        </Container>
-    );*/
-    return (
-        <Container>
-            <ResponsiveGridLib>
-                <div key="test1" className="bg-white"></div>
-                <div key="test2" className="bg-white"></div>
-                <div key="test3" className="bg-white"></div>
-                <div key="test4" className="bg-white"></div>
-            </ResponsiveGridLib>
         </Container>
     );
 };
