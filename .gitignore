@@ -7,5 +7,5 @@ node_modules
 .env.*
 !.env.example
 
-# ignore images
-public\img\**\*
+# ignore copyrighted images
+public/img/**/*
