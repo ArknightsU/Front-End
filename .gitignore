@@ -9,3 +9,4 @@ node_modules
 
 # ignore copyrighted images
 public/img/**/*
+public/json/**/*
