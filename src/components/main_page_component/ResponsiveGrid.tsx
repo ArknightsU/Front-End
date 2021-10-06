@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import "../../../node_modules/react-grid-layout/css/styles.css";
 import "../../../node_modules/react-resizable/css/styles.css";
+import { useWindowSize } from "../useWindowSize";
 
 interface Props {
     children?: React.ReactNode;
@@ -90,38 +91,4 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
             {children}
         </ResponsiveGridLayout>
     );
-}
-
-// Hook
-function useWindowSize() {
-    // Initialize state with undefined width/height so server and client renders match
-    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-    const [windowSize, setWindowSize] = useState({
-        width: 0,
-        height: 0,
-    });
-
-    useEffect(() => {
-        // only execute all the code below in client side
-        if (typeof window !== "undefined") {
-            // Handler to call on window resize
-            const handleResize = () => {
-                // Set window width/height to state
-                setWindowSize({
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                });
-            };
-
-            // Add event listener
-            window.addEventListener("resize", handleResize);
-
-            // Call handler right away so state gets updated with initial window size
-            handleResize();
-
-            // Remove event listener on cleanup
-            return () => window.removeEventListener("resize", handleResize);
-        }
-    }, []); // Empty array ensures that effect is only run on mount
-    return windowSize;
 }
