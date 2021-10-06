@@ -8,4 +8,4 @@ node_modules
 !.env.example
 
 # ignore images
-public\img\*
+public\img\**\*
