@@ -1,5 +1,4 @@
-import React, { Children, JSXElementConstructor } from "react";
-import { ResponsiveChild } from "./ResponsiveChild";
+import React from "react";
 
 interface ComponentProps {
     children?: JSX.Element;
@@ -27,7 +26,8 @@ export const GridItem = React.forwardRef<HTMLDivElement, ComponentProps>(
 );
 
 const menuStyle = "absolute bg-transparent w-full h-full p-4";
-const insideStlye = "bg-black w-full h-full box-border rounded-lg";
+const insideStlye =
+    "bg-gray-100 w-full h-full box-border rounded-lg flex flex-col";
 
 export function Operator(): JSX.Element {
     return (
