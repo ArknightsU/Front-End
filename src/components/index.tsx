@@ -1,2 +1,2 @@
-export { ResponsiveGrid } from "./main_page_comp/ResponsiveGrid";
-export { Operator, Gacha, Music, Calculation } from "./main_page_comp/Menu";
+export { ResponsiveGrid } from "./main_page_component/ResponsiveGrid";
+export * from "./main_page_component/Menus";
