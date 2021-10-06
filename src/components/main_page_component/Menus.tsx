@@ -6,9 +6,7 @@ interface ComponentProps {
     className?: string;
     key: string;
 }
-interface MenuProps {
-    children?: React.ReactNode;
-}
+
 export const GridItem = React.forwardRef<HTMLDivElement, ComponentProps>(
     ({ style, className, key, children, ...restOfProps }, ref) => {
         return (

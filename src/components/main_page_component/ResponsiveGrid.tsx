@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import "../../../node_modules/react-grid-layout/css/styles.css";
 import "../../../node_modules/react-resizable/css/styles.css";
@@ -62,9 +62,9 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
         sm: smallLayout,
         xs: smallLayout,
     };
+    const [startItem, setStartItem] = useState({});
     return (
         <ResponsiveGridLayout
-            autoSize={true}
             breakpoints={breakpoints}
             cols={cols}
             width={size.width}
@@ -72,9 +72,12 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
             layouts={menuLayout}
             margin={[0, 0]}
             containerPadding={[0, 0]}
+            onDragStart={(layout, oldItem) => {
+                setStartItem(oldItem);
+            }}
             onDrag={(layout, oldItem, newItem, placeholder, event) => {
                 if (
-                    placeholder.x + placeholder.w > 10 ||
+                    placeholder.x + placeholder.w > 20 ||
                     placeholder.y + placeholder.h > 10
                 ) {
                     event.stopPropagation();
@@ -82,9 +85,14 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
                     layout[layout.indexOf(newItem)] = oldItem;
                 }
             }}
-            onDragStop={(layout, oldItem, newItem, placeholder) => {
-                if (newItem.x + newItem.w > 10 || newItem.y + newItem.h > 10) {
-                    layout[layout.indexOf(newItem)] = oldItem;
+            onDragStop={(layout, oldItem, newItem) => {
+                if (
+                    newItem.x + newItem.w >= 20 ||
+                    newItem.y + newItem.h >= 10
+                ) {
+                    // if drag started, startItem state always have x, y, w, h
+                    // Ignore this warning. This is TYPESCRIPT THING
+                    layout[layout.indexOf(newItem)] = startItem;
                 }
             }}
         >
