@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface ComponentProps {
     children?: JSX.Element;
@@ -25,7 +26,7 @@ export const GridItem = React.forwardRef<HTMLDivElement, ComponentProps>(
 
 const menuStyle = "absolute bg-transparent w-full h-full p-4";
 const insideStlye =
-    "bg-gray-100 w-full h-full box-border rounded-lg flex flex-col";
+    "bg-gray-100 w-full h-full box-border rounded-lg flex flex-col justify-center items-center shadow-md";
 
 export function Operator(): JSX.Element {
     return (
@@ -35,10 +36,27 @@ export function Operator(): JSX.Element {
     );
 }
 
+const gachaStyle =
+    "bg-gradient-to-b from-gray-100 via-red-200 to-red-600 w-full h-full box-border rounded-lg flex flex-col justify-center items-center shadow-md";
 export function Gacha(): JSX.Element {
     return (
         <div className={menuStyle}>
-            <div className={insideStlye}></div>
+            <div className={gachaStyle}>
+                <div className="h-3/5 w-full relative drop-shadow-lg">
+                    <Image
+                        src="/img/items/DIAMOND_SHD.webp"
+                        alt="gacha"
+                        layout="fill"
+                        objectFit="contain"
+                    ></Image>
+                </div>
+                <span
+                    className="h-1/5 w-full relative text-center align-middle font-sans font-semibold antialiased text-white flex flex-col justify-end
+                    text-base sm:text-base md:text-lg lg:text-xl xl:text-2xl"
+                >
+                    {"GACHA SIMULATION"}
+                </span>
+            </div>
         </div>
     );
 }
