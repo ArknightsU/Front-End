@@ -6,7 +6,7 @@ interface ContainerProps {
 
 export function Container({ children }: ContainerProps): JSX.Element {
     return (
-        <div className="min-h-screen min-w-screen flex flex-col bg-white p-5 overflow-hidden">
+        <div className="min-h-screen min-w-screen flex flex-col bg-white dark:bg-black p-5 overflow-hidden">
             {children}
         </div>
     );
