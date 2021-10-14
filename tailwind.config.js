@@ -2,6 +2,12 @@ module.exports = {
     purge: ["./pages/**/*.tsx", "./src/**/*.tsx"],
     darkMode: "class", // or 'media' or 'class'
     theme: {
+        scale: {
+            0: "0",
+            110: "1.1",
+            130: "1.3",
+            140: "1.4",
+        },
         extend: {
             gridTemplateRows: {
                 "20percent-7": "repeat(7, 20vh)",
