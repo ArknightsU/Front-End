@@ -34,7 +34,6 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
         { i: "login", x: 14, y: 1, w: 3, h: 2, static: true, isDraggable: true },
         // eslint-disable-next-line prettier/prettier
         { i: "settings", x: 10, y: 8, w: 3, h: 2, static: true, isDraggable: true },
-        { i: "ads", x: 5, y: 0, w: 4, h: 2, static: true, isDraggable: true },
         { i: "dev", x: 2, y: 0, w: 3, h: 2, static: true, isDraggable: true },
         // eslint-disable-next-line prettier/prettier
         { i: "theme", x: 15, y: 8, w: 3, h: 2, static: true, isDraggable: true },
@@ -49,7 +48,6 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
         { i: "login", x: 6, y: 0, w: 3, h: 2, static: true },
         // eslint-disable-next-line prettier/prettier
         { i: "settings", x: 6, y: 2, w: 3, h: 1, static: true },
-        { i: "ads", x: 6, y: 4, w: 3, h: 2, static: true },
         { i: "dev", x: 6, y: 6, w: 3, h: 1, static: true },
         { i: "theme", x: 6, y: 3, w: 3, h: 1, static: true },
         { i: "logo", x: 6, y: 7, w: 3, h: 1, static: true },
