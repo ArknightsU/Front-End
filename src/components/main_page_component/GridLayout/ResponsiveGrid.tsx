@@ -37,7 +37,8 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
         { i: "dev", x: 2, y: 0, w: 3, h: 2, static: true, isDraggable: true },
         // eslint-disable-next-line prettier/prettier
         { i: "theme", x: 15, y: 8, w: 3, h: 2, static: true, isDraggable: true },
-        { i: "logo", x: 9, y: 5, w: 1, h: 1, static: true, isDraggable: true },
+        { i: "logo", x: 14, y: 3, w: 3, h: 2, static: true, isDraggable: true },
+        { i: "ui", x: 5, y: 0, w: 3, h: 2, static: true, isDraggable: true },
     ];
     const smallLayout = [
         // eslint-disable-next-line prettier/prettier
