@@ -11,10 +11,23 @@ import {
     Theme,
     Logo,
     GridItem,
+    AdjustUI,
 } from "@components";
 import { Container } from "@components/Container";
+import { useWindowSize } from "@components/useWindowSize";
 
 const Home: React.FC = () => {
+    const size = useWindowSize();
+    const height = size.height;
+    const width = size.width;
+    const InsertAdjustUI =
+        width > 1024 ? (
+            <GridItem key={"ui"}>
+                <AdjustUI />
+            </GridItem>
+        ) : (
+            ""
+        );
     return (
         <>
             <Container>
@@ -46,6 +59,7 @@ const Home: React.FC = () => {
                     <GridItem key={"logo"}>
                         <Logo />
                     </GridItem>
+                    {InsertAdjustUI}
                 </ResponsiveGrid>
             </Container>
         </>
