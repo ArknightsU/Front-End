@@ -13,8 +13,6 @@ import {
     GridItem,
 } from "@components";
 import { Container } from "@components/Container";
-import Script from "next/script";
-import { useWindowSize } from "react-use";
 
 const Home: React.FC = () => {
     return (

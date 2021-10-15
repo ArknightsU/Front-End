@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
-import "../../../node_modules/react-grid-layout/css/styles.css";
-import "../../../node_modules/react-resizable/css/styles.css";
-import { useWindowSize } from "../useWindowSize";
+import "../../../../node_modules/react-grid-layout/css/styles.css";
+import "../../../../node_modules/react-resizable/css/styles.css";
+import { useWindowSize } from "../../useWindowSize";
 
 interface Props {
     children?: React.ReactNode;
