@@ -7,6 +7,7 @@ module.exports = {
             110: "1.1",
             130: "1.3",
             140: "1.4",
+            150: "1.5",
         },
         extend: {
             gridTemplateRows: {
