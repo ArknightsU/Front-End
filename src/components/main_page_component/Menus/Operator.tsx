@@ -1,13 +1,13 @@
 import React from "react";
 import { menuStyle } from "./common";
-import { StarRating } from "@components/StarRating";
+import { StarRating } from "../../StarRating";
 import Image from "next/image";
 
 export function Operator(): JSX.Element {
     const rating = 4.3;
     return (
         <div className={menuStyle}>
-            <div className="relative bg-gray-100 w-full h-full box-border rounded-lg flex flex-col justify-end items-center shadow-md overflow-hidden">
+            <div className="relative bg-gray-100 dark:bg-gray-700 w-full h-full box-border rounded-lg flex flex-col justify-end items-center shadow-md overflow-hidden">
                 {/**
                  * Top side blacked content
                  */}

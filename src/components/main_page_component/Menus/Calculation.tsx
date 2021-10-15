@@ -15,7 +15,8 @@ export function Calculation(): JSX.Element {
     return (
         <div className={menuStyle}>
             <div className={insideStyle}>
-                <div className="relative h-full w-full rounded-lg bg-gradient-to-t from-green-600 via-green-200 to-green-500 flex justify-center items-center">
+                <div className="relative h-full w-full rounded-lg bg-green-500 flex justify-center items-center">
+                    <div className="absolute w-full h-1/5 bg-yellow-300"></div>
                     <div className="relative h-2/5 w-full flex flex-row justify-between items-center pr-2 pl-2 overflow-visible">
                         {
                             // Mapping Menu item images
