@@ -1,0 +1,1 @@
+export { getCharacterObject } from "./getCharacterObject";

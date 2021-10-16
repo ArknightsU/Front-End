@@ -15,7 +15,7 @@ import {
     GoogleLoginPopUp,
 } from "@components";
 import { Container } from "@components/Container";
-import { useWindowSize } from "@components/useWindowSize";
+import { useWindowSize } from "@components/main_page_component/useWindowSize";
 
 const Home: React.FC = () => {
     const size = useWindowSize();
@@ -60,7 +60,6 @@ const Home: React.FC = () => {
                     <GridItem key={"logo"}>
                         <Logo />
                     </GridItem>
-                    {InsertAdjustUI}
                 </ResponsiveGrid>
             </Container>
             <GoogleLoginPopUp />
