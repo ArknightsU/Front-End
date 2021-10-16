@@ -1,8 +1,16 @@
+import { useGid } from "@recoil/hooks";
 import React from "react";
 import { menuStyle, insideStyle } from "./common";
 import { SubMenuComp } from "./SubMenuComp";
+import { useLoginPopUp } from "@recoil/hooks";
 
 export function Login(): JSX.Element {
+    const [gid, { setGid }] = useGid();
+    React.useEffect(() => {
+        console.log(gid);
+        setGid("abcdefg");
+    });
+    const [login, { toggleLoginPopUp }] = useLoginPopUp();
     const icon = (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +26,7 @@ export function Login(): JSX.Element {
         </svg>
     );
     return (
-        <div className={menuStyle}>
+        <div className={menuStyle} onClick={toggleLoginPopUp}>
             <div className={insideStyle}>
                 <SubMenuComp
                     text={"로그인"}
