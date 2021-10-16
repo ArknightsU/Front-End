@@ -1,8 +1,11 @@
 import React from "react";
 import { menuStyle, insideStyle } from "./common";
 import { SubMenuComp } from "./SubMenuComp";
+import { EditUI } from "@recoil/atoms";
+import { useRecoilState } from "recoil";
 
 export function AdjustUI(): JSX.Element {
+    const [draggable, setDraggable] = useRecoilState(EditUI);
     const icon = (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -18,11 +21,17 @@ export function AdjustUI(): JSX.Element {
             />
         </svg>
     );
+    const text = draggable ? "UI 저장" : "UI 고정 해제";
     return (
-        <div className={menuStyle}>
+        <div
+            className={menuStyle}
+            onClick={() => {
+                setDraggable(!draggable);
+            }}
+        >
             <div className={insideStyle}>
                 <SubMenuComp
-                    text={"UI 고정 해제"}
+                    text={text}
                     icon={icon}
                     background="bg-gradient-to-tr from-purple-400 to-purple-200"
                 />
