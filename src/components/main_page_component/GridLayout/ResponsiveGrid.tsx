@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import "../../../../node_modules/react-grid-layout/css/styles.css";
 import "../../../../node_modules/react-resizable/css/styles.css";
-import { useWindowSize } from "../../useWindowSize";
+import { useWindowSize } from "../useWindowSize";
 
 interface Props {
     children?: React.ReactNode;
@@ -22,36 +22,40 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
         xs: 0,
     };
     const cols = { xxl: 20, xl: 20, lg: 20, md: 10, sm: 10, xs: 10 };
-
     const bigLayout = [
         // eslint-disable-next-line prettier/prettier
-        { i: "operator", x: 9, y: 0, w: 5, h: 5, static: true, isDraggable: true },
+        { i: "operator", x: 9, y: 0, w: 5, h: 5},
         // eslint-disable-next-line prettier/prettier
-        { i: "gacha", x: 10, y: 5, w: 8, h: 3, static: true, isDraggable: true },
-        { i: "calc", x: 2, y: 2, w: 7, h: 4, static: true, isDraggable: true },
-        { i: "music", x: 5, y: 6, w: 5, h: 4, static: true, isDraggable: true },
+        { i: "gacha", x: 10, y: 5, w: 8, h: 3},
         // eslint-disable-next-line prettier/prettier
-        { i: "login", x: 14, y: 1, w: 3, h: 2, static: true, isDraggable: true },
+        { i: "calc", x: 2, y: 2, w: 7, h: 4},
         // eslint-disable-next-line prettier/prettier
-        { i: "settings", x: 10, y: 8, w: 3, h: 2, static: true, isDraggable: true },
-        { i: "dev", x: 2, y: 0, w: 3, h: 2, static: true, isDraggable: true },
+        { i: "music", x: 5, y: 6, w: 5, h: 4},
         // eslint-disable-next-line prettier/prettier
-        { i: "theme", x: 15, y: 8, w: 3, h: 2, static: true, isDraggable: true },
-        { i: "logo", x: 14, y: 3, w: 3, h: 2, static: true, isDraggable: true },
-        { i: "ui", x: 5, y: 0, w: 3, h: 2, static: true, isDraggable: true },
+        { i: "login", x: 14, y: 1, w: 3, h: 2},
+        // eslint-disable-next-line prettier/prettier
+        { i: "settings", x: 10, y: 8, w: 3, h: 2},
+        // eslint-disable-next-line prettier/prettier
+        { i: "dev", x: 2, y: 0, w: 3, h: 2},
+        // eslint-disable-next-line prettier/prettier
+        { i: "theme", x: 15, y: 8, w: 3, h: 2},
+        // eslint-disable-next-line prettier/prettier
+        { i: "logo", x: 14, y: 3, w: 3, h: 2},
+        // eslint-disable-next-line prettier/prettier
+        { i: "ui", x: 5, y: 0, w: 3, h: 2},
     ];
     const smallLayout = [
         // eslint-disable-next-line prettier/prettier
-        { i: "operator", x: 0, y: 6, w: 6, h: 2, static: true },
-        { i: "gacha", x: 0, y: 4, w: 6, h: 2, static: true },
-        { i: "calc", x: 0, y: 2, w: 6, h: 2, static: true },
-        { i: "music", x: 0, y: 0, w: 6, h: 2, static: true },
-        { i: "login", x: 6, y: 0, w: 3, h: 2, static: true },
+        { i: "operator", x: 0, y: 6, w: 6, h: 2 },
+        { i: "gacha", x: 0, y: 4, w: 6, h: 2 },
+        { i: "calc", x: 0, y: 2, w: 6, h: 2 },
+        { i: "music", x: 0, y: 0, w: 6, h: 2 },
+        { i: "login", x: 6, y: 0, w: 3, h: 2 },
         // eslint-disable-next-line prettier/prettier
-        { i: "settings", x: 6, y: 2, w: 3, h: 1, static: true },
-        { i: "dev", x: 6, y: 6, w: 3, h: 1, static: true },
-        { i: "theme", x: 6, y: 3, w: 3, h: 1, static: true },
-        { i: "logo", x: 6, y: 7, w: 3, h: 1, static: true },
+        { i: "settings", x: 6, y: 2, w: 3, h: 1 },
+        { i: "dev", x: 6, y: 6, w: 3, h: 1 },
+        { i: "theme", x: 6, y: 3, w: 3, h: 1 },
+        { i: "logo", x: 6, y: 7, w: 3, h: 1 },
     ];
     const menuLayout = {
         xxl: bigLayout,
@@ -70,6 +74,9 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
             rowHeight={rowHeight}
             layouts={menuLayout}
             margin={[0, 0]}
+            isResizable={false}
+            isBounded={true}
+            isDraggable={false}
             containerPadding={[0, 0]}
             onDragStart={(layout, oldItem) => {
                 setStartItem(oldItem);
