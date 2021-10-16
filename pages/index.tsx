@@ -12,6 +12,7 @@ import {
     Logo,
     GridItem,
     AdjustUI,
+    GoogleLoginPopUp,
 } from "@components";
 import { Container } from "@components/Container";
 import { useWindowSize } from "@components/useWindowSize";
@@ -62,6 +63,7 @@ const Home: React.FC = () => {
                     {InsertAdjustUI}
                 </ResponsiveGrid>
             </Container>
+            <GoogleLoginPopUp />
         </>
     );
 };
