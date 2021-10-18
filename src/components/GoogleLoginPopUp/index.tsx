@@ -16,13 +16,9 @@ export function GoogleLoginPopUp(): JSX.Element {
         toggleLoginPopUp();
     });
     const responseGoogle = (response: unknown) => {
+        console.log("suceess::::");
         console.log(response);
     };
-    React.useEffect(() => {
-        if (isLoggedIn()) {
-            console.log("logged in!");
-        }
-    });
     return (
         <Transition
             show={login}
@@ -54,7 +50,9 @@ export function GoogleLoginPopUp(): JSX.Element {
                             clientId="995739344727-jcl6298reb0703kevu4j550mugnusmu9.apps.googleusercontent.com"
                             buttonText="Login"
                             onSuccess={responseGoogle}
-                            onFailure={responseGoogle}
+                            onFailure={() => {
+                                console.log("error");
+                            }}
                             cookiePolicy={"single_host_origin"}
                             isSignedIn={true}
                         />
