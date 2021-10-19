@@ -11,3 +11,4 @@ node_modules
 public/img/**/*
 public/json/**/*
 examples/*
+yarn-error.log
