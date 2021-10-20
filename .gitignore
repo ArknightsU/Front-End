@@ -10,5 +10,6 @@ node_modules
 # ignore copyrighted images
 public/img/**/*
 public/json/**/*
+public/ui/**/*
 examples/*
 yarn-error.log
