@@ -23,7 +23,8 @@
             "@styles": ["src/styles"],
             "@recoil/*": ["src/recoil/*"],
             "@recoil": ["src/recoil"],
-            "@i18n": ["./i18n"]
+            "@i18n": ["./i18n"],
+            "@constants": ["src/constnats/"],
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
