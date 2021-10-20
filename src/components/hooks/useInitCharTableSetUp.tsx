@@ -19,7 +19,6 @@ export function useInitCharTableSetUp() {
             }
         }
         set().then(() => {
-            console.log(dbVersion);
             if (isWindowDBSupported()) {
                 if (dbVersion === undefined) {
                     setLoading(false);

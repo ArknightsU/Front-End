@@ -27,13 +27,12 @@ export function useCharTableLocalStorage(name: string) {
     return data;
 }
 
-function findName(char, name: string) {
+function findName(char: any, name: string) {
     if (char === undefined) {
         console.error("char undefined");
         return null;
     }
     for (const rarity of Object.keys(char)) {
-        console.log(rarity);
         if (Object.keys(char[rarity]).includes(name)) return char[rarity][name];
     }
 }
