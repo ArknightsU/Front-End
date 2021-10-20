@@ -22,7 +22,6 @@ export function Operator(): JSX.Element {
     const rating = [4.3, 3.1, 5];
     const [count, setCount] = React.useState(0);
     const [hover, setHover] = React.useState(false);
-    console.log(count);
     useInterval(
         () => {
             setCount((count + 1) % images.length);

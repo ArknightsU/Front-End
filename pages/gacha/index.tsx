@@ -1,28 +1,42 @@
 import React from "react";
 import { Container } from "@components/Container";
 import Link from "next/link";
-import { GetServerSideProps } from "next";
-import { gzDecompress } from "@components/common";
-import { DBInit } from "@components/common/CharDB";
-import { useSessionStorage } from "react-use";
+import { GetServerSideProps, NextPage } from "next";
+import axios from "axios";
+import { SERVER_URL_GACHA_POOLS } from "src/constants";
+import { GachaMain } from "@components/gacha_page_component/GachaMain";
 
+interface GachaPageProps {
+    children?: React.ReactNode;
+    pools: any;
+}
 
-const Gacha: React.FC = (props) => {
-    console.log(props.data);
+const Gacha: NextPage<GachaPageProps> = ({
+    children,
+    pools,
+}: GachaPageProps) => {
+    console.log(pools);
     return (
         <Container>
             <Link href="/">
-                <div> hello </div>
+                <div className="absolute w-1/12 h-8 bg-gray-400 z-50"> go back</div>
             </Link>
+            <GachaMain pools={pools} />
         </Container>
     );
 };
 
-const json_gz_url = "https://arknightsu.github.io/json/character_table.json.gz";
-const json_url = "https://arknightsu.github.io/json/character_table.json";
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const char = await gzDecompress(json_gz_url, json_url);
-    return { props: { data: char } };
+    try {
+        const response = await axios.get(SERVER_URL_GACHA_POOLS);
+        if (response.status === 200) {
+            const pools = response.data.pools;
+            return { props: { pools: pools } };
+        }
+    } catch (error) {
+        console.log(error);
+        return { props: { pools: {} } };
+    }
 };
 
 export default Gacha;
