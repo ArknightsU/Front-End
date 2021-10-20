@@ -32,21 +32,24 @@ async function saveDataInIndexDB(data) {
 }
 
 export async function getDataFromIndexDB(name) {
-    const character_table = await db.character_table
-        .where("char")
-        .equals(name)
-        .toArray();
-    if (character_table && character_table.length > 0) {
-        return character_table[0]["data"];
+    console.log("type of name : ", typeof name);
+    if (name === undefined) {
+        return null;
+    } else {
+        const character_table = await db.character_table
+            .where("char")
+            .equals(name)
+            .toArray();
+        if (character_table && character_table.length > 0) {
+            return character_table[0]["data"];
+        }
+        return null;
     }
-    return null;
 }
 
-export function getCharData(name) {
-    const data = useAsync(async () => {
-        return await getDataFromIndexDB(name);
-    });
-    return data;
+async function getDataCount() {
+    const count = await db.character_table.count();
+    return count;
 }
 
 async function saveVersionInIndexDB(data) {
@@ -72,14 +75,16 @@ async function getVersion() {
 const json_url = "https://arknightsu.github.io/json/character_table.json";
 const json_gz_url = "https://arknightsu.github.io/json/character_table.json.gz";
 const json_version_url = "https://arknightsu.github.io/json/version.json";
-export async function DBInit(version) {
+export async function DBInit(version, length) {
     let db_version = await getVersion();
-    let json_version;
+    let db_length = await getDataCount();
+    let json_version = version;
+    let json_length = length;
     if (version === undefined) {
         console.log("db-version", db_version);
-        json_version = (await axios.get(json_version_url)).data["version"];
-    } else {
-        json_version = version;
+        const from_internet = (await axios.get(json_version_url)).data;
+        json_version = from_internet["version"];
+        json_length = from_internet["length"];
     }
     if (db_version === null) {
         saveVersionInIndexDB(json_version);
@@ -87,7 +92,10 @@ export async function DBInit(version) {
         saveDataInIndexDB(data);
         console.log("db not found");
     } else {
-        if (Number(json_version) === Number(db_version)) {
+        if (
+            Number(json_version) === Number(db_version) &&
+            Number(json_length) === Number(db_length)
+        ) {
             console.log("correct db exists");
             return;
         } else {

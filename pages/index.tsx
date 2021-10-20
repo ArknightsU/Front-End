@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     ResponsiveGrid,
     Operator,
@@ -17,10 +17,18 @@ import {
 import { Container } from "@components/Container";
 import { useWindowSize } from "@components/main_page_component/useWindowSize";
 
+import { useRecoilState } from "recoil";
+import { DBSupport } from "@recoil/atoms";
+import { useAsync } from "react-use";
+import { useInitCharTableSetUp } from "@components/hooks/useInitCharTableSetUp";
+import { useCharTable } from "@components/hooks/useCharTable";
+import { useCharTableLocalStorage } from "@components/hooks/useCharTableLocalStorage";
+
 const Home: React.FC = () => {
     const size = useWindowSize();
     const height = size.height;
     const width = size.width;
+    const [dbStat, setDbStat] = useRecoilState(DBSupport);
     const InsertAdjustUI =
         width > 1024 ? (
             <GridItem key={"ui"}>
@@ -29,6 +37,9 @@ const Home: React.FC = () => {
         ) : (
             ""
         );
+    useInitCharTableSetUp();
+    const amiya = useCharTableLocalStorage("char_002_amiya");
+    console.log(amiya);
     return (
         <>
             <Container>

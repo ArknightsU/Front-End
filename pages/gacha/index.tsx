@@ -2,8 +2,13 @@ import React from "react";
 import { Container } from "@components/Container";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
+import { gzDecompress } from "@components/common";
+import { DBInit } from "@components/common/CharDB";
+import { useSessionStorage } from "react-use";
 
-const Gacha: React.FC = () => {
+
+const Gacha: React.FC = (props) => {
+    console.log(props.data);
     return (
         <Container>
             <Link href="/">
@@ -13,20 +18,11 @@ const Gacha: React.FC = () => {
     );
 };
 
+const json_gz_url = "https://arknightsu.github.io/json/character_table.json.gz";
+const json_url = "https://arknightsu.github.io/json/character_table.json";
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    await new Promise((resolve) => {
-        setTimeout(resolve, 3000);
-    });
-    return { props: {} };
+    const char = await gzDecompress(json_gz_url, json_url);
+    return { props: { data: char } };
 };
-/*
-export async function getServerSideProps(): Promise<
-    GetServerSidePropsResult<any>
-> {
-    await new Promise((resolve) => {
-        setTimeout(resolve, 3000);
-    });
-    return { props: {} };
-}*/
 
 export default Gacha;
