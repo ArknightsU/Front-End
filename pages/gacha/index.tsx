@@ -4,7 +4,7 @@ import Link from "next/link";
 import { GetServerSideProps, NextPage } from "next";
 import axios from "axios";
 import { SERVER_URL_GACHA_POOLS } from "src/constants";
-import { GachaMain } from "@components/gacha_page_component/GachaMain";
+import { GachaMain } from "@components/gacha_page_component";
 
 interface GachaPageProps {
     children?: React.ReactNode;
@@ -19,7 +19,9 @@ const Gacha: NextPage<GachaPageProps> = ({
     return (
         <Container>
             <Link href="/">
-                <div className="absolute w-1/12 h-8 bg-gray-400 z-50"> go back</div>
+                <div className="absolute w-1/12 h-8 bg-gray-400 z-50">
+                    go back
+                </div>
             </Link>
             <GachaMain pools={pools} />
         </Container>
