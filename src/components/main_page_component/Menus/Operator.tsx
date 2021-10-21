@@ -3,7 +3,8 @@ import { menuStyle } from "./common";
 import { StarRating } from "../../common/StarRating";
 import { Carousel } from "@components/common";
 import { useInterval } from "react-use";
-import { getCharacterObject } from "@components/common/CharacterTableProcess";
+import { getDataFromIndexDB } from "@components/common/CharDB";
+import { useCharTable } from "../../hooks/useCharTable";
 
 const IMAGE_DIR = "/img/characters/";
 const FILE_NAME_POST_FIX = "_2.webp";
@@ -11,7 +12,8 @@ export function Operator(): JSX.Element {
     const op = ["char_440_pinecn", "char_365_aprl", "char_400_weedy"];
     const images = op.map((x) => IMAGE_DIR + x + FILE_NAME_POST_FIX);
     const names = op.map((x) => {
-        return getCharacterObject(x)["kr_name"];
+        const [n, load] = useCharTable(x);
+        return n["kr_name"];
     });
     const titles = [
         "일반 환경 성능지수 TOP",
