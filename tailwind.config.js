@@ -3,9 +3,6 @@ module.exports = {
     purge: ["./pages/**/*.tsx", "./src/**/*.tsx"],
     darkMode: "class", // or 'media' or 'class'
     theme: {
-        zIndex: {
-            bg: -1,
-        },
         scale: {
             0: "0",
             110: "1.1",
@@ -48,6 +45,9 @@ module.exports = {
             },
             colors: {
                 truegray: colors.trueGray,
+            },
+            zIndex: {
+                bg: -1,
             },
         },
     },
