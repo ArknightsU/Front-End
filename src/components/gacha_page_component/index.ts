@@ -1,0 +1,1 @@
+export { GachaMain } from "./GachaMain";

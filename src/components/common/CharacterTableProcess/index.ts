@@ -1,1 +1,1 @@
-export { getCharacterObject } from "./getCharacterObject";
+//export { getCharacterObject } from "./getCharacterObject";
