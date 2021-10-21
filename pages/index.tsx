@@ -35,7 +35,6 @@ const Home: React.FC = () => {
             ""
         );
     useInitCharTableSetUp();
-    const amiya = useCharTableLocalStorage("char_002_amiya");
     return (
         <>
             <Container padding={true}>
