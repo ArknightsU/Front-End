@@ -1,7 +1,11 @@
+const colors = require("tailwindcss/colors");
 module.exports = {
     purge: ["./pages/**/*.tsx", "./src/**/*.tsx"],
     darkMode: "class", // or 'media' or 'class'
     theme: {
+        zIndex: {
+            bg: -1,
+        },
         scale: {
             0: "0",
             110: "1.1",
@@ -38,6 +42,12 @@ module.exports = {
             },
             backgroundImage: {
                 bricks: 'url("/ui/bg_mask.webp")',
+            },
+            dropShadow: {
+                bottom: "0 20px 5px rgba(0, 0, 0, 0.2)",
+            },
+            colors: {
+                truegray: colors.trueGray,
             },
         },
     },
