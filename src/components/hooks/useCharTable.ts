@@ -11,13 +11,17 @@ export function useCharTable(name: string) {
     const DBSupported = useRecoilValue(DBSupport);
     useEffect(() => {
         async function get() {
-            if (!DBSupported) {
-                const value = useCharTableLocalStorage(name);
-                setData(value);
-            } else {
-                getDataFromIndexDB();
-                const value = await getDataFromIndexDB(name);
-                setData(value);
+            try {
+                if (!DBSupported) {
+                    const value = useCharTableLocalStorage(name);
+                    setData(value);
+                } else {
+                    getDataFromIndexDB();
+                    const value = await getDataFromIndexDB(name);
+                    setData(value);
+                }
+            } catch (e) {
+                return;
             }
         }
         get();
