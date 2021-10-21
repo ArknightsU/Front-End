@@ -9,6 +9,9 @@ module.exports = {
             140: "1.4",
             150: "1.5",
         },
+        backgroundSize: {
+            "gacha-mask": "480px",
+        },
         extend: {
             gridTemplateRows: {
                 "20percent-7": "repeat(7, 20vh)",
@@ -32,6 +35,9 @@ module.exports = {
                 12: "12",
                 13: "13",
                 14: "14",
+            },
+            backgroundImage: {
+                bricks: 'url("/ui/bg_mask.webp")',
             },
         },
     },
