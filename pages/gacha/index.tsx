@@ -7,14 +7,10 @@ import { SERVER_URL_GACHA_POOLS } from "src/constants";
 import { GachaMain } from "@components/gacha_page_component";
 
 interface GachaPageProps {
-    children?: React.ReactNode;
     pools: any;
 }
 
-const Gacha: NextPage<GachaPageProps> = ({
-    children,
-    pools,
-}: GachaPageProps) => {
+const Gacha: NextPage<GachaPageProps> = ({ pools }: GachaPageProps) => {
     console.log(pools);
     return (
         <Container>

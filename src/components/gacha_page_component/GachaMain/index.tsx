@@ -6,6 +6,7 @@ import Image from "next/image";
 import { CustomImage } from "@components/common/CustomImage";
 import { PoolComponent } from "./PoolComponent";
 import { GachaBackground } from "./GachaBackground";
+import { GachaForeground } from "./GachaForeground";
 
 interface GachaMainProps {
     pools: any;
@@ -21,9 +22,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
             <PoolGrabber pools={props.pools} />
             <CharacterPreview />
             {/* Foreground Images Start */}
-            <div className="absolute w-full h-full pointer-events-none">
-                <CustomImage src="/ui/black_border.webp" type="stretch" />
-            </div>
+            <GachaForeground />
         </div>
     );
 }
