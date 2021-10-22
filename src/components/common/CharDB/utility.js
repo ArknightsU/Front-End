@@ -1,8 +1,6 @@
 import { gzDecompress } from "@components/common/GzDecompress";
 import axios from "axios";
 import db from "./indexDB.js";
-import { useAsync } from "react-use";
-import waitUntil from "async-wait-until";
 
 async function saveDataInIndexDB(data) {
     if (data) {
@@ -11,24 +9,18 @@ async function saveDataInIndexDB(data) {
             if (d === "limited" || d === "unobtainable") {
                 continue;
             }
+            var array = [];
             for (var char of Object.keys(data[d])) {
                 var value = data[d][char];
-                value["rarity"] = d;
+                value["rarity"] = d; /*
                 db.character_table.add({
                     char: char,
                     data: value,
-                });
-            } /*
-            db.character_table.add({
-                rarity: d,
-                chars: data[d],
-            });*/
-        } /*
-        db.character_table
-            .add({ character_table: "character_table", data })
-            .then(() => {
-                console.log("DB save Success");
-            });*/
+                });*/
+                array.push({ char: char, data: value });
+            }
+            db.character_table.bulkPut(array);
+        }
     }
 }
 

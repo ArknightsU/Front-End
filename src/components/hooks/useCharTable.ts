@@ -15,6 +15,7 @@ export function useCharTable(name: string) {
     const isDBInitOver = useRecoilValue(DBInitOver);
     useEffect(() => {
         async function get() {
+            setLoading(true);
             if (!DBSupported) {
                 const value = useCharTableLocalStorage(name);
                 setData(value);
@@ -40,7 +41,9 @@ export function useCharTable(name: string) {
                 }
             }
         }
-        get();
+        get().then(() => {
+            setLoading(false);
+        });
     }, [name, isDBInitOver, nullChecker]);
     return [data, loading];
 }
