@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import "isomorphic-unfetch";
 import nock from "nock";
 import dotenv from "dotenv";

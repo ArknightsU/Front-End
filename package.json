@@ -1,9 +1,9 @@
 {
     "name": "frontend",
     "version": "0.1.0",
-    "private": true,
+    "private": false,
     "scripts": {
-        "dev": "next dev",
+        "dev": "next dev -p 3001",
         "build": "next build",
         "start": "next start",
         "storybook": "start-storybook -p 6006",
@@ -19,6 +19,7 @@
         "@tailwindcss/aspect-ratio": "^0.3.0",
         "@types/react-grid-layout": "^1.1.2",
         "@types/react-transition-group": "^4.4.3",
+        "async-wait-until": "^2.0.8",
         "axios": "^0.21.1",
         "dexie": "^3.0.3",
         "next": "^11.1.2",
@@ -35,10 +36,12 @@
         "react-transition-group": "^4.4.2",
         "react-use": "^15.3.8",
         "recoil": "^0.1.2",
-        "recoil-persist": "^3.0.0"
+        "recoil-persist": "^3.0.0",
+        "sharp": "^0.29.2"
     },
     "devDependencies": {
         "@babel/core": "^7.12.10",
+        "@next/eslint-plugin-next": "^11.1.2",
         "@storybook/addon-actions": "^6.1.14",
         "@storybook/addon-essentials": "^6.1.14",
         "@storybook/addon-knobs": "^6.1.14",

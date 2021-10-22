@@ -1,4 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import React, { useEffect, useRef } from "react";
+
+// DEPRECATED ::::::
+// SVG converted to WEBP
 
 interface GachaBackgroundSvgProps {
     parent?: React.RefObject<HTMLDivElement>;
@@ -43,12 +48,28 @@ export function GachaBackgroundSvg(
             }
         }
     });
+    useEffect(() => {
+        const svg = document.querySelector("svg");
+        const containerData = new XMLSerializer().serializeToString(svg);
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const img = document.createElement("img");
+        img.setAttribute(
+            "src",
+            "data:image/svg+xml;base64," + btoa(containerData),
+        );
+        img.onload = function () {
+            ctx.drawImage(img, 0, 0);
+            console.log(canvas.toDataURL("image/png"));
+        };
+    });
     return (
         <svg
             height={parent.height}
             width={parent.width}
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
+            className="transform-gpu"
             ref={container}
         >
             <circle cx="0" cy="0" r="0" fill="#a5a5a5" />

@@ -95,6 +95,8 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
                 if (newItem.x + newItem.w > 20 || newItem.y + newItem.h > 10) {
                     // if drag started, startItem state always have x, y, w, h
                     // Ignore this warning. This is TYPESCRIPT THING
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
                     layout[layout.indexOf(newItem)] = startItem;
                 }
             }}

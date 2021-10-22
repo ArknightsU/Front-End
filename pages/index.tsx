@@ -20,6 +20,7 @@ import { useRecoilState } from "recoil";
 import { DBSupport } from "@recoil/atoms";
 import { useInitCharTableSetUp } from "@components/hooks/useInitCharTableSetUp";
 import { useCharTableLocalStorage } from "@components/hooks/useCharTableLocalStorage";
+import { DBInitOver } from "@recoil/atoms";
 
 const Home: React.FC = () => {
     const size = useWindowSize();
@@ -34,7 +35,15 @@ const Home: React.FC = () => {
         ) : (
             ""
         );
-    useInitCharTableSetUp();
+    const [dbLoading, setDbLoading] = useRecoilState(DBInitOver);
+    const loading = useInitCharTableSetUp();
+    console.log("DBLoading", loading);
+    useEffect(() => {
+        if (loading) {
+            setDbLoading(true);
+            console.log("DB Init Over", dbLoading);
+        }
+    });
     return (
         <>
             <Container padding={true}>

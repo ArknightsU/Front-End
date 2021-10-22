@@ -23,7 +23,8 @@ const Gacha: NextPage<GachaPageProps> = ({ pools }: GachaPageProps) => {
         </Container>
     );
 };
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
         const response = await axios.get(SERVER_URL_GACHA_POOLS);

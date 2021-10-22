@@ -4,4 +4,5 @@ export enum Atoms {
     LoginPopUp = "LoginPopUp",
     DBSupport = "DBSupport",
     DBVersion = "DBVersion",
+    DBInitOver = "DBInitOver",
 }

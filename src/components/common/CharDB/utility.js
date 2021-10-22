@@ -2,6 +2,7 @@ import { gzDecompress } from "@components/common/GzDecompress";
 import axios from "axios";
 import db from "./indexDB.js";
 import { useAsync } from "react-use";
+import waitUntil from "async-wait-until";
 
 async function saveDataInIndexDB(data) {
     if (data) {
@@ -33,7 +34,9 @@ async function saveDataInIndexDB(data) {
 
 export async function getDataFromIndexDB(name) {
     console.log("type of name : ", typeof name);
+    //await waitUntil(() => getDataCount() > 0);
     if (name === undefined) {
+        console.log("name undefined");
         return null;
     } else {
         const character_table = await db.character_table
@@ -43,6 +46,7 @@ export async function getDataFromIndexDB(name) {
         if (character_table && character_table.length > 0) {
             return character_table[0]["data"];
         }
+        console.log("character table fail", character_table.length);
         return null;
     }
 }

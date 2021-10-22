@@ -9,7 +9,7 @@ import { GachaBackground } from "./GachaBackground";
 import { GachaForeground } from "./GachaForeground";
 
 interface GachaMainProps {
-    pools: any;
+    pools: Array<any>;
 }
 export function GachaMain(props: GachaMainProps): JSX.Element {
     const size = useWindowSize();
@@ -18,7 +18,6 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
             {/* Background Images Start */}
             <GachaBackground />
             {/* Background Images End */}
-            <PoolComponent pool={props.pools[3]} />
             <PoolGrabber pools={props.pools} />
             <CharacterPreview />
             {/* Foreground Images Start */}

@@ -1,19 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { menuStyle } from "./common";
 import { StarRating } from "../../common/StarRating";
 import { Carousel } from "@components/common";
 import { useInterval } from "react-use";
 import { getDataFromIndexDB } from "@components/common/CharDB";
-import { useCharTable } from "../../hooks/useCharTable";
+import { useRecoilValue } from "recoil";
+import { DBInitOver } from "@recoil/atoms";
+import { useCharTable } from "@components/hooks/useCharTable";
+import { waitUntil } from "async-wait-until";
+import { useCharTableSessionStorage } from "@components/hooks/useCharTableSessionStorage";
+import { useCharTableLocalStorage } from "@components/hooks/useCharTableLocalStorage";
 
 const IMAGE_DIR = "/img/characters/";
 const FILE_NAME_POST_FIX = "_2.webp";
 export function Operator(): JSX.Element {
     const op = ["char_440_pinecn", "char_365_aprl", "char_400_weedy"];
+    const [forceUpdate, setForceUpdate] = useState(1);
     const images = op.map((x) => IMAGE_DIR + x + FILE_NAME_POST_FIX);
+    const isDBInitOver = useRecoilValue(DBInitOver);
+    /*const setNames = () => {
+        if (isDBInitOver) {
+            return new Array(op.length).fill("");
+        } else {
+            const array = op.map((x) => {
+                try {
+                    const [n, load] = useCharTable(x);
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    return n["kr_name"];
+                } catch (e) {
+                    console.log(e);
+                    return "";
+                }
+            });
+            return array;
+        }
+    };*/
     const names = op.map((x) => {
-        const [n, load] = useCharTable(x);
-        return n["kr_name"];
+        try {
+            const [n, load] = useCharTable(x);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            //const n = useCharTableLocalStorage(x);
+            return n["kr_name"];
+        } catch (e) {
+            return "";
+        }
     });
     const titles = [
         "일반 환경 성능지수 TOP",
@@ -30,6 +62,12 @@ export function Operator(): JSX.Element {
         },
         hover ? null : 6000,
     );
+    useEffect(() => {
+        if (DBInitOver) {
+            setForceUpdate((prev) => prev + 1);
+        }
+        console.log(forceUpdate);
+    }, [isDBInitOver]);
     return (
         <div className={menuStyle}>
             <div className="relative bg-gray-100 dark:bg-gray-700 w-full h-full box-border rounded-lg flex flex-col justify-end items-center shadow-md overflow-hidden">

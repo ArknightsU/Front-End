@@ -17,11 +17,15 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
         return { name: v, data: r };
     });
     const featuredSixStars = charData.filter((value) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         return value.data["rarity"] === "six";
     });
     const char_img = featuredSixStars.map((v) => {
         return "/img/avatars/" + v.name + ".webp";
     });
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const get_char_faction = (data) => {
         const returner =
             data.teamId === null
@@ -48,7 +52,7 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                 style={{ height: "40px", width: "360px" }}
                 className="bg-truegray-900"
             >
-                <span className="pl-4 w-full h-full flex items-center text-white font-bold font-sans">
+                <span className="pl-4 w-full h-full flex items-center text-white font-bold font-sans uppercase">
                     {props.pool.name}
                 </span>
             </div>
@@ -56,6 +60,9 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                 style={{ height: "100px", width: "360px" }}
                 className="bg-truegray-100 relative items-center flex overflow-hidden "
             >
+                <div className="w-full h-full">
+                    <CustomImage src="/ui/dot.webp" />
+                </div>
                 {faction_img.map((v, i) => (
                     <img
                         src={v}
@@ -70,7 +77,7 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                     />
                 ))}
                 <span
-                    className="absolute rounded-full bg-truegray-900 text-white flex justify-center items-center font-bold"
+                    className="absolute rounded-full bg-truegray-900 text-white flex justify-center items-center font-bold capitalize"
                     style={{
                         width: "100px",
                         height: "30px",
@@ -78,7 +85,7 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                         transform: "translateY(-10px)",
                     }}
                 >
-                    {"Limited"}
+                    {props.pool.type}
                 </span>
                 {char_img.map((v, i) => (
                     <div
@@ -95,9 +102,6 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                         <CustomImage src={v} />
                     </div>
                 ))}
-                <div ref={svgref} className="w-full h-full">
-                    <GachaBackgroundSvg parent={svgref} />
-                </div>
             </div>
         </div>
     );
