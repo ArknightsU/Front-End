@@ -17,6 +17,12 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
     const [focused, setFocused] = useState(0);
     const [showGrab, setShowGrab] = useState(false);
     const [poolSelected, setPoolSelected] = useState(false);
+    const backButtonOnClickHandler = () => {
+        if (poolSelected && !showGrab) {
+            setShowGrab(true);
+            setPoolSelected(false);
+        }
+    };
     useEffect(() => {
         setShowGrab(true);
     }, []);
@@ -25,7 +31,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
             {showGrab && !poolSelected ? (
                 <GoBackLinkButton />
             ) : (
-                <GoBackButton />
+                <GoBackButton onClick={backButtonOnClickHandler} />
             )}
             {/* Background Images Start */}
             <GachaBackground />
@@ -34,12 +40,13 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 appear={true}
                 show={showGrab && !poolSelected}
                 as={Fragment}
+                unmount={true}
                 enter="transition-all top-0 duration-1000"
-                enterFrom="-left-80"
+                enterFrom="-left-full"
                 enterTo="left-0"
                 leave="transition-all duration-1000"
                 leaveFrom="left-0"
-                leaveTo="-left-80"
+                leaveTo="-left-full"
             >
                 <div className="absolute w-screen h-screen flex flex-row justify-center items-center">
                     <PoolGrabber
@@ -47,6 +54,8 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                         pools={props.pools}
                         focused={focused}
                         setFocused={setFocused}
+                        setShowGrab={setShowGrab}
+                        setPoolSelected={setPoolSelected}
                     />
                 </div>
             </Transition>

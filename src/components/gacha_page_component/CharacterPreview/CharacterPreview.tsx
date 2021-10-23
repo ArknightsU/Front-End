@@ -37,51 +37,36 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
         return <></>;
     }
     return (
-        <div className={`w-0 md:w-full h-full relative overflow-hidden`}>
+        <div
+            className={`w-0 md:w-full h-full relative overflow-hidden flex justify-center items-center`}
+        >
             {char_img.map((v, i) => (
-                <Transition
-                    as={Fragment}
-                    appear={true}
-                    show={count === i}
-                    enter={`transition-all duration-1000 absolute`}
-                    leave={`transition-all duration-1000 absolute`}
-                    unmount={false}
-                    enterFrom={`${
-                        props.poolSelected ? "-left-full" : "-right-full"
-                    }  absolute`}
-                    enterTo={`${
-                        props.poolSelected ? "left-0" : "right-0"
-                    }  absolute`}
-                    entered={`${
-                        props.poolSelected
-                            ? "absolute left-0"
-                            : " absolute right-0"
-                    }`}
-                    leaveFrom={`${
-                        props.poolSelected ? "left-0" : "right-0"
-                    }  absolute`}
-                    leaveTo={`${
-                        props.poolSelected ? "-left-full" : "-right-full"
-                    }  absolute`}
+                <div
+                    className={`absolute w-3/5 h-full transition-all duration-1000`}
+                    key={i}
+                    style={{
+                        zIndex: 10 - i,
+                        transform: `translateY(-10px) scale(1.6) translateX(${
+                            props.poolSelected
+                                ? i === count
+                                    ? -1 * window_size.width * 0.15
+                                    : -1 * window_size.width * 0.6
+                                : i === count
+                                ? window_size.width * 0.15
+                                : window_size.width * 0.6
+                        }px)`,
+                        opacity: i === count ? 1 : 0,
+                    }}
                 >
-                    <div
-                        className={`absolute w-3/5 h-full transition-all ${
-                            props.poolSelected ? "left-0" : "right-0"
-                        }`}
-                        key={i}
-                        style={{
-                            zIndex: 10 - i,
-                            transform: "translateY(-10px) scale(1.6)",
-                        }}
-                    >
-                        <CustomImage src={v} />
-                    </div>
-                </Transition>
+                    <CustomImage src={v} />
+                </div>
             ))}
             <CharacterText
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 sixstar={featuredSixStars}
+                poolSelected={props.poolSelected}
+                window_size={window_size}
             />
         </div>
     );
@@ -89,11 +74,22 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
 
 interface CharacterTextProps {
     sixstar: Array<any>;
+    poolSelected: boolean;
+    window_size: { height: number; width: number };
 }
 function CharacterText(props: CharacterTextProps): JSX.Element {
     const names = props.sixstar.map((v) => v.data["kr_name"]);
     return (
-        <div className="absolute w-auto h-auto bottom-16 right-8 z-10 flex flex-col">
+        <div
+            className={`transition-all duration-1000 absolute w-auto h-auto bottom-16 flex flex-col z-50`}
+            style={{
+                transform: `translateX(${
+                    props.poolSelected
+                        ? props.window_size.width * -0.3
+                        : props.window_size.width * 0.3
+                }px)`,
+            }}
+        >
             <div className="w-auto h-10 flex items-start">
                 <CustomImage src="/ui/GachaAnimationImage/UI_GACHA_TEN_STAR_RARITY5.webp" />
             </div>

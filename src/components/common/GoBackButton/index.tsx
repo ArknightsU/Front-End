@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { DOMAttributes, MouseEventHandler } from "react";
+import React, { MouseEventHandler } from "react";
 
 export function GoBackLinkButton(): JSX.Element {
     return (

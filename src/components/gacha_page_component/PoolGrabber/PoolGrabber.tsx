@@ -9,6 +9,8 @@ interface PoolGrabProps {
     showGrab: boolean;
     focused: number;
     setFocused: React.Dispatch<React.SetStateAction<number>>;
+    setShowGrab: React.Dispatch<React.SetStateAction<boolean>>;
+    setPoolSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export function PoolGrabber(props: PoolGrabProps): JSX.Element {
     const screen_size = useWindowSize();
@@ -55,6 +57,10 @@ export function PoolGrabber(props: PoolGrabProps): JSX.Element {
                             }
                             key={i}
                             onClick={() => {
+                                if (i === props.focused) {
+                                    props.setPoolSelected(true);
+                                    props.setShowGrab(false);
+                                }
                                 props.setFocused(i);
                                 console.log(i);
                             }}
