@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { GachaBackgroundSvg } from "./GachaBackgroundSvg";
 import { useCharTable } from "@components/hooks/useCharTable";
 import { CustomImage } from "@components/common";
 
@@ -64,6 +63,7 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                     <CustomImage src="/ui/dot.webp" />
                 </div>
                 {faction_img.map((v, i) => (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                         src={v}
                         key={i}
@@ -77,7 +77,11 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                     />
                 ))}
                 <span
-                    className="absolute rounded-full bg-truegray-900 text-white flex justify-center items-center font-bold capitalize"
+                    className={`absolute rounded-full ${
+                        props.pool.type === "limited"
+                            ? "bg-red-700"
+                            : "bg-truegray-900"
+                    } text-white flex justify-center items-center font-bold capitalize`}
                     style={{
                         width: "100px",
                         height: "30px",

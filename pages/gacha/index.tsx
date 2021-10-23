@@ -5,6 +5,7 @@ import { GetServerSideProps, NextPage } from "next";
 import axios from "axios";
 import { SERVER_URL_GACHA_POOLS } from "src/constants";
 import { GachaMain } from "@components/gacha_page_component";
+import { GoBackButton } from "@components/common";
 
 interface GachaPageProps {
     pools: any;
@@ -14,11 +15,6 @@ const Gacha: NextPage<GachaPageProps> = ({ pools }: GachaPageProps) => {
     console.log(pools);
     return (
         <Container>
-            <Link href="/">
-                <div className="absolute w-1/12 h-8 bg-gray-400 z-50">
-                    go back
-                </div>
-            </Link>
             <GachaMain pools={pools} />
         </Container>
     );
