@@ -1,4 +1,4 @@
-{
+{ 
     "compilerOptions": {
         "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],
@@ -25,7 +25,7 @@
             "@recoil/*": ["src/recoil/*"],
             "@recoil": ["src/recoil"],
             "@i18n": ["./i18n"],
-            "@constants": ["src/constnats/"],
+            "@constants": ["src/constnats/"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
