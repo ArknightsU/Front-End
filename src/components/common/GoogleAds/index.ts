@@ -1,0 +1,1 @@
+export { HorizontalGoogleAds } from "./HorizontalGoogleAds";

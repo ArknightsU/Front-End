@@ -2,13 +2,10 @@ import { GoBackButton, GoBackLinkButton, useWindowSize } from "@components";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { CharacterPreview } from "../CharacterPreview";
 import { PoolGrabber } from "../PoolGrabber/PoolGrabber";
-import Image from "next/image";
-import { CustomImage } from "@components/common/CustomImage";
-import { PoolComponent } from "../PoolGrabber/PoolComponent";
 import { GachaBackground } from "./GachaBackground";
 import { GachaForeground } from "./GachaForeground";
 import { Transition } from "@headlessui/react";
-import Link from "next/link";
+import { GachaDetail } from "../GachaDetail";
 
 interface GachaMainProps {
     pools: Array<any>;
@@ -16,7 +13,7 @@ interface GachaMainProps {
 export function GachaMain(props: GachaMainProps): JSX.Element {
     const [focused, setFocused] = useState(0);
     const [showGrab, setShowGrab] = useState(false);
-    const [poolSelected, setPoolSelected] = useState(false);
+    const [poolSelected, setPoolSelected] = useState(true);
     const backButtonOnClickHandler = () => {
         if (poolSelected && !showGrab) {
             setShowGrab(true);
@@ -24,10 +21,10 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
         }
     };
     useEffect(() => {
-        setShowGrab(true);
+        //setShowGrab(true);
     }, []);
     return (
-        <div className="w-screen h-screen flex flex-row justify-center items-center">
+        <div className="w-screen h-screen flex flex-row justify-center items-center overflow-hidden">
             {showGrab && !poolSelected ? (
                 <GoBackLinkButton />
             ) : (
@@ -63,6 +60,11 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 pools={props.pools}
                 focused={focused}
                 poolSelected={poolSelected}
+            />
+            <GachaDetail
+                poolSelected={poolSelected}
+                pools={props.pools}
+                focused={focused}
             />
             {/* Foreground Images Start */}
             <GachaForeground />

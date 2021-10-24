@@ -12,7 +12,6 @@ interface GachaPageProps {
 }
 
 const Gacha: NextPage<GachaPageProps> = ({ pools }: GachaPageProps) => {
-    console.log(pools);
     return (
         <Container>
             <GachaMain pools={pools} />
@@ -24,6 +23,10 @@ const Gacha: NextPage<GachaPageProps> = ({ pools }: GachaPageProps) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
         const response = await axios.get(SERVER_URL_GACHA_POOLS);
+        /// DEV
+        if (response.data.pools === null) {
+            return { props: { pools: [] } };
+        }
         if (response.status === 200) {
             const pools = response.data.pools;
             return { props: { pools: pools } };

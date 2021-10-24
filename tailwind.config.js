@@ -39,6 +39,8 @@ module.exports = {
             },
             backgroundImage: {
                 bricks: 'url("/ui/bg_mask.webp")',
+                orundum: 'url("/img/items/DIAMOND_SHD.webp")',
+                originite: 'url("/img/items/DIAMOND.webp")',
             },
             dropShadow: {
                 bottom: "0 20px 5px rgba(0, 0, 0, 0.2)",
