@@ -58,6 +58,12 @@ module.exports = {
                 animation: 100,
                 gachaSkip: 101,
             },
+            width: {
+                "1/10": "10%",
+            },
+            transitionDuration: {
+                1500: "1500ms",
+            },
         },
     },
     variants: {
