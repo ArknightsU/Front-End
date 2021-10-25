@@ -13,9 +13,14 @@ interface GachaPageProps {
 
 const Gacha: NextPage<GachaPageProps> = ({ pools }: GachaPageProps) => {
     return (
-        <Container>
-            <GachaMain pools={pools} />
-        </Container>
+        <>
+            <>
+                <title>{"명일방주 가챠 시뮬레이터"}</title>
+            </>
+            <Container>
+                <GachaMain pools={pools} />
+            </Container>
+        </>
     );
 };
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -28,7 +28,7 @@ class CustomDocument extends Document {
                             __html: `
                (adsbygoogle = window.adsbygoogle || []).push({
                    google_ad_client: "ca-pub-6003201576759916",
-                   enable_page_level_ads: true
+                   enable_page_level_ads: true crossorigin="anonymous"
               });
                 `,
                         }}

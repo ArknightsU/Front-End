@@ -46,6 +46,9 @@ const Home: React.FC = () => {
     });
     return (
         <>
+            <>
+                <title>{"ARKNIGHTS ONE"}</title>
+            </>
             <Container padding={true}>
                 <ResponsiveGrid>
                     <GridItem key={"operator"}>
