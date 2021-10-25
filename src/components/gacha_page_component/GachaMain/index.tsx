@@ -6,6 +6,7 @@ import { GachaBackground } from "./GachaBackground";
 import { GachaForeground } from "./GachaForeground";
 import { Transition } from "@headlessui/react";
 import { GachaDetail } from "../GachaDetail";
+import { GachaAnimation } from "../GachaAnimation";
 
 interface GachaMainProps {
     pools: Array<any>;
@@ -13,7 +14,11 @@ interface GachaMainProps {
 export function GachaMain(props: GachaMainProps): JSX.Element {
     const [focused, setFocused] = useState(0);
     const [showGrab, setShowGrab] = useState(false);
-    const [poolSelected, setPoolSelected] = useState(true);
+    const [poolSelected, setPoolSelected] = useState(false);
+    const [doAnimation, setDoAnimation] = useState(false);
+    const [gachaData, setGachaData] = useState<Array<string>>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const backButtonOnClickHandler = () => {
         if (poolSelected && !showGrab) {
             setShowGrab(true);
@@ -21,7 +26,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
         }
     };
     useEffect(() => {
-        //setShowGrab(true);
+        setShowGrab(true);
     }, []);
     return (
         <div className="w-screen h-screen flex flex-row justify-center items-center overflow-hidden">
@@ -65,9 +70,21 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 poolSelected={poolSelected}
                 pools={props.pools}
                 focused={focused}
+                setDoAnimation={setDoAnimation}
+                setGachaData={setGachaData}
+                setLoading={setLoading}
+                setError={setError}
             />
             {/* Foreground Images Start */}
             <GachaForeground />
+            {doAnimation ? (
+                <GachaAnimation
+                    setDoAnimation={setDoAnimation}
+                    gachaData={gachaData}
+                />
+            ) : (
+                <></>
+            )}
         </div>
     );
 }
