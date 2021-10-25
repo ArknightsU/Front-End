@@ -41,6 +41,8 @@ module.exports = {
                 bricks: 'url("/ui/bg_mask.webp")',
                 orundum: 'url("/img/items/DIAMOND_SHD.webp")',
                 originite: 'url("/img/items/DIAMOND.webp")',
+                gachaAnimation:
+                    'url("/ui/GachaAnimationImage/UI_GACHA_ONE_BACKGROUND_IMG.webp")',
             },
             dropShadow: {
                 bottom: "0 20px 5px rgba(0, 0, 0, 0.2)",
@@ -50,6 +52,11 @@ module.exports = {
             },
             zIndex: {
                 bg: -1,
+                60: 60,
+                70: 70,
+                80: 80,
+                animation: 100,
+                gachaSkip: 101,
             },
         },
     },
