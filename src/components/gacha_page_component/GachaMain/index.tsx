@@ -79,6 +79,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
             <GachaForeground />
             {doAnimation ? (
                 <GachaAnimation
+                    setGachaData={setGachaData}
                     setDoAnimation={setDoAnimation}
                     gachaData={gachaData}
                 />

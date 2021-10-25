@@ -30,7 +30,7 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
             )
             .then((res) => {
                 props.setLoading(false);
-                props.setGachaData(res.data.data);
+                props.setGachaData(res.data.result);
                 props.setDoAnimation(true);
                 console.log(res);
             })
