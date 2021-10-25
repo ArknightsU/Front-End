@@ -21,7 +21,6 @@ export function HorizontalGoogleAds(): JSX.Element {
                 data-ad-client={"ca-pub-6003201576759916"}
                 data-ad-slot="5568687212"
                 data-ad-format={"horizontal"}
-                data-adtest="on"
                 data-full-width-responsive={"false"}
             ></ins>
         </div>
