@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import { useCharTable } from "@components/hooks/useCharTable";
 import { CustomImage } from "@components/common";
+import { useCharObject } from "@components/common/LocalForge/hooks";
 
 interface PoolCompProps {
     pool: any;
@@ -12,7 +12,7 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
         "char_421_crow",
     ];
     const charData = DEV_featured.map((v) => {
-        const [r, l] = useCharTable(v);
+        const [r, l] = useCharObject(v);
         return { name: v, data: r };
     });
     const featuredSixStars = charData.filter((value) => {

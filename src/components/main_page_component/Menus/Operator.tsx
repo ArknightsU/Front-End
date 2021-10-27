@@ -3,13 +3,9 @@ import { menuStyle } from "./common";
 import { StarRating } from "../../common/StarRating";
 import { Carousel } from "@components/common";
 import { useInterval } from "react-use";
-import { getDataFromIndexDB } from "@components/common/CharDB";
 import { useRecoilValue } from "recoil";
 import { DBInitOver } from "@recoil/atoms";
-import { useCharTable } from "@components/hooks/useCharTable";
-import { waitUntil } from "async-wait-until";
-import { useCharTableSessionStorage } from "@components/hooks/useCharTableSessionStorage";
-import { useCharTableLocalStorage } from "@components/hooks/useCharTableLocalStorage";
+import { useCharObject } from "../../common/LocalForge/hooks";
 
 const IMAGE_DIR = "/img/characters/";
 const FILE_NAME_POST_FIX = "_2.webp";
@@ -38,7 +34,7 @@ export function Operator(): JSX.Element {
     };*/
     const names = op.map((x) => {
         try {
-            const [n, load] = useCharTable(x);
+            const [n, load] = useCharObject(x);
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             //const n = useCharTableLocalStorage(x);

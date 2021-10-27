@@ -40,7 +40,7 @@ export async function gzDecompress(url: string, failure_url?: string) {
                 return data.data;
             } catch (e) {
                 console.log("json error");
-                return null;
+                return undefined;
             }
         }
     }

@@ -1,4 +1,4 @@
-import { DBInit, isWindowDBSupported } from "@components/common/CharDB";
+import { DBInit, isWindowDBSupported } from "@components/common/CharDB - DEPRECATED";
 import { DBSupport, DBVersion } from "@recoil/atoms";
 import axios from "axios";
 import { useRecoilState } from "recoil";

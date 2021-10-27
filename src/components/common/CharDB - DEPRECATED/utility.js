@@ -2,6 +2,20 @@ import { gzDecompress } from "@components/common/GzDecompress";
 import axios from "axios";
 import db from "./indexDB.js";
 
+async function saveNameDict(data) {
+    if (data) {
+        if (db.name_dict) db.name_dict.clear();
+        var array = [];
+        for (var rarity of Object.keys(data)) {
+            for (var char of Object.keys(data[rarity])) {
+                var value = data[rarity][char];
+                array.push({ char: char, data: value });
+            }
+        }
+        db.name_dict.bulkPut(array);
+    }
+}
+
 async function saveDataInIndexDB(data) {
     if (data) {
         if (db.character_table) db.character_table.clear();
@@ -25,7 +39,7 @@ async function saveDataInIndexDB(data) {
 }
 
 export async function getDataFromIndexDB(name) {
-    console.log("type of name : ", typeof name);
+    //console.log("type of name : ", typeof name);
     //await waitUntil(() => getDataCount() > 0);
     if (name === undefined) {
         console.log("name undefined");
@@ -68,10 +82,30 @@ async function getVersion() {
     return null;
 }
 
+export async function getNameDict(name) {
+    if (name === undefined) {
+        return null;
+    }
+    const name_dict = await db.name_dict.where("char").equals(name).toArray();
+    if (name_dict && name_dict.length > 0) {
+        return name_dict[0]["data"];
+    }
+}
+
 const json_url = "https://arknightsu.github.io/json/character_table.json";
 const json_gz_url = "https://arknightsu.github.io/json/character_table.json.gz";
 const json_version_url = "https://arknightsu.github.io/json/version.json";
+const name_dict_url = "https://arknightsu.github.io/json/name_dict.json";
 export async function DBInit(version, length) {
+    if (!db.data_version) {
+        console.error("no db version");
+    }
+    if (!db.name_dict) {
+        console.error("no name dictionary");
+    }
+    if (!db.character_table) {
+        console.error("no character db");
+    }
     let db_version = await getVersion();
     let db_length = await getDataCount();
     let json_version = version;
@@ -86,6 +120,8 @@ export async function DBInit(version, length) {
         saveVersionInIndexDB(json_version);
         const data = await gzDecompress(json_gz_url, json_url);
         saveDataInIndexDB(data);
+        const dict = (await axios.get(name_dict_url)).data;
+        saveNameDict(dict);
         console.log("db not found");
     } else {
         if (
@@ -98,6 +134,8 @@ export async function DBInit(version, length) {
             saveVersionInIndexDB(json_version);
             const data = await gzDecompress(json_gz_url, json_url);
             saveDataInIndexDB(data);
+            const dict = (await axios.get(name_dict_url)).data;
+            saveNameDict(dict);
             console.log("wrong db exists");
         }
     }

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useWindowSize } from "@components";
 import { CustomImage } from "@components/common";
-import { Character } from "@components/common/Type";
 import { useCharTable } from "@components/hooks/useCharTable";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useCharObject } from "../../common/LocalForge/hooks";
 
 interface GachaAnimationProps {
     setDoAnimation: React.Dispatch<React.SetStateAction<boolean>>;
@@ -78,7 +78,7 @@ interface GachaAnimationChildProps {
 }
 const RARITY = { six: 5, five: 4, four: 3, three: 2 };
 const GachaAnimationChild: React.FC<GachaAnimationChildProps> = (props) => {
-    const [char_obj, loading] = useCharTable(props.char);
+    const [char_obj, loading] = useCharObject(props.char);
     // @ts-ignore
     const rarity = RARITY[char_obj["rarity"]];
     const charImageUrl = `/img/portraits/${props.char}_1.webp`;
@@ -135,7 +135,11 @@ const GachaAnimationChild: React.FC<GachaAnimationChildProps> = (props) => {
                     className="absolute w-full bottom-0 overflow-hidden"
                     style={{ height: props.charBgHeight, zIndex: 102 }}
                 >
-                    <CustomImage src={bgImageUrl} type="stretch" />
+                    {bgImageUrl.includes("undefined") ? (
+                        <></>
+                    ) : (
+                        <CustomImage src={bgImageUrl} type="stretch" />
+                    )}
                     <div
                         className="absolute bottom-0 overflow-hidden flex justify-center items-center"
                         style={{
@@ -156,7 +160,11 @@ const GachaAnimationChild: React.FC<GachaAnimationChildProps> = (props) => {
                         zIndex: 103,
                     }}
                 >
-                    <CustomImage src={professiontImageUrl} />
+                    {professiontImageUrl.includes("undefined") ? (
+                        <></>
+                    ) : (
+                        <CustomImage src={professiontImageUrl} />
+                    )}
                 </div>
             </div>
         </>

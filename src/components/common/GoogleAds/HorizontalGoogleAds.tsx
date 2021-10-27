@@ -5,9 +5,13 @@ export function HorizontalGoogleAds(): JSX.Element {
         document.cookie = "crossCookie=yes; SameSite=None; Secure";
         document.getElementById("adsbygoogle");
         if (typeof window !== "undefined") {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
+            try {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (err) {
+                console.log(err);
+            }
         }
     }, []);
     return (

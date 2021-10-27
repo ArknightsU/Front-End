@@ -11,6 +11,7 @@ import { GachaAnimation } from "../GachaAnimation";
 interface GachaMainProps {
     pools: Array<any>;
 }
+const DEV_featured = ["char_1013_chen2", "char_437_mizuki", "char_421_crow"];
 export function GachaMain(props: GachaMainProps): JSX.Element {
     const [focused, setFocused] = useState(0);
     const [showGrab, setShowGrab] = useState(false);
@@ -62,6 +63,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 </div>
             </Transition>
             <CharacterPreview
+                DEV_featured={DEV_featured}
                 pools={props.pools}
                 focused={focused}
                 poolSelected={poolSelected}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "@components/Container";
 import Link from "next/link";
 import { GetServerSideProps, NextPage } from "next";
@@ -6,12 +6,23 @@ import axios from "axios";
 import { SERVER_URL_GACHA_POOLS } from "src/constants";
 import { GachaMain } from "@components/gacha_page_component";
 import { GoBackButton } from "@components/common";
+import { useRecoilState } from "recoil";
+import { DBInitOver } from "@recoil/atoms";
+import { initDB } from "@components/common/LocalForge";
 
 interface GachaPageProps {
     pools: any;
 }
 
 const Gacha: NextPage<GachaPageProps> = ({ pools }: GachaPageProps) => {
+    const [isDBinitOver, setDBinitOver] = useRecoilState(DBInitOver);
+    useEffect(() => {
+        if (!isDBinitOver) {
+            initDB().then(() => {
+                setDBinitOver(true);
+            });
+        }
+    }, []);
     return (
         <>
             <>

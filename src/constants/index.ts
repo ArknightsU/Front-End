@@ -7,7 +7,14 @@ export const GET_GACHA_API_URL = (
     code: number,
     stack: number,
 ): string => {
-    return (
-        SERVER_URL_GACHA + `?gacha_count=${count}&code=${code}&stack=${stack}`
-    );
+    return SERVER_URL_GACHA + `?gacha_count=${count}&code=${code}`;
 };
+
+export const CHAR_TABLE_URL =
+    "https://arknightsu.github.io/json/character_table.json";
+export const CHAR_TABLE_GZ_URL =
+    "https://arknightsu.github.io/json/character_table.json.gz";
+export const CHAR_TABLE_VERSION_URL =
+    "https://arknightsu.github.io/json/version.json";
+export const CHAR_NAME_DICT_URL =
+    "https://arknightsu.github.io/json/name_dict.json";

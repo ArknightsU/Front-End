@@ -7,7 +7,6 @@ import { useLoginPopUp } from "@recoil/hooks";
 export function Login(): JSX.Element {
     const [gid, { setGid }] = useGid();
     React.useEffect(() => {
-        console.log(gid);
         setGid("abcdefg");
     });
     const [login, { toggleLoginPopUp }] = useLoginPopUp();

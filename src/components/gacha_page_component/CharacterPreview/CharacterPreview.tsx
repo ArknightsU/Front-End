@@ -1,25 +1,21 @@
 import { useWindowSize } from "@components";
 import { CustomImage } from "@components/common";
-import { useCharTable } from "@components/hooks/useCharTable";
-import { Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import React from "react";
 import { useInterval } from "react-use";
+import { useCharObject } from "../../common/LocalForge/hooks";
 
 interface CharacterPreviewProps {
     pools: Array<any>;
     focused: number;
     poolSelected: boolean;
+    DEV_featured: Array<any>;
 }
 export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
     const window_size = useWindowSize();
-    const DEV_featured = [
-        "char_1013_chen2",
-        "char_437_mizuki",
-        "char_421_crow",
-    ];
-    const charData = DEV_featured.map((v) => {
-        const [r, l] = useCharTable(v);
-        return { name: v, data: r };
+    const charData = props.DEV_featured.map((v) => {
+        const [data, loading] = useCharObject(v);
+        console.log(data);
+        return { name: v, data: data };
     });
     const featuredSixStars = charData.filter((value) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -28,6 +24,11 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
     });
     const char_img = featuredSixStars.map((v) => {
         return "/img/characters/" + v.name + "_2.webp";
+    });
+    const returnText = featuredSixStars.map((v) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return v.data["kr_name"];
     });
     const [count, setCount] = React.useState(0);
     useInterval(() => {
@@ -58,27 +59,28 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
                         opacity: i === count ? 1 : 0,
                     }}
                 >
-                    <CustomImage src={v} />
+                    {v.includes("undefined") ? <></> : <CustomImage src={v} />}
                 </div>
             ))}
             <CharacterText
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 sixstar={featuredSixStars}
+                length={featuredSixStars.length}
                 poolSelected={props.poolSelected}
                 window_size={window_size}
+                returnText={returnText}
             />
         </div>
     );
 }
 
 interface CharacterTextProps {
-    sixstar: Array<any>;
+    returnText: string[];
     poolSelected: boolean;
     window_size: { height: number; width: number };
 }
 function CharacterText(props: CharacterTextProps): JSX.Element {
-    const names = props.sixstar.map((v) => v.data["kr_name"]);
     return (
         <div
             className={`transition-all duration-1000 absolute w-auto h-auto bottom-16 flex flex-col z-50`}
@@ -97,9 +99,9 @@ function CharacterText(props: CharacterTextProps): JSX.Element {
                 <div className="absolute w-full h-1/5 bg-gradient-to-r from-transparent via-white to-transparent opacity-40"></div>
                 <div className="w-auto h-full flex flex-col justify-center items-start">
                     <span className="pr-12 pl-12 lg:pr-24 lg:pl-24 h-full flex justify-center items-center font-sans font-black italic text-white md:text-2xl xl:text-2xl 2xl:text-3xl">
-                        {"오퍼레이터 미즈키 " +
-                            names.join(", ") +
-                            "첸 획득확률 UP! "}
+                        {"오퍼레이터 "}
+                        {props.returnText.join(", ")}
+                        {" 획득확률 UP! "}
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-full w-auto ml-2 lg:ml-4"

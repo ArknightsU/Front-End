@@ -5,6 +5,7 @@ const db = new Dexie("Character_Table");
 db.version(1).stores({
     character_table: "++char",
     data_version: "data_version",
+    name_dict: "++char",
 });
 
 export default db;

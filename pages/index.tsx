@@ -18,9 +18,8 @@ import { Container } from "@components/Container";
 import { useWindowSize } from "@components/hooks/useWindowSize";
 import { useRecoilState } from "recoil";
 import { DBSupport } from "@recoil/atoms";
-import { useInitCharTableSetUp } from "@components/hooks/useInitCharTableSetUp";
-import { useCharTableLocalStorage } from "@components/hooks/useCharTableLocalStorage";
-import { DBInitOver } from "@recoil/atoms";
+import { initDB, setItem } from "@components/common/LocalForge/functions";
+import { DBInitOver } from "@recoil/atoms/DBInitOver/index";
 
 const Home: React.FC = () => {
     const size = useWindowSize();
@@ -35,15 +34,14 @@ const Home: React.FC = () => {
         ) : (
             ""
         );
-    const [dbLoading, setDbLoading] = useRecoilState(DBInitOver);
-    const loading = useInitCharTableSetUp();
-    console.log("DBLoading", loading);
+    const [isDBinitOver, setDBinitOver] = useRecoilState(DBInitOver);
     useEffect(() => {
-        if (loading) {
-            setDbLoading(true);
-            console.log("DB Init Over", dbLoading);
+        if (!isDBinitOver) {
+            initDB().then(() => {
+                setDBinitOver(true);
+            });
         }
-    });
+    }, []);
     return (
         <>
             <>
