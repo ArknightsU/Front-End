@@ -1,16 +1,19 @@
 import { HorizontalGoogleAds } from "@components/common/GoogleAds";
 import React, { useRef } from "react";
 import { useCharFilterArray } from "@components/common/LocalForge";
-import { RARITY } from "@constants";
+import { RARITY, PROFESSION } from "@constants";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { useWindowSize } from "@components/hooks/useWindowSize";
 
 export function CalcMain(): JSX.Element {
-    const [charNameArray, Loading] = useCharFilterArray(RARITY.six);
+    const [charNameArray, Loading] = useCharFilterArray(
+        [RARITY.six],
+        [PROFESSION.caster],
+    );
+    console.log(charNameArray);
     console.log(Loading);
     // get ads' height and calculate main component
     const ads = useRef<HTMLDivElement>(null);
-    const loading_comp = useRef<HTMLDivElement>(null);
     const window_size = useWindowSize();
     return (
         <div className="w-screen h-screen relative flex flex-col">
@@ -20,10 +23,7 @@ export function CalcMain(): JSX.Element {
             </div>
             {/* Loading Component Start */}
             {Loading ? (
-                <div
-                    ref={loading_comp}
-                    className="w-full h-full absolute top-0 flex justify-center items-center backdrop-filter backdrop-blur-lg z-animation"
-                >
+                <div className="w-full h-full absolute top-0 flex justify-center items-center backdrop-filter backdrop-blur-lg z-animation">
                     <div
                         className="flex flex-col p-5 bg-white dark:bg-gray-800 rounded-lg drop-shadow-bottom justify-center items-center"
                         style={{

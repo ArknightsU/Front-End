@@ -1,4 +1,4 @@
-export const profession = {
+export const PROFESSION = {
     warrior: "WARRIOR",
     pioneer: "PIONEER",
     tank: "TANK",
