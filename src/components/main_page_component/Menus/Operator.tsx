@@ -5,7 +5,7 @@ import { Carousel } from "@components/common";
 import { useInterval } from "react-use";
 import { useRecoilValue } from "recoil";
 import { DBInitOver } from "@recoil/atoms";
-import { useCharObject } from "../../common/LocalForge/hooks";
+import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
 
 const IMAGE_DIR = "/img/characters/";
 const FILE_NAME_POST_FIX = "_2.webp";

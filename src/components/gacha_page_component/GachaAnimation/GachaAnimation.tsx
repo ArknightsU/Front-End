@@ -3,7 +3,7 @@ import { useWindowSize } from "@components";
 import { CustomImage } from "@components/common";
 import { useCharTable } from "@components/hooks/useCharTable";
 import React, { useEffect, useState } from "react";
-import { useCharObject } from "../../common/LocalForge/hooks";
+import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
 
 interface GachaAnimationProps {
     setDoAnimation: React.Dispatch<React.SetStateAction<boolean>>;

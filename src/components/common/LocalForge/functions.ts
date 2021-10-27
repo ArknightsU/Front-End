@@ -83,3 +83,7 @@ export async function initDB() {
         await setCharacterTableItems();
     }
 }
+
+export async function getAllCharacterKeys() {
+    return await db(DB_NAME.character_table).keys();
+}

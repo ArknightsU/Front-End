@@ -2,7 +2,7 @@ import { useWindowSize } from "@components";
 import { CustomImage } from "@components/common";
 import React from "react";
 import { useInterval } from "react-use";
-import { useCharObject } from "../../common/LocalForge/hooks";
+import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
 
 interface CharacterPreviewProps {
     pools: Array<any>;

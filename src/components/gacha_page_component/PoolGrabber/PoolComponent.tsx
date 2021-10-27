@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { CustomImage } from "@components/common";
-import { useCharObject } from "@components/common/LocalForge/hooks";
+import { useCharObject } from "@components";
 
 interface PoolCompProps {
     pool: any;
