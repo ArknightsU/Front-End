@@ -1,15 +1,17 @@
 import { HorizontalGoogleAds } from "@components/common/GoogleAds";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useCharFilterArray } from "@components/common/LocalForge";
 import { RARITY, PROFESSION } from "@constants";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { useWindowSize } from "@components/hooks/useWindowSize";
 
 export function CalcMain(): JSX.Element {
-    const [charNameArray, Loading] = useCharFilterArray(
-        [RARITY.six],
-        [PROFESSION.caster],
-    );
+    const [rarity, setRarity] = useState<Array<string>>([RARITY.five]);
+    const [profession, seProfession] = useState<Array<string>>([
+        PROFESSION.medic,
+    ]);
+    const [focused, setFocused] = useState<Array<string>>([]);
+    const [charNameArray, Loading] = useCharFilterArray(rarity, profession);
     console.log(charNameArray);
     console.log(Loading);
     // get ads' height and calculate main component
