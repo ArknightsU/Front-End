@@ -23,39 +23,33 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
     };
     const cols = { xxl: 20, xl: 20, lg: 20, md: 10, sm: 10, xs: 10 };
     const bigLayout = [
-        // eslint-disable-next-line prettier/prettier
-        { i: "operator", x: 9, y: 0, w: 5, h: 5},
-        // eslint-disable-next-line prettier/prettier
-        { i: "gacha", x: 10, y: 5, w: 8, h: 3},
-        // eslint-disable-next-line prettier/prettier
-        { i: "calc", x: 2, y: 2, w: 7, h: 4},
-        // eslint-disable-next-line prettier/prettier
-        { i: "music", x: 5, y: 6, w: 5, h: 4},
-        // eslint-disable-next-line prettier/prettier
-        { i: "login", x: 14, y: 1, w: 3, h: 2},
-        // eslint-disable-next-line prettier/prettier
-        { i: "settings", x: 10, y: 8, w: 3, h: 2},
-        // eslint-disable-next-line prettier/prettier
-        { i: "dev", x: 2, y: 0, w: 3, h: 2},
-        // eslint-disable-next-line prettier/prettier
-        { i: "theme", x: 15, y: 8, w: 3, h: 2},
-        // eslint-disable-next-line prettier/prettier
-        { i: "logo", x: 14, y: 3, w: 3, h: 2},
-        // eslint-disable-next-line prettier/prettier
-        { i: "ui", x: 5, y: 0, w: 3, h: 2},
+        { i: "operator", x: 9, y: 0, w: 5, h: 5 },
+        { i: "gacha", x: 10, y: 6, w: 9, h: 3 },
+        { i: "calc", x: 1, y: 2, w: 8, h: 4 },
+        { i: "music", x: 1, y: 6, w: 9, h: 4 },
+        { i: "login", x: 14, y: 1, w: 3, h: 2 },
+        { i: "settings", x: 13, y: 10, w: 3, h: 2 },
+        { i: "dev", x: 10, y: 10, w: 3, h: 2 },
+        { i: "theme", x: 16, y: 10, w: 3, h: 2 },
+        { i: "status", x: 17, y: 1, w: 2, h: 2 },
+        { i: "ui", x: 5, y: 0, w: 3, h: 2 },
+        { i: "dungeon", x: 1, y: 0, w: 8, h: 2 },
+        { i: "weekly", x: 14, y: 4, w: 5, h: 2 },
+        { i: "db", x: 14, y: 3, w: 5, h: 1 },
     ];
     const smallLayout = [
-        // eslint-disable-next-line prettier/prettier
         { i: "operator", x: 0, y: 6, w: 6, h: 2 },
         { i: "gacha", x: 0, y: 4, w: 6, h: 2 },
         { i: "calc", x: 0, y: 2, w: 6, h: 2 },
-        { i: "music", x: 0, y: 0, w: 6, h: 2 },
-        { i: "login", x: 6, y: 0, w: 3, h: 2 },
-        // eslint-disable-next-line prettier/prettier
-        { i: "settings", x: 6, y: 2, w: 3, h: 1 },
+        { i: "music", x: 0, y: 0, w: 6, h: 1 },
+        { i: "login", x: 6, y: 0, w: 3, h: 1 },
+        { i: "settings", x: 6, y: 5, w: 3, h: 1 },
         { i: "dev", x: 6, y: 6, w: 3, h: 1 },
-        { i: "theme", x: 6, y: 3, w: 3, h: 1 },
-        { i: "logo", x: 6, y: 7, w: 3, h: 1 },
+        { i: "theme", x: 6, y: 4, w: 3, h: 1 },
+        { i: "status", x: 6, y: 3, w: 3, h: 1 },
+        { i: "dungeon", x: 0, y: 1, w: 6, h: 1 },
+        { i: "weekly", x: 6, y: 1, w: 3, h: 1 },
+        { i: "db", x: 6, y: 2, w: 3, h: 1 },
     ];
     const menuLayout = {
         xxl: bigLayout,

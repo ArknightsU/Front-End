@@ -9,7 +9,7 @@ import {
     Settings,
     Dev,
     Theme,
-    Logo,
+    Status,
     GridItem,
     AdjustUI,
     GoogleLoginPopUp,
@@ -20,6 +20,9 @@ import { useRecoilState } from "recoil";
 import { DBSupport } from "@recoil/atoms";
 import { initDB, setItem } from "@components/common/LocalForge/functions";
 import { DBInitOver } from "@recoil/atoms/DBInitOver/index";
+import { DungeonNotify } from "@components/main_page_component/Menus/DungeonNotify";
+import { WeeklyNotify } from "@components/main_page_component/Menus/WeeklyNotify";
+import { DBStatus } from "@components/main_page_component/Menus/DBStatus";
 
 const Home: React.FC = () => {
     const size = useWindowSize();
@@ -73,8 +76,17 @@ const Home: React.FC = () => {
                     <GridItem key={"theme"}>
                         <Theme />
                     </GridItem>
-                    <GridItem key={"logo"}>
-                        <Logo />
+                    <GridItem key={"status"}>
+                        <Status />
+                    </GridItem>
+                    <GridItem key={"dungeon"}>
+                        <DungeonNotify />
+                    </GridItem>
+                    <GridItem key={"weekly"}>
+                        <WeeklyNotify />
+                    </GridItem>
+                    <GridItem key={"db"}>
+                        <DBStatus />
                     </GridItem>
                 </ResponsiveGrid>
             </Container>
