@@ -1,4 +1,4 @@
-export const PROFESSION = {
+export const PROFESSION: { [key: string]: string } = {
     warrior: "WARRIOR",
     pioneer: "PIONEER",
     tank: "TANK",

@@ -14,6 +14,9 @@ module.exports = {
             "gacha-mask": "480px",
         },
         extend: {
+            fontSize: {
+                xxs: "0.2rem",
+            },
             gridTemplateRows: {
                 "20percent-7": "repeat(7, 20vh)",
                 "20percent-14": "repeat(14, 20vh)",

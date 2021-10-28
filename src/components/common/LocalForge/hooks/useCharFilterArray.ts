@@ -3,7 +3,10 @@ import { getAllCharacterKeys, getItem } from "@components";
 import { useEffect, useState } from "react";
 import { DB_NAME } from "../db_name";
 
-export function useCharFilterArray(rarity: string[], profession: string[]) {
+export function useCharFilterArray(
+    rarity: string[],
+    profession: string[],
+): [string[], boolean] {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     useEffect(() => {
@@ -33,7 +36,7 @@ export function useCharFilterArray(rarity: string[], profession: string[]) {
             setData(array);
             setLoading(false);
         });
-    }, [...rarity, ...profession]);
+    }, [rarity.length, profession.length]);
     return [data, loading];
 }
 

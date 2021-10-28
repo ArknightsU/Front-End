@@ -4,13 +4,16 @@ import { useCharFilterArray } from "@components/common/LocalForge";
 import { RARITY, PROFESSION } from "@constants";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { useWindowSize } from "@components/hooks/useWindowSize";
+import { Scrollbars } from "react-custom-scrollbars-2";
+import { CharSelector } from "./CharSelecter";
 
 export function CalcMain(): JSX.Element {
-    const [rarity, setRarity] = useState<Array<string>>([RARITY.five]);
-    const [profession, seProfession] = useState<Array<string>>([
-        PROFESSION.medic,
+    const [rarity, setRarity] = useState<Array<string>>([RARITY.six]);
+    const [profession, setProfession] = useState<Array<string>>([
+        PROFESSION.warrior,
     ]);
     const [focused, setFocused] = useState<Array<string>>([]);
+    console.log(focused);
     const [charNameArray, Loading] = useCharFilterArray(rarity, profession);
     console.log(charNameArray);
     console.log(Loading);
@@ -44,14 +47,24 @@ export function CalcMain(): JSX.Element {
             )}
             {/* Loading Component End */}
             <div
-                className="w-full absolute bg-black"
+                className="w-full absolute bg-black overflow-hidden"
                 style={{
                     height: `calc(100% - ${
                         ads.current ? ads.current.offsetHeight : 0
                     }px)`,
                     top: `${ads.current ? ads.current.offsetHeight : 0}px`,
                 }}
-            ></div>
+            >
+                <CharSelector
+                    rarity={rarity}
+                    setRarity={setRarity}
+                    profession={profession}
+                    setProfession={setProfession}
+                    charNameArray={charNameArray}
+                    focused={focused}
+                    setFocused={setFocused}
+                />
+            </div>
         </div>
     );
 }
