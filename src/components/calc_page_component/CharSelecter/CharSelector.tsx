@@ -16,17 +16,21 @@ export function CharSelector(props: FilterProps): JSX.Element {
     const [open, setOpen] = useState(false);
     const screen_size = useWindowSize();
     return (
-        <div className="w-full h-auto flex flex-col justify-center items-center p-5">
+        <div className="w-full h-auto flex flex-col justify-center items-center p-5 relative">
             <div
                 className={`h-14 rounded-2xl flex justify-center items-center ${
-                    open ? "bg-red-600" : "bg-truegray-600"
+                    open
+                        ? "bg-red-600 active:bg-red-800"
+                        : "bg-truegray-600 active:bg-truegray-800"
                 } transition-all duration-700`}
-                style={{ width: open ? "100%" : "30%" }}
+                style={{ width: open ? "100%" : "40%" }}
                 onClick={() => {
                     setOpen(!open);
                 }}
             >
-                <p className={`text-lg font-bold text-white`}>
+                <p
+                    className={`md:text-lg font-bold text-white text-base text-center`}
+                >
                     {open ? (
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -46,13 +50,15 @@ export function CharSelector(props: FilterProps): JSX.Element {
                 </p>
             </div>
             <div
-                className={`w-full bg-gray-200 rounded-2xl transition-all duration-700`}
+                className={`w-full absolute bg-gray-200 rounded-2xl transition-all duration-700`}
                 style={{
-                    width: open ? "100%" : "30%",
+                    width: open ? "calc(100% - 40px)" : "30%",
                     height: open
                         ? `calc(${screen_size.height - 200}px)`
                         : "0px",
                     padding: open ? "20px" : "0px",
+                    top: open ? "75px" : "75px",
+                    zIndex: 49,
                 }}
             >
                 <div

@@ -4,8 +4,8 @@ import { useCharFilterArray } from "@components/common/LocalForge";
 import { RARITY, PROFESSION } from "@constants";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { useWindowSize } from "@components/hooks/useWindowSize";
-import { Scrollbars } from "react-custom-scrollbars-2";
 import { CharSelector } from "./CharSelecter";
+import { Calculator } from "./Calculator/Calculator";
 
 export function CalcMain(): JSX.Element {
     const [rarity, setRarity] = useState<Array<string>>([RARITY.six]);
@@ -47,7 +47,7 @@ export function CalcMain(): JSX.Element {
             )}
             {/* Loading Component End */}
             <div
-                className="w-full absolute bg-black overflow-hidden"
+                className="w-full absolute overflow-hidden"
                 style={{
                     height: `calc(100% - ${
                         ads.current ? ads.current.offsetHeight : 0
@@ -64,6 +64,7 @@ export function CalcMain(): JSX.Element {
                     focused={focused}
                     setFocused={setFocused}
                 />
+                <Calculator focused={focused} setFocused={setFocused} />
             </div>
         </div>
     );

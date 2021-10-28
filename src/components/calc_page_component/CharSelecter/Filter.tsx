@@ -102,6 +102,8 @@ function Rarity(props: RarityProps): JSX.Element {
             });
         }
     };
+    const window_size = useWindowSize();
+    const isMobile = window_size.width < 768 ? true : false;
     return (
         <div
             className={`${
@@ -111,11 +113,20 @@ function Rarity(props: RarityProps): JSX.Element {
             } p-2 rounded-md`}
             style={{
                 width: props.width,
-                height: props.width / 4,
+                height: isMobile ? props.width / 2 : props.width / 4,
             }}
             onClick={onClickHandle}
         >
-            <CustomImage src={src} />
+            {isMobile ? (
+                <div className="w-full h-full flex flex-row justify-center items-center">
+                    <CustomImage src="/ui/CharacterInfo/UI_STAR_RARITY0.webp" />
+                    <p className="text-white font-bold text-lg">
+                        {Rarity_Dict[props.rarity]}
+                    </p>
+                </div>
+            ) : (
+                <CustomImage src={src} />
+            )}
         </div>
     );
 }
@@ -209,18 +220,18 @@ function FilterChild(props: FilterChildProps): JSX.Element {
                         </div>
                     </div>
                     <div
-                        className="h-28 w-28 md:h-40 md:w-40"
+                        className="h-24 w-24 md:h-40 md:w-40"
                         style={{ zIndex: 11 }}
                     >
                         <CustomImage src={`/img/avatars/${props.char}.webp`} />
                     </div>
-                    <div className="h-auto w-28 md:h-auto md:w-40 relative">
+                    <div className="h-auto w-24 md:h-auto md:w-40 relative">
                         <p className="top-0 left-0 text-black font-bold text-xxs">
                             {"Operator Name"}
                         </p>
                         <hr className="h-0 border-black" />
                     </div>
-                    <div className="h-4 w-28 md:h-6 md:w-40">
+                    <div className="h-4 w-24 md:h-6 md:w-40">
                         <p className="h-auto w-auto font-sans text-md md:text-lg font-extrabold">
                             {
                                 // @ts-ignore
