@@ -4,4 +4,5 @@ export interface MaterialCalculation {
     skill1: Array<boolean> | null;
     skill2: Array<boolean> | null;
     skill3: Array<boolean> | null;
+    allSkill: Array<boolean> | null;
 }
