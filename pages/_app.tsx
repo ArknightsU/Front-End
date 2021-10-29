@@ -6,6 +6,7 @@ import { RecoilRoot } from "recoil";
 import { appWithTranslation } from "@i18n";
 import { Loading } from "@components";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     const router = useRouter();
@@ -22,6 +23,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     }, [router]);
     return (
         <React.Fragment>
+            <Head>
+                <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+            </Head>
             <Loading loading={loading} />
             <RecoilRoot>
                 <Component {...pageProps} />
