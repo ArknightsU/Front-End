@@ -46,6 +46,7 @@ module.exports = {
                 originite: 'url("/img/items/DIAMOND.webp")',
                 gachaAnimation:
                     'url("/ui/GachaAnimationImage/UI_GACHA_ONE_BACKGROUND_IMG.webp")',
+                noskill: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><line x1='0' y1='100%' x2='100%' y2='0' stroke='#000' /></svg>")`,
             },
             dropShadow: {
                 bottom: "0 20px 5px rgba(0, 0, 0, 0.2)",
@@ -73,6 +74,8 @@ module.exports = {
         extend: {
             backgroundColor: ["active"],
             opacity: ["disabled"],
+            filter: ["disabled"],
+            grayscale: ["disabled"],
         },
     },
     plugins: [require("@tailwindcss/aspect-ratio")],
