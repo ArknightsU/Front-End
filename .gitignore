@@ -13,3 +13,4 @@ public/json/**/*
 public/ui/**/*
 examples/*
 yarn-error.log
+*.sh
