@@ -202,20 +202,25 @@ function FilterChild(props: FilterChildProps): JSX.Element {
             props.setFocused((prev) => {
                 const newValue: MaterialCalculation = {
                     name: props.char,
+                    allSkill:
+                        // @ts-ignore
+                        Rarity_Dict[char.rarity] >= 2
+                            ? new Array(6).fill(false)
+                            : null,
                     skill1:
                         // @ts-ignore
                         Rarity_Dict[char.rarity] >= 2
-                            ? new Array(9).fill(false)
+                            ? new Array(3).fill(false)
                             : null,
                     skill2:
                         // @ts-ignore
                         Rarity_Dict[char.rarity] >= 3
-                            ? new Array(9).fill(false)
+                            ? new Array(3).fill(false)
                             : null,
                     skill3:
                         // @ts-ignore
                         Rarity_Dict[char.rarity] >= 5
-                            ? new Array(9).fill(false)
+                            ? new Array(3).fill(false)
                             : null,
                     upgrade:
                         // @ts-ignore

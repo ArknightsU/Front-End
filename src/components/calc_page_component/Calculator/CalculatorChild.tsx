@@ -4,8 +4,9 @@ import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
 import { Profile } from "./Profile";
 import { useState } from "react";
-import { Skill, Upgrade } from "./Skill";
+import { BottomButton, Skill, Upgrade } from "./Skill";
 import { ShowMaterial } from "./ShowMaterial";
+import { SkillGroup } from "./SkillGroup";
 
 interface CalculatorChildProps {
     focus: MaterialCalculation;
@@ -16,8 +17,9 @@ interface CalculatorChildProps {
 export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
     const [char, loading] = useCharObject(props.focus.name);
     // STATE : show decides how many ShowMaterial.tsx Component opens
-    // idx : [0: total, 1: upgrade, 2: skill1, 3:skill2, 4:skill3]
-    const [show, setShow] = useState(new Array(5).fill(false));
+    // idx : [0: total, 1: upgrade, 3: skill]
+    const [show, setShow] = useState(new Array(3).fill(false));
+    // show button handler
     const handleShowClick = (num: number) => {
         setShow((prev) => {
             const value = [...prev];
@@ -28,6 +30,25 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
     const window_size = useWindowSize();
     const isMobile = window_size.width < 768 ? true : false;
     const SHOW_DIV_SIZE = 120;
+    const checkSkillSelected = (): boolean => {
+        const check = [];
+        if (props.focus.skill1 !== null) {
+            check.push(...props.focus.skill1);
+        } else {
+            check.push(null);
+        }
+        if (props.focus.skill2 !== null) {
+            check.push(...props.focus.skill2);
+        } else {
+            check.push(null);
+        }
+        if (props.focus.skill3 !== null) {
+            check.push(...props.focus.skill3);
+        } else {
+            check.push(null);
+        }
+        return check.some((v) => v === true);
+    };
     return (
         // Main Wrapper
         <div
@@ -99,48 +120,44 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                                     setFocused={props.setFocused}
                                 />
                             </div>
-                            {/* 1스킬 */}
-                            <div className="h-full w-1/4 ">
-                                <Skill
-                                    handleShowClick={() => {
-                                        handleShowClick(2);
-                                    }}
-                                    show={show[2]}
-                                    num={1}
-                                    name={props.focus.name}
-                                    focus_skill={props.focus.skill1}
-                                    setFocused={props.setFocused}
-                                />
-                            </div>
-                            {/* 2스킬 */}
-                            <div className="h-full w-1/4 ">
-                                <Skill
-                                    handleShowClick={() => {
-                                        handleShowClick(3);
-                                    }}
-                                    show={show[3]}
-                                    num={2}
-                                    name={props.focus.name}
-                                    focus_skill={props.focus.skill2}
-                                    setFocused={props.setFocused}
-                                />
-                            </div>
-                            {/* 3스킬 */}
-                            <div
-                                className={`h-full w-1/4 ${
-                                    isMobile ? "rounded-r-3xl" : ""
-                                }`}
-                            >
-                                <Skill
-                                    handleShowClick={() => {
-                                        handleShowClick(4);
-                                    }}
-                                    show={show[4]}
-                                    num={3}
-                                    name={props.focus.name}
-                                    focus_skill={props.focus.skill3}
-                                    setFocused={props.setFocused}
-                                />
+                            <div className="flex flex-col justify-end items-center h-full w-3/4">
+                                <div
+                                    className="w-full flex flex-row justify-start"
+                                    style={{ height: "calc(100% - 24px)" }}
+                                >
+                                    {/* 공통 스킬 */}
+                                    <div className="h-full w-1/4">
+                                        <Skill
+                                            name={props.focus.name}
+                                            focus_skill={props.focus.allSkill}
+                                            setFocused={props.setFocused}
+                                        />
+                                    </div>
+                                    <div className="h-full flex-grow">
+                                        <SkillGroup
+                                            name={props.focus.name}
+                                            focus_skill1={props.focus.skill1}
+                                            focus_skill2={props.focus.skill2}
+                                            focus_skill3={props.focus.skill3}
+                                            setFocused={props.setFocused}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="w-1/2 h-6">
+                                    <BottomButton
+                                        show={show[2]}
+                                        handleShowClick={() => {
+                                            handleShowClick(2);
+                                        }}
+                                        disabled={
+                                            props.focus.allSkill === null
+                                                ? true
+                                                : checkSkillSelected()
+                                                ? false
+                                                : true
+                                        }
+                                    />
+                                </div>
                             </div>
                         </div>
                         {/* If its not mobile, render buttons on the right side of component */}
@@ -172,11 +189,24 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                     </div>
                     {/* Bottom Side show result component */}
                     <div className="h-auto w-auto flex flex-col justify-start">
-                        <ShowMaterial open={show[0]} />
-                        <ShowMaterial open={show[1]} />
-                        <ShowMaterial open={show[2]} />
-                        <ShowMaterial open={show[3]} />
-                        <ShowMaterial open={show[4]} />
+                        <ShowMaterial
+                            focus={props.focus}
+                            open={show[0]}
+                            char={char}
+                            type="total"
+                        />
+                        <ShowMaterial
+                            focus={props.focus}
+                            open={show[1]}
+                            char={char}
+                            type="upgrade"
+                        />
+                        <ShowMaterial
+                            focus={props.focus}
+                            open={show[2]}
+                            char={char}
+                            type="skill"
+                        />
                     </div>
                 </>
             )}

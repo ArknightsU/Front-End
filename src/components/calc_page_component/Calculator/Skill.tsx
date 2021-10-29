@@ -91,14 +91,11 @@ export function Upgrade(props: UpgradeProps): JSX.Element {
 }
 
 interface SkillProps {
-    num: number;
     name: string;
     focus_skill: Array<boolean> | null;
     setFocused: React.Dispatch<
         React.SetStateAction<Array<MaterialCalculation>>
     >;
-    show: boolean;
-    handleShowClick: () => void;
 }
 
 const RANK_FILE_URL = [
@@ -108,9 +105,6 @@ const RANK_FILE_URL = [
     "/img/rank/5.webp",
     "/img/rank/6.webp",
     "/img/rank/7.webp",
-    "/img/rank/m-1.webp",
-    "/img/rank/m-2.webp",
-    "/img/rank/m-3.webp",
 ];
 
 export function Skill(props: SkillProps): JSX.Element {
@@ -120,20 +114,20 @@ export function Skill(props: SkillProps): JSX.Element {
             const now =
                 previous[previous.findIndex((v) => v.name === props.name)];
             //@ts-ignore
-            if (now[`skill${props.num}`] === null) {
+            if (now[`allSkill`] === null) {
                 return prev;
             }
             //@ts-ignore
-            now[`skill${props.num}`][n] = !now[`skill${props.num}`][n];
+            now[`allSkill`][n] = !now[`allSkill`][n];
             return previous;
         });
     };
     return (
-        <div className="w-full h-full flex flex-col justify-end items-center pt-2 ">
+        <div className="w-full h-full flex flex-col justify-end items-center pt-4 ">
             {/* TOP TITLE */}
             <div className="w-full h-auto mb-auto">
                 <p className="w-full h-auto font-sans font-bold text-lg text-center">
-                    {`${props.num}스킬`}
+                    {`공통`}
                 </p>
                 <hr className="w-full h-1 bg-gradient-to-r from-transparent via-black to-transparent" />
             </div>
@@ -170,16 +164,6 @@ export function Skill(props: SkillProps): JSX.Element {
                     ))}
                 </div>
             )}
-            <BottomButton
-                handleShowClick={props.handleShowClick}
-                show={props.show}
-                disabled={
-                    props.focus_skill === null ||
-                    !props.focus_skill.some((v) => v === true)
-                        ? true
-                        : false
-                }
-            />
         </div>
     );
 }
@@ -189,7 +173,7 @@ interface BottomButtonProps {
     show: boolean;
     handleShowClick: () => void;
 }
-const BottomButton: React.FC<BottomButtonProps> = ({
+export const BottomButton: React.FC<BottomButtonProps> = ({
     handleShowClick,
     show,
     disabled = false,
