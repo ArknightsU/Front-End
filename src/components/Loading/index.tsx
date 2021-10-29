@@ -4,6 +4,9 @@ import React from "react";
 interface LoadingProps {
     loading: boolean;
 }
+
+// Main Loading Component
+// Called when next-router routing
 export function Loading(props: LoadingProps): JSX.Element {
     return (
         <Transition

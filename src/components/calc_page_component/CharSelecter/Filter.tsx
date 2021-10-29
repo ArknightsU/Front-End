@@ -17,10 +17,12 @@ import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
 
 export function Filter(props: FilterProps): JSX.Element {
     const screen_size = useWindowSize();
+    // calculate width with screen size
     const rarityWidth = props.open ? (screen_size.width - 20) / 7 : 0;
     const profWidth = props.open ? (screen_size.width - 20) / 10 : 0;
     return (
         <div className="w-full h-auto flex flex-col justify-center items-center gap-y-4">
+            {/* Select Rarity */}
             <div className="flex flex-col w-11/12 items-start">
                 <span className="font-sans text-black font-bold text-lg md:text-xl w-full text-left">
                     {"레어도 선택"}
@@ -38,6 +40,7 @@ export function Filter(props: FilterProps): JSX.Element {
                     />
                 ))}
             </div>
+            {/* Select Profession */}
             <div className="flex flex-col w-11/12 items-start mt-4 md:mt-10">
                 <span className="font-sans text-black font-bold text-lg md:text-xl w-full text-left">
                     {"직군 선택"}
@@ -55,6 +58,7 @@ export function Filter(props: FilterProps): JSX.Element {
                     />
                 ))}
             </div>
+            {/* Select Characters */}
             <div className="flex flex-col w-11/12 items-start mt-4 md:mt-10">
                 <span className="font-sans text-black font-bold text-lg md:text-xl w-full text-left">
                     {"오퍼레이터 선택"}
@@ -74,6 +78,7 @@ export function Filter(props: FilterProps): JSX.Element {
     );
 }
 
+// Rarity Selector Component Below
 interface RarityProps {
     rarity_array: string[];
     rarity: string;
@@ -131,6 +136,7 @@ function Rarity(props: RarityProps): JSX.Element {
     );
 }
 
+// Profession Selector Componenet Below
 interface ProfessionProps {
     profession_array: string[];
     profession: string;
@@ -169,6 +175,7 @@ function Profession(props: ProfessionProps): JSX.Element {
     );
 }
 
+// Character Filter Child Below
 interface FilterChildProps {
     char: string;
     focused: string[];

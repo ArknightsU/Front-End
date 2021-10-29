@@ -5,6 +5,8 @@ interface ContainerProps {
     padding?: boolean;
 }
 
+// full size container for viewport
+// controls darkmode
 export function Container({ children, padding }: ContainerProps): JSX.Element {
     return (
         <div

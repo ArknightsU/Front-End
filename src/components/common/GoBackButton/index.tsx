@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { MouseEventHandler } from "react";
 
+// Goback NEXT-Linked button
 export function GoBackLinkButton(): JSX.Element {
     return (
         <Link href="/" passHref>
@@ -22,6 +23,7 @@ export function GoBackLinkButton(): JSX.Element {
     );
 }
 
+// Goback Normal Button w/ onclick event handler
 interface GoBackButtonProps {
     onClick?: MouseEventHandler<HTMLDivElement>;
 }

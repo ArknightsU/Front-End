@@ -1,5 +1,7 @@
 import axios from "axios";
 
+// Decompress Gz compressed file into js readable
+// little customized
 export async function gzDecompress(url: string, failure_url?: string) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const pako = require("pako");

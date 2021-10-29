@@ -1,5 +1,6 @@
 import React from "react";
 
+// custom horizontal google ads
 export function HorizontalGoogleAds(): JSX.Element {
     React.useEffect(() => {
         document.cookie = "crossCookie=yes; SameSite=None; Secure";

@@ -13,10 +13,13 @@ interface FilterProps {
 }
 
 export function CharSelector(props: FilterProps): JSX.Element {
+    // character selecter main view point
+    // STATE: open state check
     const [open, setOpen] = useState(false);
     const screen_size = useWindowSize();
     return (
         <div className="w-full h-auto flex flex-col justify-center items-center p-5 relative">
+            {/* Main Button */}
             <div
                 className={`h-14 rounded-2xl flex justify-center items-center ${
                     open
@@ -49,6 +52,7 @@ export function CharSelector(props: FilterProps): JSX.Element {
                     )}
                 </p>
             </div>
+            {/* open drawers */}
             <div
                 className={`w-full absolute bg-gray-200 rounded-2xl transition-all duration-700`}
                 style={{
@@ -66,6 +70,7 @@ export function CharSelector(props: FilterProps): JSX.Element {
                         open ? "overflow-y-auto" : "overflow-hidden"
                     }`}
                 >
+                    {/* Filter Component */}
                     <Filter
                         open={open}
                         rarity={props.rarity}

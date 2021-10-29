@@ -8,15 +8,15 @@ import { CharSelector } from "./CharSelecter";
 import { Calculator } from "./Calculator/Calculator";
 
 export function CalcMain(): JSX.Element {
+    // State: rarity filter array
     const [rarity, setRarity] = useState<Array<string>>([RARITY.six]);
+    // State: profession filter array
     const [profession, setProfession] = useState<Array<string>>([
         PROFESSION.warrior,
     ]);
+    // State: selected characters array
     const [focused, setFocused] = useState<Array<string>>([]);
-    console.log(focused);
     const [charNameArray, Loading] = useCharFilterArray(rarity, profession);
-    console.log(charNameArray);
-    console.log(Loading);
     // get ads' height and calculate main component
     const ads = useRef<HTMLDivElement>(null);
     const window_size = useWindowSize();

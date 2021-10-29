@@ -5,7 +5,10 @@ interface ImageProps {
     src: string;
     type?: "stretch" | "contain";
 }
+// custom next/image component
 export function CustomImage(props: ImageProps): JSX.Element {
+    // contain version
+    // stretches image into parent's size
     if (props.type === undefined || props.type === "contain") {
         return (
             <div className="w-full h-full relative">
@@ -18,6 +21,8 @@ export function CustomImage(props: ImageProps): JSX.Element {
             </div>
         );
     } else {
+        // fill version
+        // does not break image's origin ratio, fit its content into parent
         return (
             <div className="w-full h-full relative">
                 <Image

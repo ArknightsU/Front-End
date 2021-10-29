@@ -3,10 +3,8 @@ import { Transition } from "@headlessui/react";
 import { useLoginPopUp } from "@recoil/hooks";
 import { useClickAway } from "react-use";
 import GoogleLogin from "react-google-login";
-import { isLoggedIn } from "react-google-oauth2";
-import useEffect from "react";
-import { useGoogleLogin } from "react-google-login";
 
+// google login popup comp
 export function GoogleLoginPopUp(): JSX.Element {
     const [login, { toggleLoginPopUp }] = useLoginPopUp();
     const [isEntered, setIsEntered] = React.useState(false);

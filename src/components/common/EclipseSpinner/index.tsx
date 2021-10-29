@@ -1,5 +1,6 @@
 import React from "react";
 
+// Loading Spinner Comp
 export function EclipseSpinner(): JSX.Element {
     return (
         <svg

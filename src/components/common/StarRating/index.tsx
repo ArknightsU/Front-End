@@ -5,6 +5,7 @@ interface StarRating {
     readOnly: boolean;
     initialRating?: number;
 }
+// star rating comp
 export function StarRating(props: StarRating): JSX.Element {
     return (
         <Rating
