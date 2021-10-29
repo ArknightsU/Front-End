@@ -1,26 +1,37 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useWindowSize } from "@components";
+import { MaterialCalculation, useWindowSize } from "@components";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
 import { Profile } from "./Profile";
-import { CustomImage } from "@components/common";
 import { useState } from "react";
+import { Skill, Upgrade } from "./Skill";
+import { ShowMaterial } from "./ShowMaterial";
 
 interface CalculatorChildProps {
-    focus: string;
-    setFocused: React.Dispatch<React.SetStateAction<Array<string>>>;
+    focus: MaterialCalculation;
+    setFocused: React.Dispatch<
+        React.SetStateAction<Array<MaterialCalculation>>
+    >;
 }
-
 export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
-    const [char, loading] = useCharObject(props.focus);
-    const [open, setOpen] = useState(false);
+    const [char, loading] = useCharObject(props.focus.name);
+    // STATE : show decides how many ShowMaterial.tsx Component opens
+    // idx : [0: total, 1: upgrade, 2: skill1, 3:skill2, 4:skill3]
+    const [show, setShow] = useState(new Array(5).fill(false));
     const window_size = useWindowSize();
     const isMobile = window_size.width < 768 ? true : false;
+    const SHOW_DIV_SIZE = 120;
     return (
         // Main Wrapper
         <div
             className="transition-all duration-700"
-            style={{ height: open ? "500px" : "250px", width: "780px" }}
+            style={{
+                height: `${
+                    250 +
+                    show.filter((v) => v === true).length * (SHOW_DIV_SIZE + 8)
+                }px`,
+                width: "780px",
+            }}
         >
             {loading ? (
                 // Loading Component
@@ -36,14 +47,11 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                     <div
                         className="w-full flex flex-row justify-end items-center relative bg-gray-200 rounded-3xl drop-shadow-bottom"
                         style={{ height: "250px" }}
-                        onClick={() => {
-                            setOpen(!open);
-                        }}
                     >
                         {/* Character Picture Area */}
                         <div className="h-auto w-auto flex flex-col justify-center items-center mr-auto">
                             <Profile
-                                char={props.focus}
+                                char={props.focus.name}
                                 //@ts-ignore
                                 name={char.kr_name}
                                 //@ts-ignore
@@ -73,31 +81,71 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                         {/* Main Function Area Start */}
                         <div className="h-full flex-grow flex flex-row">
                             {/* 정예화 */}
-                            <div className="h-full w-1/4 bg-gray-500"></div>
+                            <div className="h-full w-1/4">
+                                <Upgrade
+                                    show={show[1]}
+                                    name={props.focus.name}
+                                    focus_upgrade={props.focus.upgrade}
+                                    setFocused={props.setFocused}
+                                />
+                            </div>
                             {/* 1스킬 */}
-                            <div className="h-full w-1/4 bg-gray-600"></div>
+                            <div className="h-full w-1/4 ">
+                                <Skill
+                                    show={show[2]}
+                                    num={1}
+                                    name={props.focus.name}
+                                    focus_skill={props.focus.skill1}
+                                    setFocused={props.setFocused}
+                                />
+                            </div>
                             {/* 2스킬 */}
-                            <div className="h-full w-1/4 bg-gray-700"></div>
+                            <div className="h-full w-1/4 ">
+                                <Skill
+                                    show={show[3]}
+                                    num={2}
+                                    name={props.focus.name}
+                                    focus_skill={props.focus.skill2}
+                                    setFocused={props.setFocused}
+                                />
+                            </div>
                             {/* 3스킬 */}
                             <div
-                                className={`h-full w-1/4 bg-gray-800 ${
+                                className={`h-full w-1/4 ${
                                     isMobile ? "rounded-r-3xl" : ""
                                 }`}
-                            ></div>
+                            >
+                                <Skill
+                                    show={show[4]}
+                                    num={3}
+                                    name={props.focus.name}
+                                    focus_skill={props.focus.skill3}
+                                    setFocused={props.setFocused}
+                                />
+                            </div>
                         </div>
                         {/* If its not mobile, render buttons on the right side of component */}
                         {isMobile ? (
                             <></>
                         ) : (
                             <>
-                                <div className="h-full w-14 flex flex-col rounded-r-3xl">
+                                <div className="h-full w-14 flex-shrink-0 flex flex-col rounded-r-3xl">
                                     <div className="h-1/2 w-full bg-red-800 rounded-tr-3xl flex justify-center items-center">
                                         <CalculatorSVG
                                             type="trash"
                                             className="w-1/2 h-1/2"
                                         />
                                     </div>
-                                    <div className="h-1/2 w-full bg-green-600 rounded-br-3xl flex justify-center items-center">
+                                    <div
+                                        className="h-1/2 w-full flex-shrink-0 bg-green-600 rounded-br-3xl flex justify-center items-center"
+                                        onClick={() => {
+                                            setShow((prev) => {
+                                                const value = [...prev];
+                                                value[0] = !value[0];
+                                                return value;
+                                            });
+                                        }}
+                                    >
                                         <CalculatorSVG
                                             type="sort"
                                             className="w-1/2 h-1/2"
@@ -108,13 +156,11 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                         )}
                     </div>
                     {/* Bottom Side show result component */}
-                    <div
-                        className="w-full bg-black rounded-3xl transition-all duration-700 origin-top"
-                        style={{
-                            height: "250px",
-                            transform: `scale(${open ? 1 : 0})`,
-                        }}
-                    ></div>
+                    <ShowMaterial open={show[0]} />
+                    <ShowMaterial open={show[1]} />
+                    <ShowMaterial open={show[2]} />
+                    <ShowMaterial open={show[3]} />
+                    <ShowMaterial open={show[4]} />
                 </>
             )}
         </div>

@@ -1,9 +1,13 @@
 import React from "react";
+import { MaterialCalculation } from "@components/common";
 import { CalculatorChild } from "./CalculatorChild";
+import { getMaterialKeys } from "../getMaterialKeys";
 
 interface CalculatorProps {
-    focused: string[];
-    setFocused: React.Dispatch<React.SetStateAction<Array<string>>>;
+    focused: MaterialCalculation[];
+    setFocused: React.Dispatch<
+        React.SetStateAction<Array<MaterialCalculation>>
+    >;
 }
 
 export function Calculator(props: CalculatorProps): JSX.Element {
@@ -26,8 +30,9 @@ export function Calculator(props: CalculatorProps): JSX.Element {
             style={{ height: "calc(100% - 56px)" }}
         >
             <div className="h-auto w-full flex flex-row flex-wrap gap-x-3 gap-y-3 justify-center transition-all duration-700">
-                {props.focused.map((focus) => (
+                {props.focused.map((focus, idx) => (
                     <CalculatorChild
+                        key={idx}
                         focus={focus}
                         setFocused={props.setFocused}
                     />

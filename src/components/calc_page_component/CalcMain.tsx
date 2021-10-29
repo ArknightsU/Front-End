@@ -6,6 +6,7 @@ import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { useWindowSize } from "@components/hooks/useWindowSize";
 import { CharSelector } from "./CharSelecter";
 import { Calculator } from "./Calculator/Calculator";
+import { MaterialCalculation } from "@components/common";
 
 export function CalcMain(): JSX.Element {
     // State: rarity filter array
@@ -15,7 +16,8 @@ export function CalcMain(): JSX.Element {
         PROFESSION.warrior,
     ]);
     // State: selected characters array
-    const [focused, setFocused] = useState<Array<string>>([]);
+    const [focused, setFocused] = useState<Array<MaterialCalculation>>([]);
+    console.log(focused);
     const [charNameArray, Loading] = useCharFilterArray(rarity, profession);
     // get ads' height and calculate main component
     const ads = useRef<HTMLDivElement>(null);

@@ -5,8 +5,10 @@ interface FilterProps {
     setRarity: React.Dispatch<React.SetStateAction<Array<string>>>;
     setProfession: React.Dispatch<React.SetStateAction<Array<string>>>;
     charNameArray: string[];
-    focused: string[];
-    setFocused: React.Dispatch<React.SetStateAction<Array<string>>>;
+    focused: MaterialCalculation[];
+    setFocused: React.Dispatch<
+        React.SetStateAction<Array<MaterialCalculation>>
+    >;
     open: boolean;
 }
 
@@ -14,6 +16,8 @@ import { CustomImage, useWindowSize } from "@components";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { RARITY, PROFESSION } from "@constants";
 import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
+import { MaterialCalculation } from "@components/common";
+import { getMaterialKeys } from "../getMaterialKeys";
 
 export function Filter(props: FilterProps): JSX.Element {
     const screen_size = useWindowSize();
@@ -68,6 +72,7 @@ export function Filter(props: FilterProps): JSX.Element {
             <div className="w-11/12 h-auto flex flex-row justify-start items-start flex-wrap gap-x-2 gap-y-2">
                 {props.charNameArray.map((char, idx) => (
                     <FilterChild
+                        key={idx}
                         char={char}
                         focused={props.focused}
                         setFocused={props.setFocused}
@@ -178,18 +183,50 @@ function Profession(props: ProfessionProps): JSX.Element {
 // Character Filter Child Below
 interface FilterChildProps {
     char: string;
-    focused: string[];
-    setFocused: React.Dispatch<React.SetStateAction<Array<string>>>;
+    focused: MaterialCalculation[];
+    setFocused: React.Dispatch<
+        React.SetStateAction<Array<MaterialCalculation>>
+    >;
 }
 function FilterChild(props: FilterChildProps): JSX.Element {
     const [char, loading] = useCharObject(props.char);
-    const isFocused = props.focused.includes(props.char) ? true : false;
+    const isFocused = getMaterialKeys(props.focused).includes(props.char)
+        ? true
+        : false;
     const onClickHandle = () => {
         if (isFocused) {
-            props.setFocused((prev) => prev.filter((v) => v !== props.char));
+            props.setFocused((prev) =>
+                prev.filter((v) => v.name !== props.char),
+            );
         } else {
             props.setFocused((prev) => {
-                const value = [...prev, props.char];
+                const newValue: MaterialCalculation = {
+                    name: props.char,
+                    skill1:
+                        // @ts-ignore
+                        Rarity_Dict[char.rarity] >= 2
+                            ? new Array(9).fill(false)
+                            : null,
+                    skill2:
+                        // @ts-ignore
+                        Rarity_Dict[char.rarity] >= 3
+                            ? new Array(9).fill(false)
+                            : null,
+                    skill3:
+                        // @ts-ignore
+                        Rarity_Dict[char.rarity] >= 5
+                            ? new Array(9).fill(false)
+                            : null,
+                    upgrade:
+                        // @ts-ignore
+                        Rarity_Dict[char.rarity] >= 2
+                            ? // @ts-ignore
+                              Rarity_Dict[char.rarity] >= 3
+                                ? [false, false]
+                                : [false, null]
+                            : null,
+                };
+                const value = [...prev, newValue];
                 return value;
             });
         }

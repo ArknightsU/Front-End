@@ -1,5 +1,6 @@
 import { useWindowSize } from "@components";
 import React, { useState } from "react";
+import { MaterialCalculation } from "@components/common";
 import { Filter } from "./Filter";
 
 interface FilterProps {
@@ -8,8 +9,10 @@ interface FilterProps {
     setRarity: React.Dispatch<React.SetStateAction<Array<string>>>;
     setProfession: React.Dispatch<React.SetStateAction<Array<string>>>;
     charNameArray: string[];
-    focused: string[];
-    setFocused: React.Dispatch<React.SetStateAction<Array<string>>>;
+    focused: MaterialCalculation[];
+    setFocused: React.Dispatch<
+        React.SetStateAction<Array<MaterialCalculation>>
+    >;
 }
 
 export function CharSelector(props: FilterProps): JSX.Element {
