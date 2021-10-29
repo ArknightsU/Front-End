@@ -8,6 +8,7 @@ interface UpgradeProps {
         React.SetStateAction<Array<MaterialCalculation>>
     >;
     show: boolean;
+    handleShowClick: () => void;
 }
 
 export function Upgrade(props: UpgradeProps): JSX.Element {
@@ -76,6 +77,7 @@ export function Upgrade(props: UpgradeProps): JSX.Element {
                 </button>
             </div>
             <BottomButton
+                handleShowClick={props.handleShowClick}
                 show={props.show}
                 disabled={
                     props.focus_upgrade === null ||
@@ -96,6 +98,7 @@ interface SkillProps {
         React.SetStateAction<Array<MaterialCalculation>>
     >;
     show: boolean;
+    handleShowClick: () => void;
 }
 
 const RANK_FILE_URL = [
@@ -168,6 +171,7 @@ export function Skill(props: SkillProps): JSX.Element {
                 </div>
             )}
             <BottomButton
+                handleShowClick={props.handleShowClick}
                 show={props.show}
                 disabled={
                     props.focus_skill === null ||
@@ -183,8 +187,10 @@ export function Skill(props: SkillProps): JSX.Element {
 interface BottomButtonProps {
     disabled?: boolean;
     show: boolean;
+    handleShowClick: () => void;
 }
 const BottomButton: React.FC<BottomButtonProps> = ({
+    handleShowClick,
     show,
     disabled = false,
 }) => {
@@ -194,6 +200,7 @@ const BottomButton: React.FC<BottomButtonProps> = ({
                 show ? "bg-yellow-300" : "bg-gray-400"
             } rounded-2xl disabled:filter disabled:grayscale grayscale`}
             disabled={disabled}
+            onClick={handleShowClick}
         >
             <div className="w-full h-6 flex justify-center items-center ">
                 <svg

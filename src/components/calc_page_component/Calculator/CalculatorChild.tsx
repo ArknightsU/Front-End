@@ -18,6 +18,13 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
     // STATE : show decides how many ShowMaterial.tsx Component opens
     // idx : [0: total, 1: upgrade, 2: skill1, 3:skill2, 4:skill3]
     const [show, setShow] = useState(new Array(5).fill(false));
+    const handleShowClick = (num: number) => {
+        setShow((prev) => {
+            const value = [...prev];
+            value[num] = !value[num];
+            return value;
+        });
+    };
     const window_size = useWindowSize();
     const isMobile = window_size.width < 768 ? true : false;
     const SHOW_DIV_SIZE = 120;
@@ -83,6 +90,9 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                             {/* 정예화 */}
                             <div className="h-full w-1/4">
                                 <Upgrade
+                                    handleShowClick={() => {
+                                        handleShowClick(1);
+                                    }}
                                     show={show[1]}
                                     name={props.focus.name}
                                     focus_upgrade={props.focus.upgrade}
@@ -92,6 +102,9 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                             {/* 1스킬 */}
                             <div className="h-full w-1/4 ">
                                 <Skill
+                                    handleShowClick={() => {
+                                        handleShowClick(2);
+                                    }}
                                     show={show[2]}
                                     num={1}
                                     name={props.focus.name}
@@ -102,6 +115,9 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                             {/* 2스킬 */}
                             <div className="h-full w-1/4 ">
                                 <Skill
+                                    handleShowClick={() => {
+                                        handleShowClick(3);
+                                    }}
                                     show={show[3]}
                                     num={2}
                                     name={props.focus.name}
@@ -116,6 +132,9 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                                 }`}
                             >
                                 <Skill
+                                    handleShowClick={() => {
+                                        handleShowClick(4);
+                                    }}
                                     show={show[4]}
                                     num={3}
                                     name={props.focus.name}
@@ -139,11 +158,7 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                                     <div
                                         className="h-1/2 w-full flex-shrink-0 bg-green-600 rounded-br-3xl flex justify-center items-center"
                                         onClick={() => {
-                                            setShow((prev) => {
-                                                const value = [...prev];
-                                                value[0] = !value[0];
-                                                return value;
-                                            });
+                                            handleShowClick(0);
                                         }}
                                     >
                                         <CalculatorSVG
@@ -156,11 +171,13 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                         )}
                     </div>
                     {/* Bottom Side show result component */}
-                    <ShowMaterial open={show[0]} />
-                    <ShowMaterial open={show[1]} />
-                    <ShowMaterial open={show[2]} />
-                    <ShowMaterial open={show[3]} />
-                    <ShowMaterial open={show[4]} />
+                    <div className="h-auto w-auto flex flex-col justify-start">
+                        <ShowMaterial open={show[0]} />
+                        <ShowMaterial open={show[1]} />
+                        <ShowMaterial open={show[2]} />
+                        <ShowMaterial open={show[3]} />
+                        <ShowMaterial open={show[4]} />
+                    </div>
                 </>
             )}
         </div>

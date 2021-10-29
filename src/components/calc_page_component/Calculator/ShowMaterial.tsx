@@ -5,9 +5,10 @@ interface ShowMaterialProps {
 export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
     return (
         <div
-            className="w-full bg-gray-200 rounded-3xl transition-all duration-700 origin-top mt-2"
+            className="w-full bg-gray-200 rounded-3xl transition-all duration-700 origin-top"
             style={{
-                height: "120px",
+                marginTop: props.open ? "8px" : "0px",
+                height: props.open ? "120px" : "0px",
                 transform: `scale(${props.open ? 1 : 0})`,
             }}
         ></div>
