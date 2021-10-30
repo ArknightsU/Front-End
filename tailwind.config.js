@@ -68,6 +68,9 @@ module.exports = {
             transitionDuration: {
                 1500: "1500ms",
             },
+            boxShadow: {
+                right: "5px 0px 3px rgba(0, 0, 0, 0.2)",
+            },
         },
     },
     variants: {
