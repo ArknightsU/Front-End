@@ -9,6 +9,7 @@ import { GoBackButton } from "@components/common";
 import { useRecoilState } from "recoil";
 import { DBInitOver } from "@recoil/atoms";
 import { initDB } from "@components/common/LocalForge";
+import Head from "next/head";
 
 interface GachaPageProps {
     pools: any;
@@ -25,9 +26,9 @@ const Gacha: NextPage<GachaPageProps> = ({ pools }: GachaPageProps) => {
     }, []);
     return (
         <>
-            <>
+            <Head>
                 <title>{"명일방주 가챠 시뮬레이터"}</title>
-            </>
+            </Head>
             <Container>
                 <GachaMain pools={pools} />
             </Container>

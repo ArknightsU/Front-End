@@ -23,6 +23,7 @@ import { DBInitOver } from "@recoil/atoms/DBInitOver/index";
 import { DungeonNotify } from "@components/main_page_component/Menus/DungeonNotify";
 import { WeeklyNotify } from "@components/main_page_component/Menus/WeeklyNotify";
 import { DBStatus } from "@components/main_page_component/Menus/DBStatus";
+import Head from "next/head";
 
 const Home: React.FC = () => {
     const size = useWindowSize();
@@ -47,9 +48,9 @@ const Home: React.FC = () => {
     }, []);
     return (
         <>
-            <>
+            <Head>
                 <title>{"ARKNIGHTS ONE"}</title>
-            </>
+            </Head>
             <Container padding={true}>
                 <ResponsiveGrid>
                     <GridItem key={"operator"}>
