@@ -27,7 +27,7 @@ export function Upgrade(props: UpgradeProps): JSX.Element {
     return (
         <div className="w-full h-full flex flex-col justify-end items-center pt-4">
             <div className="w-full h-auto mb-auto">
-                <p className="w-full h-auto font-sans font-bold text-lg text-center">
+                <p className="w-full h-auto font-sans font-bold text-md md:text-lg text-center">
                     {"정예화"}
                 </p>
                 <hr className="w-full h-1 bg-gradient-to-r from-transparent via-black to-transparent" />
@@ -126,7 +126,7 @@ export function Skill(props: SkillProps): JSX.Element {
         <div className="w-full h-full flex flex-col justify-end items-center pt-4 ">
             {/* TOP TITLE */}
             <div className="w-full h-auto mb-auto">
-                <p className="w-full h-auto font-sans font-bold text-lg text-center">
+                <p className="w-full h-auto font-sans font-bold text-md md:text-lg text-center">
                     {`공통`}
                 </p>
                 <hr className="w-full h-1 bg-gradient-to-r from-transparent via-black to-transparent" />

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useWindowSize } from "@components";
 import { MaterialCalculation } from "@components/common";
 import { CustomImage } from "@components/common";
 
@@ -69,6 +70,7 @@ function SkillGroupChild(props: SkillGroupChildProps): JSX.Element {
     const isSelected =
         // @ts-ignore
         props.focus === null ? false : props.focus[OBJECT_KEY[props.num]];
+    const window_size = useWindowSize();
     return (
         <div
             className={`w-full h-1/3 flex flex-row justify-start md:pl-2 rounded-md ${
@@ -78,11 +80,11 @@ function SkillGroupChild(props: SkillGroupChildProps): JSX.Element {
             {/* TOP TITLE */}
             <div className="w-auto h-full flex flex-row justify-center items-center flex-shrink-0">
                 <p className="w-auto h-auto font-sans font-bold text:md md:text-lg text-center center">
-                    {`스킬${props.num}`}
+                    {`${window_size.width > 768 ? "스킬" : "S"}${props.num}`}
                 </p>
                 <div className="w-1 h-full bg-gradient-to-b from-transparent via-black to-transparent md:ml-2" />
             </div>
-            <div className="h-full flex-grow flex flex-row justify-center items-center gap-x-2">
+            <div className="h-full flex-grow flex flex-row justify-center items-center gap-x-0 md:gap-x-2 pr-2 md:pr-0">
                 {props.focus === null ? (
                     <div className="w-full flex-grow flex justify-center items-center relative">
                         <svg

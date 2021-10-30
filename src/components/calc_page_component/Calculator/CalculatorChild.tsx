@@ -101,11 +101,14 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
         <div
             className="transition-all duration-700"
             style={{
-                height: `${
+                height: /*`${
                     250 +
                     show.filter((v) => v === true).length * (SHOW_DIV_SIZE + 8)
-                }px`,
-                width: "780px",
+                }px`*/ "auto",
+                width:
+                    window_size.width >= 768
+                        ? "780px"
+                        : window_size.width * 0.9,
             }}
         >
             {loading ? (
@@ -241,7 +244,7 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                         )}
                     </div>
                     {/* Bottom Side show result component */}
-                    <div className="h-auto w-auto flex flex-col justify-start">
+                    <div className="h-auto w-auto flex flex-col justify-start transition-all duration-700">
                         <ShowMaterial
                             focus={props.focus}
                             open={show[0]}

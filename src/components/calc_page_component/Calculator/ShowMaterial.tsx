@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useWindowSize } from "@components";
 import { MaterialCalculation } from "@components/common";
 import { key } from "localforage";
 import { useEffect, useState } from "react";
@@ -21,8 +22,8 @@ const TYPE_KEYS = {
     skill: ["allSkill", "skill1", "skill2", "skill3"],
 };
 export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
+    const window_size = useWindowSize();
     const [map, setMap] = useState({});
-    const [checker, setChecker] = useState(false);
     const CHAR_KEYS = {
         upgrade: props.char.evolveCost,
         allSkill: props.char.allSkillLvlup,
@@ -37,6 +38,7 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
             return CHAR_KEYS[key][index].lvlUpCost;
         } else {
             const array = [];
+            // @ts-ignore
             for (const mt of CHAR_KEYS[key][index].levelUpCost) {
                 array.push(mt);
             }
@@ -66,24 +68,31 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
     useEffect(() => {
         const newState = {};
         for (const keys of TYPE_KEYS[props.type]) {
+            // @ts-ignore
             for (const index in props.focus[keys]) {
+                // @ts-ignore
                 if (props.focus[keys][index] === true) {
                     console.log(newState);
                     for (const value of getMaterials(keys, Number(index))) {
                         if (Object.keys(newState).includes(value.id)) {
-                            console.log("중복 : ", newState[value.id], value);
+                            // @ts-ignore
                             newState[value.id] = {
+                                // @ts-ignore
                                 count: newState[value.id].count + value.count,
+                                // @ts-ignore
                                 convert: newState[value.id].convert,
                                 type: value.type,
                             };
                         } else {
+                            // @ts-ignore
                             newState[value.id] = {
                                 count: value.count,
                                 convert:
+                                    //@ts-ignore
                                     map[value.id] === undefined
                                         ? 0
-                                        : map[value.id].convert,
+                                        : //@ts-ignore
+                                          map[value.id].convert,
                                 type: value.type,
                             };
                         }
@@ -95,18 +104,19 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
     }, [detectPropsLength()]);
     return (
         <div
-            className="w-full bg-gray-200 rounded-3xl transition-all duration-700 origin-top"
+            className="w-full bg-gray-200 rounded-3xl transition-all duration-700 origin-top relative"
             style={{
-                marginTop: props.open ? "8px" : "0px",
-                height: props.open ? "120px" : "0px",
+                marginTop: props.open ? "12px" : "0px",
+                height: props.open ? "auto" : "auto",
+                maxHeight: props.open ? "9999px" : "0px",
                 transform: `scale(${props.open ? 1 : 0})`,
             }}
         >
             <div className="w-full h-full flex flex-row justify-end items-center">
-                <div className="w-24 h-full mr-auto bg-gray-300 relative rounded-l-2xl flex flex-col justify-end items-start pb-2 shadow-right">
+                <div className="absolute top-0 h-14 w-full md:w-24 md:h-full mr-auto bg-gray-300 md:left-0 rounded-l-2xl flex flex-col justify-center items-center md:justify-end md:items-start pb-2 md:shadow-right flex-shrink-0">
                     {/* Labeling */}
                     <div
-                        className="h-6 w-18 md:h-8 md:w-24 absolute -top-1 -left-1 bg-yellow-300 flex justify-end items-end"
+                        className="h-6 w-18 md:h-8 md:w-24 absolute -top-4 -left-1 bg-yellow-300 flex justify-end items-end"
                         style={{ zIndex: 12 }}
                     >
                         <div className="h-full w-11/12 bg-black flex flex-row">
@@ -126,20 +136,36 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
                         </div>
                     </div>
                     {/* TITLE */}
-                    <div className="w-full h-auto flex justify-start items-center pl-2">
-                        <pre className="text-xl font-bold font-sans">
-                            {TITLE_TEXT[props.type]}
-                        </pre>
+                    <div className="w-full h-auto flex justify-center md:justify-start items-center pl-2">
+                        {window_size.width < 768 ? (
+                            <p className="text-md font-bold">
+                                {TITLE_TEXT[props.type]}
+                            </p>
+                        ) : (
+                            <pre className="text-xl font-bold font-sans">
+                                {TITLE_TEXT[props.type]}
+                            </pre>
+                        )}
                     </div>
                     <hr className="w-full border-black" />
-                    <div className="h-auto w-full flex items-end justify-end pr-1">
+                    <div className="h-auto w-full flex items-end justify-end pr-14 md:pr-1">
                         <pre className="text-xxs font-mono uppercase leading-none text-right">
                             {`CALCULATION:\n${props.type}`}
                         </pre>
                     </div>
                 </div>
-                <div className="h-full overflow-x-auto flex-grow"></div>
-                <div className="w-14 h-full bg-red-800 flex justify-center items-center rounded-r-2xl">
+                {/* Contents */}
+                <div className="h-auto w-full pr-0 pl-4 md:pr-14 pl-18 md:pl-24">
+                    <ul className="h-auto w-full flex-row flex gap-x-2 gap-y-2 flex-wrap justify-start items-center pt-14 md:pt-0">
+                        {Object.keys(map).map((id, idx) => (
+                            <li className="w-auto h-auto">
+                                <Item itemId={id} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                {/* Close Button */}
+                <div className="absolute -top-1 md:top-auto right-0 md:right-0 w-14 md:h-full h-14 bg-red-800 flex justify-center items-center rounded-2xl md:rounded-l-none md:rounded-r-2xl flex-shrink-0">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-2/3 w-2/3"
@@ -158,10 +184,12 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
     );
 }
 interface ItemProps {
-    itemId: number;
+    itemId: string;
 }
 function Item(props: ItemProps): JSX.Element {
-    return <div>{props.itemId}</div>;
+    return (
+        <div className="w-24 md:w-28 bg-black" style={{ height: "100px" }}>
+            {props.itemId}
+        </div>
+    );
 }
-
-function getMaterialArray() {}
