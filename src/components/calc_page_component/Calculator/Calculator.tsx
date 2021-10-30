@@ -2,6 +2,7 @@ import React from "react";
 import { MaterialCalculation } from "@components/common";
 import { CalculatorChild } from "./CalculatorChild";
 import { getMaterialKeys } from "../getMaterialKeys";
+import { Flipper, Flipped } from "react-flip-toolkit";
 
 interface CalculatorProps {
     focused: MaterialCalculation[];
@@ -30,13 +31,29 @@ export function Calculator(props: CalculatorProps): JSX.Element {
             style={{ height: "calc(100% - 56px)" }}
         >
             <div className="h-auto w-full flex flex-row flex-wrap gap-x-3 gap-y-3 justify-center transition-all duration-700">
-                {props.focused.map((focus, idx) => (
-                    <CalculatorChild
-                        key={idx}
-                        focus={focus}
-                        setFocused={props.setFocused}
-                    />
-                ))}
+                <Flipper
+                    flipKey={getMaterialKeys(props.focused).join(" ")}
+                    className="h-auto w-full"
+                    spring="stiff"
+                >
+                    <ul className="h-auto w-full flex flex-row flex-wrap gap-x-3 gap-y-3 justify-center">
+                        {props.focused.map((focus, idx) => (
+                            <Flipped
+                                flipId={focus.name}
+                                key={idx}
+                                spring="stiff"
+                                stagger={true}
+                            >
+                                <li className="h-auto w-auto">
+                                    <CalculatorChild
+                                        focus={focus}
+                                        setFocused={props.setFocused}
+                                    />
+                                </li>
+                            </Flipped>
+                        ))}
+                    </ul>
+                </Flipper>
             </div>
         </div>
     );

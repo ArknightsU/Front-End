@@ -3,7 +3,7 @@ import { MaterialCalculation, useWindowSize } from "@components";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
 import { Profile } from "./Profile";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BottomButton, Skill, Upgrade } from "./Skill";
 import { ShowMaterial } from "./ShowMaterial";
 import { SkillGroup } from "./SkillGroup";
@@ -27,11 +27,19 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
             return value;
         });
     };
+    const handleTrashClick = () => {
+        props.setFocused((prev) =>
+            prev.filter((v) => v.name !== props.focus.name),
+        );
+    };
     const window_size = useWindowSize();
     const isMobile = window_size.width < 768 ? true : false;
     const SHOW_DIV_SIZE = 120;
     const checkSkillSelected = (): boolean => {
         const check = [];
+        if (props.focus.allSkill !== null) {
+            check.push(...props.focus.allSkill);
+        }
         if (props.focus.skill1 !== null) {
             check.push(...props.focus.skill1);
         } else {
@@ -49,6 +57,45 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
         }
         return check.some((v) => v === true);
     };
+    const checkUpgradeSelected = (): boolean => {
+        const check = [];
+        if (props.focus.upgrade !== null) {
+            check.push(...props.focus.upgrade);
+        }
+        return check.some((v) => v === true);
+    };
+    // detect skill or upgrade first selected
+    // controls auto open/close showMaterial.tsx
+    useEffect(() => {
+        if (checkUpgradeSelected() === false) {
+            setShow((prev) => {
+                const value = [...prev];
+                value[1] = false;
+                return value;
+            });
+        } else {
+            setShow((prev) => {
+                const value = [...prev];
+                value[1] = true;
+                return value;
+            });
+        }
+    }, [checkUpgradeSelected()]);
+    useEffect(() => {
+        if (checkSkillSelected() === false) {
+            setShow((prev) => {
+                const value = [...prev];
+                value[2] = false;
+                return value;
+            });
+        } else {
+            setShow((prev) => {
+                const value = [...prev];
+                value[2] = true;
+                return value;
+            });
+        }
+    }, [checkSkillSelected()]);
     return (
         // Main Wrapper
         <div
@@ -94,7 +141,10 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                                             className="w-2/3 h-2/3"
                                         />
                                     </div>
-                                    <div className="h-full w-1/2 bg-red-800 rounded-lg flex justify-center items-center">
+                                    <div
+                                        className="h-full w-1/2 bg-red-800 rounded-lg flex justify-center items-center"
+                                        onClick={handleTrashClick}
+                                    >
                                         <CalculatorSVG
                                             type="trash"
                                             className="w-2/3 h-2/3"
@@ -166,7 +216,10 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                         ) : (
                             <>
                                 <div className="h-full w-14 flex-shrink-0 flex flex-col rounded-r-3xl">
-                                    <div className="h-1/2 w-full bg-red-800 rounded-tr-3xl flex justify-center items-center">
+                                    <div
+                                        className="h-1/2 w-full bg-red-800 rounded-tr-3xl flex justify-center items-center"
+                                        onClick={handleTrashClick}
+                                    >
                                         <CalculatorSVG
                                             type="trash"
                                             className="w-1/2 h-1/2"

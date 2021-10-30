@@ -108,7 +108,7 @@ function SkillGroupChild(props: SkillGroupChildProps): JSX.Element {
                 ) : (
                     props.focus.map((v, idx) => (
                         <div
-                            className={`w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 ${
+                            className={`w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 transition-all duration-700 ${
                                 v ? "bg-yellow-300" : "bg-black"
                             } p-1 rounded-lg`}
                             key={idx}

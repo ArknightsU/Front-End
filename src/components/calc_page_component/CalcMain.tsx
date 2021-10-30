@@ -17,7 +17,6 @@ export function CalcMain(): JSX.Element {
     ]);
     // State: selected characters array
     const [focused, setFocused] = useState<Array<MaterialCalculation>>([]);
-    console.log(focused);
     const [charNameArray, Loading] = useCharFilterArray(rarity, profession);
     // get ads' height and calculate main component
     const ads = useRef<HTMLDivElement>(null);

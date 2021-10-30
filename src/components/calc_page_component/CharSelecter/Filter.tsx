@@ -18,12 +18,21 @@ import { RARITY, PROFESSION } from "@constants";
 import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
 import { MaterialCalculation } from "@components/common";
 import { getMaterialKeys } from "../getMaterialKeys";
+import { Flipped, Flipper } from "react-flip-toolkit";
 
 export function Filter(props: FilterProps): JSX.Element {
     const screen_size = useWindowSize();
     // calculate width with screen size
     const rarityWidth = props.open ? (screen_size.width - 20) / 7 : 0;
     const profWidth = props.open ? (screen_size.width - 20) / 10 : 0;
+    const renderArray = (): string[] => {
+        const newArray = [
+            ...getMaterialKeys(props.focused),
+            ...props.charNameArray,
+        ];
+        const set = Array.from(new Set(newArray));
+        return set;
+    };
     return (
         <div className="w-full h-auto flex flex-col justify-center items-center gap-y-4">
             {/* Select Rarity */}
@@ -70,14 +79,24 @@ export function Filter(props: FilterProps): JSX.Element {
                 <hr className="w-full h-0 border-black bg-black" />
             </div>
             <div className="w-11/12 h-auto flex flex-row justify-start items-start flex-wrap gap-x-2 gap-y-2">
-                {props.charNameArray.map((char, idx) => (
-                    <FilterChild
-                        key={idx}
-                        char={char}
-                        focused={props.focused}
-                        setFocused={props.setFocused}
-                    />
-                ))}
+                <Flipper
+                    flipKey={props.charNameArray.join(" ")}
+                    spring={"stiff"}
+                >
+                    <ul className="w-full h-auto flex flex-row justify-start items-start flex-wrap gap-x-2 gap-y-2">
+                        {props.charNameArray.map((char, idx) => (
+                            <Flipped flipId={char} key={idx}>
+                                <li className="w-auto h-auto">
+                                    <FilterChild
+                                        char={char}
+                                        focused={props.focused}
+                                        setFocused={props.setFocused}
+                                    />
+                                </li>
+                            </Flipped>
+                        ))}
+                    </ul>
+                </Flipper>
             </div>
         </div>
     );
@@ -209,7 +228,7 @@ function FilterChild(props: FilterChildProps): JSX.Element {
                             : null,
                     skill1:
                         // @ts-ignore
-                        Rarity_Dict[char.rarity] >= 2
+                        Rarity_Dict[char.rarity] >= 3
                             ? new Array(3).fill(false)
                             : null,
                     skill2:
@@ -288,32 +307,32 @@ function FilterChild(props: FilterChildProps): JSX.Element {
                             }
                         </p>
                     </div>
-                    {isFocused ? (
-                        <div
-                            className="absolute w-full h-full flex justify-center items-center bg-yellow-300 bg-opacity-70 top-0 left-0"
-                            style={{ zIndex: 52 }}
-                        >
-                            <div className="w-1/2 h-1/2 flex flex-col justify-center items-center">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-1/2 w-1/2"
-                                    viewBox="0 0 20 20"
-                                    fill="#00A52D"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                                <p className="h-auto w-auto text-green-800 font-sans text-md md:text-lg font-extrabold">
-                                    {"CHECKED!"}
-                                </p>
-                            </div>
+
+                    <div
+                        className="absolute w-full h-full flex justify-center items-center bg-yellow-300 bg-opacity-70 top-0 left-0 transition-all duration-700 opa"
+                        style={{
+                            zIndex: 52,
+                            opacity: isFocused ? 1 : 0,
+                        }}
+                    >
+                        <div className="w-1/2 h-1/2 flex flex-col justify-center items-center">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-1/2 w-1/2"
+                                viewBox="0 0 20 20"
+                                fill="#00A52D"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                            <p className="h-auto w-auto text-green-800 font-sans text-md md:text-lg font-extrabold">
+                                {"CHECKED!"}
+                            </p>
                         </div>
-                    ) : (
-                        <></>
-                    )}
+                    </div>
                 </>
             )}
         </div>

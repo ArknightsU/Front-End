@@ -41,7 +41,7 @@ export function Upgrade(props: UpgradeProps): JSX.Element {
                     disabled={props.focus_upgrade === null ? true : false}
                 >
                     <div
-                        className={`w-full h-14 relative rounded-lg ${
+                        className={`w-full h-14 relative rounded-lg transition-all duration-700 ${
                             props.focus_upgrade === null ||
                             props.focus_upgrade[0] === false
                                 ? "bg-black"
@@ -64,7 +64,7 @@ export function Upgrade(props: UpgradeProps): JSX.Element {
                     }}
                 >
                     <div
-                        className={`w-full h-16 relative rounded-lg ${
+                        className={`w-full h-16 relative rounded-lg transition-all duration-700 ${
                             props.focus_upgrade === null ||
                             props.focus_upgrade[1] === null ||
                             props.focus_upgrade[1] === false
@@ -149,7 +149,7 @@ export function Skill(props: SkillProps): JSX.Element {
                     {props.focus_skill.map((v, idx) => (
                         <div
                             key={idx}
-                            className={`h-9 w-9 ${
+                            className={`h-9 w-9 transition-all duration-700 ${
                                 // @ts-ignore
                                 props.focus_skill[idx] === false
                                     ? "bg-black"
