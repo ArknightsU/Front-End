@@ -14,6 +14,17 @@ export async function getItem(db_name: string, key: string) {
     return await db(db_name).getItem(key);
 }
 
+const REJECT = [
+    "char_504_rguard",
+    "char_505_rcast",
+    "char_506_rmedic",
+    "char_507_rsnipe",
+    "char_508_aguard",
+    "char_509_acast",
+    "char_510_amedic",
+    "char_511_asnipe",
+];
+
 async function setCharacterTableItems() {
     await db(DB_NAME.character_table).clear();
     const data = await gzDecompress(CHAR_TABLE_GZ_URL, CHAR_TABLE_URL);
@@ -22,6 +33,7 @@ async function setCharacterTableItems() {
             continue;
         }
         for (const char of Object.keys(data[rarity])) {
+            if (REJECT.includes(char)) continue;
             const value = data[rarity][char];
             value["rarity"] = rarity;
             if (value["kr_name"] === "") {
@@ -57,7 +69,7 @@ async function setFileStorageItems(key: string, data: any) {
 }
 
 async function getCharDBLength() {
-    return await db(DB_NAME.character_table).length();
+    return (await db(DB_NAME.character_table).length()) + REJECT.length;
 }
 
 async function checkDBStatus(net_version: any) {
