@@ -11,7 +11,7 @@ export function Profile(props: ProfileProps): JSX.Element {
         <div className="h-auto w-auto relative">
             <div
                 className="h-6 w-18 md:h-8 md:w-24 absolute -top-1 -left-1 bg-yellow-300 flex justify-end items-end"
-                style={{ zIndex: 12 }}
+                style={{ zIndex: 5 }}
             >
                 <div className="h-full w-11/12 bg-black flex flex-row">
                     <div className="h-full w-1/2 flex justify-center items-center">

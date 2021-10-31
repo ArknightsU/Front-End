@@ -138,7 +138,12 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                             {/* If it is Mobile, render buttons under picture area */}
                             {isMobile ? (
                                 <div className="h-12 w-24 flex flex-row mt-2">
-                                    <div className="h-full w-1/2 bg-green-600 rounded-lg flex justify-center items-center">
+                                    <div
+                                        className="h-full w-1/2 bg-green-600 rounded-lg flex justify-center items-center"
+                                        onClick={() => {
+                                            handleShowClick(0);
+                                        }}
+                                    >
                                         <CalculatorSVG
                                             type="sort"
                                             className="w-2/3 h-2/3"
@@ -248,18 +253,27 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                         <ShowMaterial
                             focus={props.focus}
                             open={show[0]}
+                            setClose={() => {
+                                handleShowClick(0);
+                            }}
                             char={char}
                             type="total"
                         />
                         <ShowMaterial
                             focus={props.focus}
                             open={show[1]}
+                            setClose={() => {
+                                handleShowClick(1);
+                            }}
                             char={char}
                             type="upgrade"
                         />
                         <ShowMaterial
                             focus={props.focus}
                             open={show[2]}
+                            setClose={() => {
+                                handleShowClick(2);
+                            }}
                             char={char}
                             type="skill"
                         />

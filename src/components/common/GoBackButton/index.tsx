@@ -2,10 +2,23 @@ import Link from "next/link";
 import React, { MouseEventHandler } from "react";
 
 // Goback NEXT-Linked button
-export function GoBackLinkButton(): JSX.Element {
+interface GoBackLinkButtonProps {
+    href?: string;
+    zIndex?: number;
+    top?: number;
+    left?: number;
+}
+export function GoBackLinkButton(props: GoBackLinkButtonProps): JSX.Element {
     return (
-        <Link href="/" passHref>
-            <div className="absolute top-10 left-10 w-44 h-14 bg-truegray-700 bg-opacity-100 opacity-100 z-50 shadow-xl">
+        <Link href={props.href ? props.href : "/"} passHref>
+            <div
+                className="absolute top-10 left-10 w-44 h-14 bg-truegray-700 bg-opacity-100 opacity-100 shadow-xl"
+                style={{
+                    zIndex: props.zIndex ? props.zIndex : 50,
+                    top: props.top ? `${props.top}px` : "40px",
+                    left: props.left ? `${props.left}px` : "40px",
+                }}
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-full w-auto"

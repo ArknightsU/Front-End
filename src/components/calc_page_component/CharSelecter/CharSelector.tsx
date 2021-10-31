@@ -21,7 +21,10 @@ export function CharSelector(props: FilterProps): JSX.Element {
     const [open, setOpen] = useState(false);
     const screen_size = useWindowSize();
     return (
-        <div className="w-full h-auto flex flex-col justify-center items-center p-5 relative">
+        <div
+            className={`w-full h-auto flex flex-col justify-center items-center p-5 relative `}
+            style={{ zIndex: open ? 10 : 8 }}
+        >
             {/* Main Button */}
             <div
                 className={`h-14 rounded-2xl flex justify-center items-center ${

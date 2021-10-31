@@ -6,7 +6,7 @@ import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { useWindowSize } from "@components/hooks/useWindowSize";
 import { CharSelector } from "./CharSelecter";
 import { Calculator } from "./Calculator/Calculator";
-import { MaterialCalculation } from "@components/common";
+import { GoBackLinkButton, MaterialCalculation } from "@components/common";
 
 export function CalcMain(): JSX.Element {
     // State: rarity filter array
@@ -48,7 +48,7 @@ export function CalcMain(): JSX.Element {
             )}
             {/* Loading Component End */}
             <div
-                className="w-full absolute overflow-hidden"
+                className="w-full absolute overflow-hidden pb-10 z-10"
                 style={{
                     height: `calc(100% - ${
                         ads.current ? ads.current.offsetHeight : 0
@@ -56,6 +56,7 @@ export function CalcMain(): JSX.Element {
                     top: `${ads.current ? ads.current.offsetHeight : 0}px`,
                 }}
             >
+                <GoBackLinkButton zIndex={9} top={20} />
                 <CharSelector
                     rarity={rarity}
                     setRarity={setRarity}

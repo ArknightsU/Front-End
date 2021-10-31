@@ -1,29 +1,59 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useWindowSize } from "@components";
+import { CustomImage, useWindowSize } from "@components";
 import { MaterialCalculation } from "@components/common";
-import { key } from "localforage";
 import { useEffect, useState } from "react";
-import { useList, useMap } from "react-use";
+import {
+    getMaterialObject,
+    getMaterialObjectByCNname,
+} from "./getMaterialObject";
+import AKLEVEL from "@public/json/common/aklevel.json";
+import { Flipped, Flipper } from "react-flip-toolkit";
 interface ShowMaterialProps {
     open: boolean;
+    setClose: () => void;
     focus: MaterialCalculation;
     char: any;
     type: "total" | "upgrade" | "skill";
 }
-
+// Left title text map
 const TITLE_TEXT = {
     total: "재료\n총합",
     upgrade: "정예화\n재료",
     skill: "스킬\n재료",
 };
+// Keys for iteration
 const TYPE_KEYS = {
     total: ["upgrade", "allSkill", "skill1", "skill2", "skill3"],
     upgrade: ["upgrade"],
     skill: ["allSkill", "skill1", "skill2", "skill3"],
 };
+// rarity value stored in DB is text, convert to number
+const RARITY_KEYS = {
+    six: 5,
+    five: 4,
+    four: 3,
+    three: 2,
+    two: 1,
+    one: 0,
+};
+const EVOLVE_GOLD_COST = AKLEVEL.evolveGoldCost;
 export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
     const window_size = useWindowSize();
+    // using map state
     const [map, setMap] = useState({});
+    // FLIP animation uses text state checker.
+    const mapToAnimationKey = () => {
+        let text = "";
+        for (const keys of Object.keys(map)) {
+            // @ts-ignore
+            for (const innerKeys of Object.keys(map[keys])) {
+                // @ts-ignore
+                text = text + map[keys][innerKeys];
+            }
+        }
+        return text;
+    };
+    // extract data that using in this componenet
     const CHAR_KEYS = {
         upgrade: props.char.evolveCost,
         allSkill: props.char.allSkillLvlup,
@@ -31,9 +61,17 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
         skill2: props.char.skillLvlup[1],
         skill3: props.char.skillLvlup[2],
     };
+    // get target material array
     const getMaterials = (key: string, index: number): any[] => {
         if (key === "upgrade") {
-            return CHAR_KEYS[key][index + 1];
+            const EVOLVE_GOLD_COST_OBJ = {
+                id: "4001",
+                // @ts-ignore
+                count: EVOLVE_GOLD_COST[RARITY_KEYS[props.char.rarity]][index],
+                type: "GOLD",
+            };
+            console.log(CHAR_KEYS[key][index + 1]);
+            return [...CHAR_KEYS[key][index + 1], EVOLVE_GOLD_COST_OBJ];
         } else if (key === "allSkill") {
             return CHAR_KEYS[key][index].lvlUpCost;
         } else {
@@ -45,6 +83,8 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
             return array;
         }
     };
+    // check count of "TRUE" in props.focus
+    // if it changes, update map
     const detectPropsLength = () => {
         const detect = [];
         if (props.focus.upgrade !== null) {
@@ -64,7 +104,7 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
         }
         return detect.filter((v) => v === true).length;
     };
-    console.log(props.type, ":", map);
+    // map update function
     useEffect(() => {
         const newState = {};
         for (const keys of TYPE_KEYS[props.type]) {
@@ -72,7 +112,6 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
             for (const index in props.focus[keys]) {
                 // @ts-ignore
                 if (props.focus[keys][index] === true) {
-                    console.log(newState);
                     for (const value of getMaterials(keys, Number(index))) {
                         if (Object.keys(newState).includes(value.id)) {
                             // @ts-ignore
@@ -97,10 +136,11 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
                             };
                         }
                     }
-                    setMap(newState);
+                    //setMap(newState);
                 }
             }
         }
+        setMap(newState);
     }, [detectPropsLength()]);
     return (
         <div
@@ -113,13 +153,13 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
             }}
         >
             <div className="w-full h-full flex flex-row justify-end items-center">
-                <div className="absolute top-0 h-14 w-full md:w-24 md:h-full mr-auto bg-gray-300 md:left-0 rounded-l-2xl flex flex-col justify-center items-center md:justify-end md:items-start pb-2 md:shadow-right flex-shrink-0">
+                <div className="absolute top-0 h-14 w-full md:w-24 md:h-full mr-auto bg-gray-300 md:left-0 rounded-t-2xl md:rounded-tr-none md:rounded-l-2xl flex flex-col justify-center items-center md:justify-end md:items-start pb-2 md:shadow-right flex-shrink-0">
                     {/* Labeling */}
                     <div
                         className="h-6 w-18 md:h-8 md:w-24 absolute -top-4 -left-1 bg-yellow-300 flex justify-end items-end"
-                        style={{ zIndex: 12 }}
+                        style={{ zIndex: 1 }}
                     >
-                        <div className="h-full w-11/12 bg-black flex flex-row">
+                        <div className="h-full w-11/12 bg-black flex flex-row z-0">
                             <div className="h-full w-1/2 flex justify-center items-center">
                                 <p className="h-auto w-auto text-truegray-600 font-bold font-mono text-xxs md:text-xs leading-none align-middle pl-0 md:pl-2">
                                     {"DATA\nTYPE./"}
@@ -156,16 +196,44 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
                 </div>
                 {/* Contents */}
                 <div className="h-auto w-full pr-0 pl-4 md:pr-14 pl-18 md:pl-24">
-                    <ul className="h-auto w-full flex-row flex gap-x-2 gap-y-2 flex-wrap justify-start items-center pt-14 md:pt-0">
-                        {Object.keys(map).map((id, idx) => (
-                            <li className="w-auto h-auto">
-                                <Item itemId={id} />
-                            </li>
-                        ))}
-                    </ul>
+                    <Flipper flipKey={mapToAnimationKey()} spring="stiff">
+                        <ul className="h-auto w-full flex-row flex gap-x-2 gap-y-2 flex-wrap justify-start items-center pt-14 md:pt-0">
+                            {Object.keys(map).length === 0 ? (
+                                <div className="w-full h-24 flex justify-center items-center">
+                                    <p className="text-2xl font-mono uppercase font-extrabold text-truegray-600">
+                                        {"NO DATA"}
+                                    </p>
+                                </div>
+                            ) : (
+                                // sort map into rarity level
+                                Object.keys(map)
+                                    .sort((a, b) => {
+                                        return (
+                                            Number(getMaterialObject(b).level) -
+                                            Number(getMaterialObject(a).level)
+                                        );
+                                    })
+                                    .map((id, idx) => (
+                                        <Flipped flipId={id} key={idx} stagger>
+                                            <li className="w-auto h-auto">
+                                                <Item
+                                                    setMap={setMap}
+                                                    itemId={id}
+                                                    // @ts-ignore
+                                                    itemDetail={map[id]}
+                                                />
+                                            </li>
+                                        </Flipped>
+                                    ))
+                            )}
+                        </ul>
+                    </Flipper>
                 </div>
                 {/* Close Button */}
-                <div className="absolute -top-1 md:top-auto right-0 md:right-0 w-14 md:h-full h-14 bg-red-800 flex justify-center items-center rounded-2xl md:rounded-l-none md:rounded-r-2xl flex-shrink-0">
+                <div
+                    className="absolute -top-1 md:top-auto right-0 md:right-0 w-14 md:h-full h-14 bg-red-800 flex justify-center items-center rounded-2xl md:rounded-l-none md:rounded-r-2xl flex-shrink-0"
+                    onClick={props.setClose}
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-2/3 w-2/3"
@@ -185,11 +253,178 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
 }
 interface ItemProps {
     itemId: string;
+    itemDetail: any;
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    setMap: React.Dispatch<React.SetStateAction<{}>>;
 }
+const SKILL_BOOKS = ["3303", "3301", "3302"];
 function Item(props: ItemProps): JSX.Element {
+    const [isHover, setIsHover] = useState(false);
+    const Material_Object = getMaterialObject(props.itemId);
+    const src = SKILL_BOOKS.includes(props.itemId)
+        ? `/img/items/${Material_Object.id}.webp`
+        : `/img/material/${Material_Object.id}.webp`;
+    const rarity_img_src = `/img/material/bg/item-${Material_Object.level}.webp`;
+    const isDecomposible = () => {
+        if (Object.keys(Material_Object.madeof).length === 0) {
+            return false;
+        } else if (props.itemDetail.count <= 0) {
+            return false;
+        } else return true;
+    };
+    const handleDecomposition = () => {
+        if (!isHover) return;
+        if (!isDecomposible()) {
+            return;
+        }
+        props.setMap((prev) => {
+            const newMap = Object.assign({}, prev);
+            const decomposeArray = Material_Object.madeof;
+            // @ts-ignore
+            newMap[props.itemId].convert =
+                // @ts-ignore
+                Number(newMap[props.itemId].convert) + 1;
+            // @ts-ignore
+            newMap[props.itemId].count = Number(newMap[props.itemId].count) - 1;
+            for (const itemKeys of Object.keys(decomposeArray)) {
+                const lowMaterialObject = getMaterialObjectByCNname(itemKeys);
+                console.log(lowMaterialObject);
+                if (Object.keys(newMap).includes(lowMaterialObject.itemId)) {
+                    // @ts-ignore
+                    newMap[lowMaterialObject.itemId].count =
+                        // @ts-ignore
+                        Number(newMap[lowMaterialObject.itemId].count) +
+                        Number(decomposeArray[itemKeys]);
+                } else {
+                    // @ts-ignore
+                    newMap[lowMaterialObject.itemId] = {
+                        count: decomposeArray[itemKeys],
+                        convert: 0,
+                        type: "MATERIAL",
+                    };
+                }
+            }
+            return newMap;
+        });
+    };
+    const isSynthisizable = () => {
+        if (props.itemDetail.convert >= 1) {
+            return true;
+        } else return false;
+    };
+    const handleSynthisize = () => {
+        if (!isHover) return;
+        if (!isSynthisizable()) return;
+        props.setMap((prev) => {
+            const newMap = Object.assign({}, prev);
+            const synthesizeArray = Material_Object.madeof;
+            // @ts-ignore
+            newMap[props.itemId].convert =
+                // @ts-ignore
+                Number(newMap[props.itemId].convert) - 1;
+            // @ts-ignore
+            newMap[props.itemId].count = Number(newMap[props.itemId].count) + 1;
+            for (const itemKeys of Object.keys(synthesizeArray)) {
+                const lowMaterialObject = getMaterialObjectByCNname(itemKeys);
+                // @ts-ignore
+                newMap[lowMaterialObject.itemId].count =
+                    // @ts-ignore
+                    Number(newMap[lowMaterialObject.itemId].count) -
+                    synthesizeArray[itemKeys];
+                // @ts-ignore
+                if (newMap[lowMaterialObject.itemId].count === 0) {
+                    // @ts-ignore
+                    delete newMap[lowMaterialObject.itemId];
+                }
+            }
+            return newMap;
+        });
+    };
     return (
-        <div className="w-24 md:w-28 bg-black" style={{ height: "100px" }}>
-            {props.itemId}
+        <div
+            className="w-24 md:w-28 relative"
+            style={{ height: "100px" }}
+            onMouseEnter={() => {
+                setIsHover(true);
+            }}
+            onMouseLeave={() => {
+                setIsHover(false);
+            }}
+        >
+            {/* Image Background */}
+            <div className="w-full h-full absolute top-0 left-0">
+                <div className="w-full h-full relative">
+                    <CustomImage src={rarity_img_src} />
+                </div>
+            </div>
+            {/* Main Material Image */}
+            <div
+                className="w-full h-full relative transform"
+                style={{ transform: `scale(0.85)` }}
+            >
+                <CustomImage src={src} />
+            </div>
+            {/* Counter Component */}
+            <div className="w-full h-1/5 flex justify-end flex-row absolute right-0 bottom-0">
+                {props.itemDetail.convert > 0 ? (
+                    <div className="w-1/3 h-full bg-red-600 flex justify-center items-center">
+                        <p className="text-white font-extrabold text-lg">
+                            {props.itemDetail.convert}
+                        </p>
+                    </div>
+                ) : (
+                    <></>
+                )}
+                <div className="w-2/5 h-full bg-blue-500 flex justify-center items-center">
+                    <p className="text-white font-extrabold text:md md:text-lg">
+                        {props.itemId === "4001"
+                            ? `${props.itemDetail.count / 10000}만` // exception for gold
+                            : props.itemDetail.count}
+                    </p>
+                </div>
+            </div>
+            {/* Hover-Appear Component */}
+            <div
+                className="absolute w-full h-full top-0 left-0 flex flex-col justify-center items-center transition-all duration-700"
+                style={{ opacity: isHover ? 1 : 0 }}
+            >
+                {/* Material Name */}
+                <div className="w-full h-1/2 rounded-lg mb-1 bg-black bg-opacity-50 flex justify-center items-center text-center">
+                    <p className="text-white font-extrabold text-md md:text-md">
+                        {Material_Object.name_kr}
+                    </p>
+                </div>
+                {/* Synthesize Button */}
+                <div className="w-full h-1/2 flex flex-row">
+                    <div
+                        className="w-1/2 h-full rounded-lg mr-1 bg-black bg-opacity-50 flex justify-center items-center"
+                        onClick={handleSynthisize}
+                    >
+                        <p
+                            className={`${
+                                isSynthisizable()
+                                    ? "text-white"
+                                    : "text-red-600"
+                            } font-extrabold text-md md:text-lg text-center`}
+                        >
+                            {isSynthisizable() ? "합성" : "합성\n불가"}
+                        </p>
+                    </div>
+                    {/* Decompose Button */}
+                    <div
+                        className="w-1/2 h-full rounded-lg bg-black bg-opacity-50 flex justify-center items-center"
+                        onClick={handleDecomposition}
+                    >
+                        <p
+                            className={`${
+                                isDecomposible() ? "text-white" : "text-red-600"
+                            } font-extrabold text-md md:text-lg text-center`}
+                        >
+                            {isDecomposible() ? "분해" : "분해\n불가"}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
