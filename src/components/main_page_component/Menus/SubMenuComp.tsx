@@ -22,19 +22,19 @@ const DEFAULT_ICON = (
 const DEFAULT_BG = "bg-gray-500";
 export function SubMenuComp(props: SubMenuProps): JSX.Element {
     return (
-        <div className="w-full h-full relative p-4 box-border flex flex-col justify-center items-center">
+        <div className="w-full h-full relative p-1 md:p-4 box-border flex flex-col justify-center items-center">
             <div className="flex flex-col">
                 <div
                     className={`${
                         props.background ? props.background : DEFAULT_BG
-                    } relative p-4 rounded-full flex justify-center items-center`}
+                    } relative p-2 md:p-4 rounded-full flex justify-center items-center`}
                 >
                     {props.icon ? props.icon : DEFAULT_ICON}
                 </div>
             </div>
             <span
-                className="w-full bottom-3 text-center align-middle font-sans font-semibold antialiased text-gray-600 dark:text-white flex flex-col justify-center
-                    text-lg lg:text-lg xl:text-xl mt-3 "
+                className="w-full bottom-3 text-center align-middle font-sans antialiased text-gray-600 dark:text-white flex flex-col justify-center
+                    text-md lg:text-lg xl:text-xl mt-3 font-extrabold "
             >
                 {props.text}
             </span>

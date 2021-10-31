@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     ResponsiveGrid,
     Operator,
@@ -13,15 +13,16 @@ import {
     GridItem,
     AdjustUI,
     GoogleLoginPopUp,
+    forceInitDB,
+    Translate,
+    WeeklyNotify,
 } from "@components";
 import { Container } from "@components/Container";
 import { useWindowSize } from "@components/hooks/useWindowSize";
 import { useRecoilState } from "recoil";
-import { DBSupport } from "@recoil/atoms";
 import { initDB, setItem } from "@components/common/LocalForge/functions";
 import { DBInitOver } from "@recoil/atoms/DBInitOver/index";
 import { DungeonNotify } from "@components/main_page_component/Menus/DungeonNotify";
-import { WeeklyNotify } from "@components/main_page_component/Menus/WeeklyNotify";
 import { DBStatus } from "@components/main_page_component/Menus/DBStatus";
 import Head from "next/head";
 
@@ -29,23 +30,22 @@ const Home: React.FC = () => {
     const size = useWindowSize();
     const height = size.height;
     const width = size.width;
-    const [dbStat, setDbStat] = useRecoilState(DBSupport);
-    const InsertAdjustUI =
-        width > 1024 ? (
-            <GridItem key={"ui"}>
-                <AdjustUI />
-            </GridItem>
-        ) : (
-            ""
-        );
     const [isDBinitOver, setDBinitOver] = useRecoilState(DBInitOver);
+    const [toggleInitDb, setToggleInitDb] = useState(false);
     useEffect(() => {
+        setDBinitOver(false);
         if (!isDBinitOver) {
             initDB().then(() => {
                 setDBinitOver(true);
             });
         }
     }, []);
+    useEffect(() => {
+        setDBinitOver(false);
+        forceInitDB().then(() => {
+            setDBinitOver(true);
+        });
+    }, [toggleInitDb]);
     return (
         <>
             <Head>
@@ -87,7 +87,15 @@ const Home: React.FC = () => {
                         <WeeklyNotify />
                     </GridItem>
                     <GridItem key={"db"}>
-                        <DBStatus />
+                        <DBStatus
+                            loading={!isDBinitOver}
+                            toggleInitDb={() => {
+                                setToggleInitDb(!toggleInitDb);
+                            }}
+                        />
+                    </GridItem>
+                    <GridItem key={"trans"}>
+                        <Translate />
                     </GridItem>
                 </ResponsiveGrid>
             </Container>

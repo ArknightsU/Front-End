@@ -96,6 +96,13 @@ export async function initDB() {
     }
 }
 
+export async function forceInitDB() {
+    const net_version = (await axios.get(CHAR_TABLE_VERSION_URL)).data;
+    await setDBVersion(net_version);
+    await setNameDictItems();
+    await setCharacterTableItems();
+}
+
 export async function getAllCharacterKeys() {
     return await db(DB_NAME.character_table).keys();
 }

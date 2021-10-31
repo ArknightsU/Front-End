@@ -8,3 +8,5 @@ export { Music } from "./Music";
 export { Operator } from "./Operator";
 export { Settings } from "./Settings";
 export { Theme } from "./Theme";
+export { Translate } from "./Translate";
+export { WeeklyNotify } from "./WeeklyNotify";

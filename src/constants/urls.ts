@@ -18,3 +18,5 @@ export const CHAR_TABLE_VERSION_URL =
     "https://arknightsu.github.io/json/version.json";
 export const CHAR_NAME_DICT_URL =
     "https://arknightsu.github.io/json/name_dict.json";
+export const SERVER_STATUS_URL =
+    "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/health";
