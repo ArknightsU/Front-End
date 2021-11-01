@@ -29,9 +29,18 @@ const name_dict = localForage.createInstance({
         localForage.WEBSQL,
     ],
 });
-const file_storage = localForage.createInstance({
+const music_storage = localForage.createInstance({
     name: DB,
-    storeName: DB_NAME.file_storage,
+    storeName: DB_NAME.music_storage,
+    driver: [
+        localForage.INDEXEDDB,
+        localForage.LOCALSTORAGE,
+        localForage.WEBSQL,
+    ],
+});
+const album_storage = localForage.createInstance({
+    name: DB,
+    storeName: DB_NAME.album_storage,
     driver: [
         localForage.INDEXEDDB,
         localForage.LOCALSTORAGE,
@@ -47,6 +56,42 @@ const music_table = localForage.createInstance({
         localForage.WEBSQL,
     ],
 });
+const album_table = localForage.createInstance({
+    name: DB,
+    storeName: DB_NAME.album_table,
+    driver: [
+        localForage.INDEXEDDB,
+        localForage.LOCALSTORAGE,
+        localForage.WEBSQL,
+    ],
+});
+const music_db = localForage.createInstance({
+    name: DB,
+    storeName: DB_NAME.music_db,
+    driver: [
+        localForage.INDEXEDDB,
+        localForage.LOCALSTORAGE,
+        localForage.WEBSQL,
+    ],
+});
+const album_db = localForage.createInstance({
+    name: DB,
+    storeName: DB_NAME.album_db,
+    driver: [
+        localForage.INDEXEDDB,
+        localForage.LOCALSTORAGE,
+        localForage.WEBSQL,
+    ],
+});
+const music_version = localForage.createInstance({
+    name: DB,
+    storeName: DB_NAME.music_version,
+    driver: [
+        localForage.INDEXEDDB,
+        localForage.LOCALSTORAGE,
+        localForage.WEBSQL,
+    ],
+});
 export const db = (key: string): LocalForage => {
     switch (key) {
         case DB_NAME.character_table:
@@ -55,11 +100,29 @@ export const db = (key: string): LocalForage => {
             return db_version;
         case DB_NAME.name_dict:
             return name_dict;
-        case DB_NAME.file_storage:
-            return file_storage;
+        case DB_NAME.music_storage:
+            return music_storage;
+        case DB_NAME.album_storage:
+            return album_storage;
         case DB_NAME.music_table:
             return music_table;
+        case DB_NAME.album_table:
+            return album_table;
+        case DB_NAME.album_db:
+            return album_db;
+        case DB_NAME.music_db:
+            return music_db;
+        case DB_NAME.music_version:
+            return music_version;
         default:
-            return localForage.createInstance({ name: key });
+            return localForage.createInstance({
+                name: DB,
+                storeName: key,
+                driver: [
+                    localForage.INDEXEDDB,
+                    localForage.LOCALSTORAGE,
+                    localForage.WEBSQL,
+                ],
+            });
     }
 };

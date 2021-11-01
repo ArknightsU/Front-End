@@ -32,3 +32,5 @@ export const MUSIC_SONG_URL = (song_number: string): string => {
 export const MUSIC_ALBUM_URL = (album: string): string => {
     return `https://arknightsu.github.io/json/music/album/${album}.json`;
 };
+export const MUSIC_VERSION_URL =
+    "https://arknightsu.github.io/json/music/version.json";
