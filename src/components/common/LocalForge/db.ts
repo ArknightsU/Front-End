@@ -38,7 +38,15 @@ const file_storage = localForage.createInstance({
         localForage.WEBSQL,
     ],
 });
-
+const music_table = localForage.createInstance({
+    name: DB,
+    storeName: DB_NAME.music_table,
+    driver: [
+        localForage.INDEXEDDB,
+        localForage.LOCALSTORAGE,
+        localForage.WEBSQL,
+    ],
+});
 export const db = (key: string): LocalForage => {
     switch (key) {
         case DB_NAME.character_table:
@@ -49,6 +57,8 @@ export const db = (key: string): LocalForage => {
             return name_dict;
         case DB_NAME.file_storage:
             return file_storage;
+        case DB_NAME.music_table:
+            return music_table;
         default:
             return localForage.createInstance({ name: key });
     }

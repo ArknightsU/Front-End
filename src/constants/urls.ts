@@ -20,3 +20,15 @@ export const CHAR_NAME_DICT_URL =
     "https://arknightsu.github.io/json/name_dict.json";
 export const SERVER_STATUS_URL =
     "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/health";
+
+// music
+export const MUSIC_SONGS_URL =
+    "https://arknightsu.github.io/json/music/songs.json";
+export const MUSIC_ALBUMS_URL =
+    "https://arknightsu.github.io/json/music/albums.json";
+export const MUSIC_SONG_URL = (song_number: string): string => {
+    return `https://arknightsu.github.io/json/music/song/${song_number}.json`;
+};
+export const MUSIC_ALBUM_URL = (album: string): string => {
+    return `https://arknightsu.github.io/json/music/album/${album}.json`;
+};

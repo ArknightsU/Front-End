@@ -16,6 +16,7 @@ import {
     forceInitDB,
     Translate,
     WeeklyNotify,
+    getMusicDB,
 } from "@components";
 import { Container } from "@components/Container";
 import { useWindowSize } from "@components/hooks/useWindowSize";
@@ -25,8 +26,37 @@ import { DBInitOver } from "@recoil/atoms/DBInitOver/index";
 import { DungeonNotify } from "@components/main_page_component/Menus/DungeonNotify";
 import { DBStatus } from "@components/main_page_component/Menus/DBStatus";
 import Head from "next/head";
+import axios from "axios";
 
 const Home: React.FC = () => {
+    /// test ///
+
+    const [data, setData] = useState("");
+    useEffect(() => {
+        fetch(
+            "https://res01.hycdn.cn/c45933b7b676460566e12a089fe39338/61800D5D/siren/audio/20211101/d5e4588822fac9f76f40c1dbb8d0150c.mp3",
+        )
+            .then((response) => response.blob())
+            .then((d) => {
+                //setData(URL.createObjectURL(d));
+            });
+        axios
+            .get(
+                "https://res01.hycdn.cn/c45933b7b676460566e12a089fe39338/61800D5D/siren/audio/20211101/d5e4588822fac9f76f40c1dbb8d0150c.mp3",
+                { responseType: "blob" },
+            )
+            .then((response) => {
+                return new Blob([response.data], {
+                    type: response.headers["content-type"],
+                });
+            })
+            .then((d) => {
+                console.log(d);
+                console.log(URL.createObjectURL(d));
+                setData(URL.createObjectURL(d));
+            });
+    }, []);
+    /// test ///
     const size = useWindowSize();
     const height = size.height;
     const width = size.width;
@@ -63,7 +93,7 @@ const Home: React.FC = () => {
                         <Calculation />
                     </GridItem>
                     <GridItem key={"music"}>
-                        <Music />
+                        <Music data={data} />
                     </GridItem>
                     <GridItem key={"login"}>
                         <Login />

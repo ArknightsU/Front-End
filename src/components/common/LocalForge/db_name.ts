@@ -3,4 +3,5 @@ export const DB_NAME = {
     db_version: "db_version",
     name_dict: "name_dictionary",
     file_storage: "file_storage",
+    music_table: "music_table",
 };
