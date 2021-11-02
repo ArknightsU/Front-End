@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { getMusicKeys } from "..";
+import { getAlbumDBValue } from "..";
 
-export function useMusicArray() {
+export function useAlbumDB(key: string) {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState<Array<string>>([]);
+    const [data, setData] = useState({});
     const [nullCheck, setNullChekck] = useState({});
     useEffect(() => {
         async function get() {
-            const data = await getMusicKeys();
+            const data = await getAlbumDBValue(key);
             if (data === null) {
                 setNullChekck(!nullCheck);
             } else {
@@ -19,6 +19,6 @@ export function useMusicArray() {
         get().then(() => {
             setLoading(false);
         });
-    }, [nullCheck]);
+    }, [nullCheck, key]);
     return [data, loading];
 }

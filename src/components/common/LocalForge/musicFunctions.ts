@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { getItem, setItem } from "./functions";
 import { DB_NAME } from "./db_name";
 import axios from "axios";
@@ -119,8 +120,9 @@ export async function getAlbum(key: string) {
     }
 }
 
-export async function getMusicBlob(key: string) {
-    const music = await getItem(DB_NAME.music_storage, key);
+export async function getMusicBlob(key: string): Promise<Blob> {
+    //@ts-ignore
+    const music: Blob | null = await getItem(DB_NAME.music_storage, key);
     if (music === null) {
         const music_data_url = (await getMusic(key)).data.sourceUrl;
         const data = await axios
@@ -179,4 +181,12 @@ export async function getMusicKeys() {
 
 export async function getAlubmKeys() {
     return await db(DB_NAME.album_db).keys();
+}
+
+export async function getAlbumDBValue(key: string) {
+    return await getItem(DB_NAME.album_db, key);
+}
+
+export async function getMusicDBValue(key: string) {
+    return await getItem(DB_NAME.music_db, key);
 }

@@ -1,3 +1,12 @@
 export { useCharObject } from "./useCharObject";
 export { useCharFilterArray } from "./useCharFilterArray";
 export { useDBVersion } from "./useDBVersion";
+export * from "./useAlbum";
+export * from "./useAlbumArray";
+export * from "./useAlbumArtBlob";
+export * from "./useBigAlbumArtBlob";
+export * from "./useMusic";
+export * from "./useMusicArray";
+export * from "./useMusicBlob";
+export * from "./useMusicDB";
+export * from "./useAlbumDB";

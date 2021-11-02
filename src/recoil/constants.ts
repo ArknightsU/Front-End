@@ -6,4 +6,5 @@ export enum Atoms {
     DBVersion = "DBVersion",
     DBInitOver = "DBInitOver",
     MusicFavorite = "MusicFavorite",
+    CurrentPlayList = "CurrentPlayList",
 }

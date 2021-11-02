@@ -3,7 +3,7 @@ import { getMusicBlob } from "..";
 
 export function useMusicBlob(key: string) {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState("");
+    const [data, setData] = useState(new Blob());
     const [nullCheck, setNullChekck] = useState({});
     useEffect(() => {
         async function get() {
