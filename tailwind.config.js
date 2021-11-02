@@ -14,6 +14,11 @@ module.exports = {
             "gacha-mask": "480px",
         },
         extend: {
+            fontFamily: {
+                "ibm-sans": ['"IBM Plex Sans"', "sans-serif"],
+                "ibm-mono": ['"IBM Plex Mono"', "monospace"],
+                "ibm-korean": ['"IBM Plex Sans KR"', "sans-serif"],
+            },
             fontSize: {
                 xxs: "0.2rem",
             },
@@ -70,6 +75,7 @@ module.exports = {
             },
             boxShadow: {
                 right: "5px 0px 3px rgba(0, 0, 0, 0.2)",
+                br: "5px 5px 3px rgba(0, 0, 0, 0.2)",
             },
         },
     },
