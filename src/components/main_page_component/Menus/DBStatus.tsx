@@ -16,7 +16,7 @@ export function DBStatus(props: DBStatusProps): JSX.Element {
                 {screen_size.width > 768 ? (
                     <div className="w-full h-full flex flex-row justify-center items-center">
                         <div className="w-1/4 h-full flex justify-center items-center">
-                            <p className="w-auto h-auto font-extrabold text-sm md:text-md text-center">
+                            <p className="w-auto h-auto fo font-extrabold text-sm md:text-md text-center">
                                 {"DB"}
                                 <br />
                                 {"상태"}
@@ -24,7 +24,7 @@ export function DBStatus(props: DBStatusProps): JSX.Element {
                         </div>
                         <div className="h-4/5 w-0 border-truegray-700 border-solid border-l-2 border-opacity-30" />
                         <div className="w-1/4 h-full flex justify-center items-center">
-                            <p className="w-auto h-auto font-extrabold text-md md:text-md text-center">
+                            <p className="w-auto h-auto font-extrabold text-md md:text-md text-center font-ibm-korean">
                                 {props.loading ? "로딩 중" : "정상"}
                             </p>
                             <div className="ml-2 h-auto w-auto relative flex justify-center items-center">
@@ -47,7 +47,7 @@ export function DBStatus(props: DBStatusProps): JSX.Element {
                         <div className="h-4/5 w-0 border-truegray-700 border-solid border-l-2 border-opacity-30" />
                         <div className="w-1/4 h-full flex flex-col justify-center items-center">
                             <div className="w-full h-1/2 flex justify-center items-center">
-                                <p className="w-auto h-auto font-extrabold text-md md:text-md text-center">
+                                <p className="w-auto h-auto font-ibm-sans font-bold text-md md:text-md text-center">
                                     {"version"}
                                 </p>
                             </div>
@@ -55,7 +55,7 @@ export function DBStatus(props: DBStatusProps): JSX.Element {
                                 {versionLoading ? (
                                     <EclipseSpinner />
                                 ) : (
-                                    <pre className="w-auto h-auto font-mono font-extrabold text-xs md:text-xs text-center leading-none">
+                                    <pre className="w-auto h-auto font-ibm-mono font-bold text-xs md:text-xs text-center leading-none">
                                         {String(dbversion).substring(
                                             0,
                                             String(dbversion).length / 2,
@@ -78,7 +78,7 @@ export function DBStatus(props: DBStatusProps): JSX.Element {
                                     className="w-full h-full bg-red-600 hover:bg-red-800 transition-all rounded-lg flex justify-center items-center"
                                     onClick={props.toggleInitDb}
                                 >
-                                    <p className="w-auto h-auto text-white font-extrabold text-xs md:text-xs text-center">
+                                    <p className="w-auto h-auto text-white font-ibm-korean font-extrabold text-xs md:text-xs text-center">
                                         {"강제"}
                                         <br />
                                         {"재설정"}
@@ -131,7 +131,7 @@ export function DBStatus(props: DBStatusProps): JSX.Element {
                                     {versionLoading ? (
                                         <EclipseSpinner />
                                     ) : (
-                                        <pre className="w-auto h-auto font-mono font-extrabold text-xxs md:text-xs text-center leading-none">
+                                        <pre className="w-auto h-auto font-ibm-mono font-bold text-xxs md:text-xs text-center leading-none">
                                             {String(dbversion).substring(
                                                 0,
                                                 String(dbversion).length / 2,

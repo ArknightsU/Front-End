@@ -15,8 +15,9 @@ interface VersionData {
     songs_length: number;
     albums_length: number;
 }
-async function getVersion() {
+async function getVersion(): Promise<VersionData> {
     const data = (await axios.get(MUSIC_VERSION_URL)).data;
+    console.log(data);
     return {
         version: data["version"],
         songs_length: data["songs_length"],
@@ -25,6 +26,7 @@ async function getVersion() {
 }
 
 async function setVersion(version_data: any) {
+    console.log(version_data);
     for (const keys of Object.keys(version_data)) {
         await setItem(DB_NAME.music_version, keys, version_data[keys]);
     }
@@ -42,6 +44,8 @@ async function checkVersion() {
     const local_album_length = await db(DB_NAME.album_db).length();
     const local_checker = [localVersion, local_song_length, local_album_length];
     if (local_checker.includes(null)) {
+        const net_version = await getVersion();
+        setVersion(net_version);
         return false;
     } else {
         const net_version = await getVersion();
@@ -149,4 +153,30 @@ export async function getAlbumArtBlob(key: string) {
     } else {
         return album;
     }
+}
+
+export async function getBigAlbumArtBlob(key: string) {
+    const album = await getItem(DB_NAME.album_storage, key);
+    if (album === null) {
+        const album_data_url = (await getAlbum(key)).data.coverDeUrl;
+        const data = await axios
+            .get(album_data_url, { responseType: "blob" })
+            .then((res) => {
+                return new Blob([res.data], {
+                    type: res.headers["content-type"],
+                });
+            });
+        await setItem(DB_NAME.album_storage, key, data);
+        return data;
+    } else {
+        return album;
+    }
+}
+
+export async function getMusicKeys() {
+    return await db(DB_NAME.music_db).keys();
+}
+
+export async function getAlubmKeys() {
+    return await db(DB_NAME.album_db).keys();
 }
