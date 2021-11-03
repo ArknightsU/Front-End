@@ -72,6 +72,7 @@ export function Music(): JSX.Element {
                                     playListAll={playListAll}
                                     playListFavorite={playListFavorite}
                                     playListFavoriteFunction={favoriteFunctions}
+                                    current={current}
                                     setCurrent={setCurrent}
                                 />
                             )}
@@ -88,7 +89,7 @@ export function Music(): JSX.Element {
                     ) : (
                         <div className="w-full h-full flex flex-col justify-center items-end">
                             <div className="w-full flex-grow relative items-end flex">
-                                <div className="absolute w-full h-1/2 bg-gradient-to-t from-truegray-700 to-transparent bg-opacity-40"></div>
+                                <div className="absolute w-full h-2/3 bg-gradient-to-t from-black to-transparent opacity-80 z-10"></div>
                                 <div className="w-full h-full relative flex justify-center items-center">
                                     {imageLoading || imageUrl === "" ? (
                                         <EclipseSpinner />
@@ -161,9 +162,18 @@ function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                     setEndTime(duration);
                 }}
                 onEnded={() => {
-                    props.setCurrent(
-                        (prev) => prev + (1 % props.playList.length),
-                    );
+                    if (random) {
+                        props.setCurrent(Math.random() * props.playList.length);
+                    } else if (repeat === 0) {
+                        setCurrentTime(0);
+                        setPlay(false);
+                    } else if (repeat === 1) {
+                        setCurrentTime(0);
+                    } else {
+                        props.setCurrent(
+                            (prev) => prev + (1 % props.playList.length),
+                        );
+                    }
                 }}
             />
             <div className="w-full h-full flex flex-col justify-center items-center border-2 border-solid rounded-lg md:rounded-t-none md:rounded-b-lg border-truegray-300">
@@ -384,13 +394,14 @@ function PlayListItem(props: PlayListItemProps): JSX.Element {
                             </p>
                         </div>
                         <div
-                            className={`w-1/3 h-full p-2 flex justify-end items-end transition-all duration-700 z-10 ${
+                            className={`w-1/3 h-full p-2 flex justify-end items-end transition-all duration-700 ${
                                 !props.playListFavorite.includes(
                                     props.music_key,
                                 )
                                     ? "text-gray-400 hover:text-yellow-300 focus:text-yellow-500"
                                     : "text-yellow-300 hover:text-gray-400"
                             }`}
+                            style={{ zIndex: 12 }}
                             onClick={() => {
                                 if (
                                     props.playListFavorite.includes(
@@ -434,6 +445,7 @@ function PlayListItem(props: PlayListItemProps): JSX.Element {
                                 onClick={() => {
                                     props.setCurrent(props.index);
                                 }}
+                                style={{ zIndex: 11 }}
                             >
                                 <p className="w-full font-ibm-sans font-bold text-sm text-center truncate text-white">
                                     {"재생 중 : " +

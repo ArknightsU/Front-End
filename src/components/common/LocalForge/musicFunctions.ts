@@ -140,21 +140,26 @@ export async function getMusicBlob(key: string): Promise<Blob> {
     }
 }
 
-export async function getAlbumArtBlob(key: string) {
-    const album = await getItem(DB_NAME.album_storage, key);
+export async function getAlbumArtBlob(key: string): Promise<Blob | null> {
+    // @ts-ignore
+    const album: Blob | null = await getItem(DB_NAME.album_storage, key);
     if (album === null) {
-        const album_data_url = (await getAlbum(key)).data.coverUrl;
-        const data = await fetch(album_data_url, {
-            method: "HEAD",
-            mode: "no-cors",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                Accept: "image/jpeg",
-                "Content-Type": "image/jpeg",
-            },
-        }).then((res) => {
-            return res.blob();
-        });
+        const album_json = await getAlbum(key);
+        if (album_json === null) return null;
+        // @ts-ignore
+        const album_data_url = album_json.data.coverUrl;
+        if (album_data_url === undefined) {
+            return null;
+        }
+        const data = await axios
+            .get(`https://proxy.kanadetc.workers.dev/?${album_data_url}`, {
+                responseType: "blob",
+            })
+            .then((res) => {
+                return new Blob([res.data], {
+                    type: res.headers["content-type"],
+                });
+            });
         await setItem(DB_NAME.album_storage, key, data);
         return data;
     } else {

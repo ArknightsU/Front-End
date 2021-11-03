@@ -7,10 +7,12 @@ import { DB_NAME } from "./db_name";
 import { CHAR_TABLE_GZ_URL, CHAR_NAME_DICT_URL } from "@constants";
 
 export async function setItem(db_name: string, key: string, value: any) {
+    if (key === undefined) return;
     await db(db_name).setItem(key, value);
 }
 
 export async function getItem(db_name: string, key: string) {
+    if (key === undefined) return null;
     return await db(db_name).getItem(key);
 }
 
