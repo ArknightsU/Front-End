@@ -41,16 +41,16 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
     const smallLayout = [
         { i: "operator", x: 0, y: 6, w: 6, h: 2 },
         { i: "gacha", x: 0, y: 4, w: 6, h: 2 },
-        { i: "calc", x: 0, y: 2, w: 6, h: 2 },
-        { i: "music", x: 0, y: 0, w: 6, h: 1 },
-        { i: "login", x: 6, y: 0, w: 3, h: 1 },
+        { i: "calc", x: 0, y: 3, w: 6, h: 2 },
+        { i: "music", x: 0, y: 0, w: 9, h: 2 },
+        { i: "login", x: 6, y: 3, w: 3, h: 1 },
         { i: "settings", x: 6, y: 6, w: 3, h: 1 },
         { i: "dev", x: 6, y: 7, w: 3, h: 1 },
         { i: "theme", x: 6, y: 5, w: 3, h: 1 },
         { i: "status", x: 6, y: 3, w: 3, h: 1 },
-        { i: "dungeon", x: 0, y: 1, w: 5, h: 1 },
-        { i: "weekly", x: 5, y: 1, w: 4, h: 1 },
-        { i: "db", x: 6, y: 2, w: 3, h: 1 },
+        { i: "dungeon", x: 0, y: 8, w: 5, h: 1 },
+        { i: "weekly", x: 5, y: 8, w: 4, h: 1 },
+        { i: "db", x: 0, y: 9, w: 6, h: 1 },
         { i: "trans", x: 6, y: 4, w: 3, h: 1 },
     ];
     const menuLayout = {

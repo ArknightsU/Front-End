@@ -56,7 +56,11 @@ export function CalcMain(): JSX.Element {
                     top: `${ads.current ? ads.current.offsetHeight : 0}px`,
                 }}
             >
-                <GoBackLinkButton zIndex={9} top={20} />
+                <GoBackLinkButton
+                    zIndex={9}
+                    top={20}
+                    left={window_size.width < 768 ? 10 : 40}
+                />
                 <CharSelector
                     rarity={rarity}
                     setRarity={setRarity}

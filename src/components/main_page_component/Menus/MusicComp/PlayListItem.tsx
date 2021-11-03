@@ -21,8 +21,8 @@ export function PlayListItem(props: PlayListItemProps): JSX.Element {
     const [currentPlayList, setCurrentPlayList] =
         useRecoilState(CurrentPlayList);
     return (
-        <div className="w-full h-10 bg-truegray-900 flex-shrink-0 rounded-lg relative overflow-visible">
-            <div className="w-1/3 h-2 absolute flex justify-start items-center bg-red-700 z-10">
+        <div className="w-full h-6 md:h-10 bg-truegray-900 flex-shrink-0 rounded-lg relative overflow-visible">
+            <div className="w-1/3 h-2 absolute flex justify-start items-center bg-red-700 z-10 opacity-0 md:opacity-100">
                 <p className="font-ibm-mono font-bold text-xxs text-white ml-1 -top-2 -left-2 uppercase">
                     {"Song Name: "}
                 </p>

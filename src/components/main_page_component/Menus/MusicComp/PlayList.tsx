@@ -79,8 +79,8 @@ export function PlayList(props: PlayListProps): JSX.Element {
                         </div>
                     </div>
                     <div
-                        className="w-full flex justify-center items-center p-1"
-                        style={{ height: "15%" }}
+                        className="w-full flex justify-center items-center p-1 flex-shrink-0"
+                        style={{ height: "15%", minHeight: "30px" }}
                     >
                         <div
                             className="w-full h-full bg-blue-500 hover:bg-blue-600 transition-all duration-500 flex justify-center items-center rounded-lg"
@@ -89,7 +89,7 @@ export function PlayList(props: PlayListProps): JSX.Element {
                                 props.setCurrent(0);
                             }}
                         >
-                            <p className="font-ibm-korean font-bold whitespace-nowrap text-white">
+                            <p className="font-ibm-korean font-bold whitespace-nowrap text-xxs md:text-base text-white">
                                 {"현재 재생목록을 재생"}
                             </p>
                         </div>

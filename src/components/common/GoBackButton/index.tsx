@@ -12,7 +12,7 @@ export function GoBackLinkButton(props: GoBackLinkButtonProps): JSX.Element {
     return (
         <Link href={props.href ? props.href : "/"} passHref>
             <div
-                className="absolute top-10 left-10 w-44 h-14 bg-truegray-700 bg-opacity-100 opacity-100 shadow-xl"
+                className="absolute top-10 left-10 w-20 h-14 md:w-44 md:h-14 bg-truegray-700 bg-opacity-100 opacity-100 shadow-xl"
                 style={{
                     zIndex: props.zIndex ? props.zIndex : 50,
                     top: props.top ? `${props.top}px` : "40px",

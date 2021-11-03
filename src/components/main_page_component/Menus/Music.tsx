@@ -69,7 +69,7 @@ export function Music(): JSX.Element {
                 }
                 <div className="w-1/2 h-full rounded-lg overflow-hidden shadow-br">
                     {loading ? (
-                        <div className="w-fuill h-full flex flex-col justify-center items-center">
+                        <div className="w-full h-full flex flex-col justify-center items-center">
                             <EclipseSpinner />
                             <p>{loadingText}</p>
                         </div>
@@ -108,7 +108,7 @@ export function Music(): JSX.Element {
                         </div>
                     ) : (
                         <div className="w-full h-full flex flex-col justify-center items-end">
-                            <div className="w-full flex-grow relative items-end flex">
+                            <div className="w-full h-3/5 relative items-end flex">
                                 <div className="absolute w-full h-full rounded-t-lg bg-black"></div>
                                 <div className="w-full h-full relative flex justify-center items-center">
                                     {imageLoading || imageUrl === "" ? (
