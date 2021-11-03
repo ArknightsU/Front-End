@@ -8,7 +8,7 @@ interface SubMenuProps {
 const DEFAULT_ICON = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5 lg:h-8 lg:w-8"
+        className="h-5 w-5 md:h-8 md:w-8"
         viewBox="0 0 20 20"
         fill="#fff"
     >

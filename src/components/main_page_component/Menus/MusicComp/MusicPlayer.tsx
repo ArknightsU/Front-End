@@ -50,7 +50,7 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
         setUrl(URL.createObjectURL(musicObj));
     }, [musicObj]);
     return (
-        <div className="w-full h-full sm:h-1/2 md:h-2/5 flex justify-end items-end">
+        <div className="w-full h-2/5 flex justify-end items-end">
             <ReactPlayer
                 ref={ref}
                 url={url}

@@ -58,6 +58,13 @@ module.exports = {
             },
             colors: {
                 truegray: colors.trueGray,
+                amber: colors.amber,
+            },
+            textColor: {
+                amber: colors.amber,
+            },
+            backgroundColor: {
+                amber: colors.amber,
             },
             zIndex: {
                 bg: -1,
