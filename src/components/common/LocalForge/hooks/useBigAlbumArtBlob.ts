@@ -10,6 +10,7 @@ export function useBigAlbumArtBlob(key: string) {
             setLoading(true);
             const data = await getBigAlbumArtBlob(key);
             if (data === null) {
+                console.log(data);
                 setNullChekck(!nullCheck);
             } else {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

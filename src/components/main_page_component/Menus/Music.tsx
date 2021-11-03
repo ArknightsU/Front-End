@@ -17,19 +17,22 @@ import ReactPlayer from "react-player";
 import { useFavorite } from "@recoil/hooks";
 import { useRecoilState } from "recoil";
 import { CurrentPlayList } from "@recoil/atoms/CurrentPlayList";
+import { SetterOrUpdater } from "recoil";
 
 // TODO : MUSIC PLAYER
 interface MusicProps {
     data: string;
 }
 export function Music(): JSX.Element {
-    const [fav, setFav] = useRecoilState(CurrentPlayList);
+    const [fav, setFav] = useState(false);
+    const [currentPlayList, setCurrentPlayList] =
+        useRecoilState(CurrentPlayList);
     const [playListAll, playListLoading] = useMusicArray();
     const [playListFavorite, favoriteFunctions] = useFavorite();
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingText, setLoadingText] = useState<string>("DB 초기 설정 중");
     const [current, setCurrent] = useState<number>(0);
-    const playList = fav ? playListFavorite : playListAll;
+    const playList = currentPlayList ? playListFavorite : playListAll;
     // @ts-ignore
     const [currentMusic, musicLoading] = useMusicDB(playList[current]);
     // @ts-ignore
@@ -45,8 +48,11 @@ export function Music(): JSX.Element {
     }, []);
     useEffect(() => {
         // @ts-ignore
-        setImageUrl(imageLoading ? "" : window.URL.createObjectURL(imageBlob));
-    }, [imageBlob, imageLoading]);
+        console.log(typeof imageBlob);
+        if (typeof imageBlob === "object") {
+            setImageUrl(imageLoading ? "" : URL.createObjectURL(imageBlob));
+        }
+    }, [imageLoading]);
     return (
         <div className={menuStyle}>
             <div className="w-full h-full flex flew-row justify-center items-center">
@@ -68,6 +74,8 @@ export function Music(): JSX.Element {
                                 <PlayList
                                     fav={fav}
                                     setFav={setFav}
+                                    currentPlayList={currentPlayList}
+                                    setCurrentPlayList={setCurrentPlayList}
                                     // @ts-ignore
                                     playListAll={playListAll}
                                     playListFavorite={playListFavorite}
@@ -89,7 +97,7 @@ export function Music(): JSX.Element {
                     ) : (
                         <div className="w-full h-full flex flex-col justify-center items-end">
                             <div className="w-full flex-grow relative items-end flex">
-                                <div className="absolute w-full h-2/3 bg-gradient-to-t from-black to-transparent opacity-80 z-10"></div>
+                                <div className="absolute w-full h-full rounded-t-lg bg-black"></div>
                                 <div className="w-full h-full relative flex justify-center items-center">
                                     {imageLoading || imageUrl === "" ? (
                                         <EclipseSpinner />
@@ -100,7 +108,11 @@ export function Music(): JSX.Element {
                             </div>
                             <MusicPlayer
                                 // @ts-ignore
-                                playList={fav ? playListFavorite : playListAll}
+                                playList={
+                                    currentPlayList
+                                        ? playListFavorite
+                                        : playListAll
+                                }
                                 current={current}
                                 setCurrent={setCurrent}
                             />
@@ -282,6 +294,8 @@ interface PlayListProps {
     };
     current: number;
     setCurrent: React.Dispatch<React.SetStateAction<number>>;
+    currentPlayList: boolean;
+    setCurrentPlayList: SetterOrUpdater<boolean>;
 }
 function PlayList(props: PlayListProps): JSX.Element {
     return (
@@ -334,6 +348,7 @@ function PlayList(props: PlayListProps): JSX.Element {
                                     music_key={v}
                                     key={idx}
                                     index={idx}
+                                    fav={props.fav}
                                     playListFavorite={props.playListFavorite}
                                     playListFavoriteFunction={
                                         props.playListFavoriteFunction
@@ -348,7 +363,13 @@ function PlayList(props: PlayListProps): JSX.Element {
                         className="w-full flex justify-center items-center p-1"
                         style={{ height: "15%" }}
                     >
-                        <div className="w-full h-full bg-blue-500 hover:bg-blue-600 transition-all duration-500 flex justify-center items-center rounded-lg">
+                        <div
+                            className="w-full h-full bg-blue-500 hover:bg-blue-600 transition-all duration-500 flex justify-center items-center rounded-lg"
+                            onClick={() => {
+                                props.setCurrentPlayList(props.fav);
+                                props.setCurrent(0);
+                            }}
+                        >
                             <p className="font-ibm-korean font-bold whitespace-nowrap text-white">
                                 {"현재 재생목록을 재생"}
                             </p>
@@ -361,6 +382,7 @@ function PlayList(props: PlayListProps): JSX.Element {
 }
 
 interface PlayListItemProps {
+    fav: boolean;
     music_key: string;
     playListFavorite: string[];
     playListFavoriteFunction: {
@@ -373,6 +395,8 @@ interface PlayListItemProps {
 }
 function PlayListItem(props: PlayListItemProps): JSX.Element {
     const [value, loading] = useMusicDB(props.music_key);
+    const [currentPlayList, setCurrentPlayList] =
+        useRecoilState(CurrentPlayList);
     return (
         <div className="w-full h-10 bg-truegray-900 flex-shrink-0 rounded-lg relative overflow-visible">
             <div className="w-1/3 h-2 absolute flex justify-start items-center bg-red-700 z-10">
@@ -428,20 +452,22 @@ function PlayListItem(props: PlayListItemProps): JSX.Element {
                             </svg>
                         </div>
                         <div
-                            className="w-full h-full flex justify-center items-center absolute transition-all duration-500 opacity-0 hover:opacity-100 bg-truegray-900 rounded-lg"
+                            className="w-2/3 h-full flex justify-center items-center absolute transition-all duration-500 opacity-0 hover:opacity-100 bg-truegray-900 rounded-lg"
                             onClick={() => {
+                                setCurrentPlayList(props.fav);
                                 props.setCurrent(props.index);
                             }}
                         >
-                            <p className="w-full font-ibm-sans font-bold text-sm text-center truncate text-white">
+                            <p className="ml-2 w-full font-ibm-sans font-bold text-sm text-center truncate text-white">
                                 {"재생: " +
                                     // @ts-ignore
                                     value.name}
                             </p>
                         </div>
-                        {props.current === props.index ? (
+                        {props.current === props.index &&
+                        props.fav === currentPlayList ? (
                             <div
-                                className="w-full h-full flex justify-center items-center absolute transition-all duration-500 bg-truegray-900 rounded-lg"
+                                className="w-2/3 left-0 h-full flex justify-center items-center absolute transition-all duration-500 bg-truegray-900 rounded-lg"
                                 onClick={() => {
                                     props.setCurrent(props.index);
                                 }}

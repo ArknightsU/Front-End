@@ -124,7 +124,7 @@ export async function getMusicBlob(key: string): Promise<Blob> {
     if (music === null) {
         const jsonData = await getMusic(key);
         // @ts-ignore
-        if (jsonData === null) return null;
+        if (jsonData === null) return new Blob();
         const music_data_url = jsonData.data.sourceUrl;
         const data = await axios
             .get(music_data_url, { responseType: "blob" })
@@ -145,7 +145,7 @@ export async function getAlbumArtBlob(key: string): Promise<Blob | null> {
     const album: Blob | null = await getItem(DB_NAME.album_storage, key);
     if (album === null) {
         const album_json = await getAlbum(key);
-        if (album_json === null) return null;
+        if (album_json === null) return new Blob();
         // @ts-ignore
         const album_data_url = album_json.data.coverUrl;
         if (album_data_url === undefined) {
@@ -172,7 +172,8 @@ export async function getBigAlbumArtBlob(key: string): Promise<Blob | null> {
     const album: Blob | null = await getItem(DB_NAME.album_storage, key);
     if (album === null) {
         const album_json = await getAlbum(key);
-        if (album_json === null) return null;
+        console.log("ALUBM_JSON", album_json);
+        if (album_json === null) return new Blob();
         // @ts-ignore
         const album_data_url = album_json.data.coverDeUrl;
         if (album_data_url === undefined) {
