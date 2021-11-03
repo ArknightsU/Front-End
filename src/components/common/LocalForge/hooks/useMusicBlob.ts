@@ -7,6 +7,7 @@ export function useMusicBlob(key: string) {
     const [nullCheck, setNullChekck] = useState({});
     useEffect(() => {
         async function get() {
+            console.log("CHECK INFINITE");
             const data = await getMusicBlob(key);
             if (data === null) {
                 setNullChekck(!nullCheck);

@@ -204,9 +204,15 @@ export async function getAlubmKeys() {
 }
 
 export async function getAlbumDBValue(key: string) {
+    if (key === undefined) {
+        return "";
+    }
     return await getItem(DB_NAME.album_db, key);
 }
 
 export async function getMusicDBValue(key: string) {
+    if (key === undefined) {
+        return "";
+    }
     return await getItem(DB_NAME.music_db, key);
 }
