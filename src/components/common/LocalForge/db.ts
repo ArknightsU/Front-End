@@ -47,15 +47,6 @@ const album_storage = localForage.createInstance({
         localForage.WEBSQL,
     ],
 });
-const music_table = localForage.createInstance({
-    name: DB,
-    storeName: DB_NAME.music_table,
-    driver: [
-        localForage.INDEXEDDB,
-        localForage.LOCALSTORAGE,
-        localForage.WEBSQL,
-    ],
-});
 const album_table = localForage.createInstance({
     name: DB,
     storeName: DB_NAME.album_table,
@@ -104,8 +95,6 @@ export const db = (key: string): LocalForage => {
             return music_storage;
         case DB_NAME.album_storage:
             return album_storage;
-        case DB_NAME.music_table:
-            return music_table;
         case DB_NAME.album_table:
             return album_table;
         case DB_NAME.album_db:

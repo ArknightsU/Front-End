@@ -100,20 +100,18 @@ export async function initMusicDB() {
 }
 
 export async function getMusic(key: string) {
-    const music = await getItem(DB_NAME.music_table, key);
-    if (music === null) {
-        const music_data = (await axios.get(MUSIC_SONG_URL(key))).data;
-        await setItem(DB_NAME.music_table, key, music_data);
-        return music_data;
-    } else {
-        return music;
-    }
+    if (key === undefined) return null;
+    const music_data = (await axios.get(MUSIC_SONG_URL(key))).data;
+    return music_data;
 }
 export async function getAlbum(key: string) {
-    const album = await getItem(DB_NAME.album_table, key);
+    if (key === undefined) return null;
+    const album: any = await getItem(DB_NAME.album_table, key);
     if (album === null) {
-        const album_data = (await axios.get(MUSIC_ALBUM_URL(key))).data;
-        await setItem(DB_NAME.album_table, key, album_data);
+        const album_data = await axios.get(MUSIC_ALBUM_URL(key));
+        if (album_data === null) return null;
+
+        await setItem(DB_NAME.album_table, key, album_data.data);
         return album_data;
     } else {
         return album;
@@ -124,7 +122,10 @@ export async function getMusicBlob(key: string): Promise<Blob> {
     //@ts-ignore
     const music: Blob | null = await getItem(DB_NAME.music_storage, key);
     if (music === null) {
-        const music_data_url = (await getMusic(key)).data.sourceUrl;
+        const jsonData = await getMusic(key);
+        // @ts-ignore
+        if (jsonData === null) return null;
+        const music_data_url = jsonData.data.sourceUrl;
         const data = await axios
             .get(music_data_url, { responseType: "blob" })
             .then((res) => {
@@ -143,13 +144,17 @@ export async function getAlbumArtBlob(key: string) {
     const album = await getItem(DB_NAME.album_storage, key);
     if (album === null) {
         const album_data_url = (await getAlbum(key)).data.coverUrl;
-        const data = await axios
-            .get(album_data_url, { responseType: "blob" })
-            .then((res) => {
-                return new Blob([res.data], {
-                    type: res.headers["content-type"],
-                });
-            });
+        const data = await fetch(album_data_url, {
+            method: "HEAD",
+            mode: "no-cors",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Accept: "image/jpeg",
+                "Content-Type": "image/jpeg",
+            },
+        }).then((res) => {
+            return res.blob();
+        });
         await setItem(DB_NAME.album_storage, key, data);
         return data;
     } else {
@@ -157,12 +162,21 @@ export async function getAlbumArtBlob(key: string) {
     }
 }
 
-export async function getBigAlbumArtBlob(key: string) {
-    const album = await getItem(DB_NAME.album_storage, key);
+export async function getBigAlbumArtBlob(key: string): Promise<Blob | null> {
+    // @ts-ignore
+    const album: Blob | null = await getItem(DB_NAME.album_storage, key);
     if (album === null) {
-        const album_data_url = (await getAlbum(key)).data.coverDeUrl;
+        const album_json = await getAlbum(key);
+        if (album_json === null) return null;
+        // @ts-ignore
+        const album_data_url = album_json.data.coverDeUrl;
+        if (album_data_url === undefined) {
+            return null;
+        }
         const data = await axios
-            .get(album_data_url, { responseType: "blob" })
+            .get(`https://proxy.kanadetc.workers.dev/?${album_data_url}`, {
+                responseType: "blob",
+            })
             .then((res) => {
                 return new Blob([res.data], {
                     type: res.headers["content-type"],

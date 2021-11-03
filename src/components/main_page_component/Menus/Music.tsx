@@ -3,7 +3,9 @@ import React, { SetStateAction, useEffect, useRef, useState } from "react";
 import { menuStyle, insideStyle } from "./common";
 import "react-h5-audio-player/lib/styles.css";
 import {
+    CustomImage,
     initMusicDB,
+    useBigAlbumArtBlob,
     useMusicArray,
     useMusicBlob,
     useMusicDB,
@@ -27,6 +29,12 @@ export function Music(): JSX.Element {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingText, setLoadingText] = useState<string>("DB 초기 설정 중");
     const [current, setCurrent] = useState<number>(0);
+    const playList = fav ? playListFavorite : playListAll;
+    // @ts-ignore
+    const [currentMusic, musicLoading] = useMusicDB(playList[current]);
+    // @ts-ignore
+    const [imageBlob, imageLoading] = useBigAlbumArtBlob(currentMusic.albumCid);
+    const [imageUrl, setImageUrl] = useState("");
     useEffect(() => {
         setCurrent(0);
     }, [fav]);
@@ -35,6 +43,10 @@ export function Music(): JSX.Element {
             setLoading(false);
         });
     }, []);
+    useEffect(() => {
+        // @ts-ignore
+        setImageUrl(imageLoading ? "" : window.URL.createObjectURL(imageBlob));
+    }, [imageBlob, imageLoading]);
     return (
         <div className={menuStyle}>
             <div className="w-full h-full flex flew-row justify-center items-center">
@@ -60,6 +72,7 @@ export function Music(): JSX.Element {
                                     playListAll={playListAll}
                                     playListFavorite={playListFavorite}
                                     playListFavoriteFunction={favoriteFunctions}
+                                    setCurrent={setCurrent}
                                 />
                             )}
                         </div>
@@ -76,6 +89,13 @@ export function Music(): JSX.Element {
                         <div className="w-full h-full flex flex-col justify-center items-end">
                             <div className="w-full flex-grow relative items-end flex">
                                 <div className="absolute w-full h-1/2 bg-gradient-to-t from-truegray-700 to-transparent bg-opacity-40"></div>
+                                <div className="w-full h-full relative flex justify-center items-center">
+                                    {imageLoading || imageUrl === "" ? (
+                                        <EclipseSpinner />
+                                    ) : (
+                                        <CustomImage src={imageUrl} />
+                                    )}
+                                </div>
                             </div>
                             <MusicPlayer
                                 // @ts-ignore
@@ -105,8 +125,7 @@ function MusicPlayer(props: MusicPlayerProps): JSX.Element {
     const [play, setPlay] = useState<boolean>(false);
     const [mute, setMute] = useState<boolean>(false);
     const [musicObj, loading] = useMusicBlob(props.playList[props.current]);
-    const url = loading ? "" : URL.createObjectURL(musicObj);
-    console.log(url);
+    const [url, setUrl] = useState("");
     const setRepeatComp = () => {
         switch (repeat) {
             case 0:
@@ -120,11 +139,15 @@ function MusicPlayer(props: MusicPlayerProps): JSX.Element {
         }
     };
     const ref = useRef<ReactPlayer>(null);
+    useEffect(() => {
+        // @ts-ignore
+        setUrl(URL.createObjectURL(musicObj));
+    }, [musicObj]);
     return (
         <div className="w-full h-full sm:h-1/2 md:h-2/5 flex justify-end items-end">
             <ReactPlayer
                 ref={ref}
-                url={"http://goldfirestudios.com/proj/howlerjs/sound.ogg"}
+                url={url}
                 playing={play}
                 loop={repeat === 1 ? true : false}
                 volume={volume / 100}
@@ -136,6 +159,11 @@ function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                 }}
                 onDuration={(duration) => {
                     setEndTime(duration);
+                }}
+                onEnded={() => {
+                    props.setCurrent(
+                        (prev) => prev + (1 % props.playList.length),
+                    );
                 }}
             />
             <div className="w-full h-full flex flex-col justify-center items-center border-2 border-solid rounded-lg md:rounded-t-none md:rounded-b-lg border-truegray-300">

@@ -64,10 +64,6 @@ async function setNameDictItems() {
     }
 }
 
-async function setFileStorageItems(key: string, data: any) {
-    await setItem(DB_NAME.file_storage, key, data);
-}
-
 async function getCharDBLength() {
     return (await db(DB_NAME.character_table).length()) + REJECT.length;
 }

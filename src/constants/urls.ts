@@ -27,7 +27,7 @@ export const MUSIC_SONGS_URL =
 export const MUSIC_ALBUMS_URL =
     "https://arknightsu.github.io/json/music/albums.json";
 export const MUSIC_SONG_URL = (song_number: string): string => {
-    return `https://arknightsu.github.io/json/music/song/${song_number}.json`;
+    return `https://proxy.kanadetc.workers.dev/?https://monster-siren.hypergryph.com/api/song/${song_number}`;
 };
 export const MUSIC_ALBUM_URL = (album: string): string => {
     return `https://arknightsu.github.io/json/music/album/${album}.json`;
