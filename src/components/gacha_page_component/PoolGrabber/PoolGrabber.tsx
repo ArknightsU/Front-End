@@ -1,6 +1,5 @@
-import { useWindowSize } from "@components";
-import { CustomImage } from "@components/common";
-import { Transition } from "@headlessui/react";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { CustomImage, useWindowSize } from "@components";
 import React, { useRef, useState } from "react";
 import { PoolComponent } from "./PoolComponent";
 
@@ -13,12 +12,55 @@ interface PoolGrabProps {
     setPoolSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export function PoolGrabber(props: PoolGrabProps): JSX.Element {
+    // Touch Movement State
+    const [prevTouch, setPrevTouch] = useState(null);
+    const [movementY, setMovementY] = useState(0);
+    // Wheel Movement State
+    const [wheel, setWheel] = useState(0);
+    // Maximum Wheel constant
+    const maxWheel = (props.pools.length - 1) * 200;
     const screen_size = useWindowSize();
     const ref = useRef<HTMLDivElement>(null);
     return (
-        <div className="w-11/12 h-full md:w-1/2 absolute left-6 lg:left-12 xl:left-24 flex flex-col justify-center items-center transition-all overflow-x-visible">
+        <div
+            className="w-11/12 h-full md:w-1/2 absolute -left-12 sm:left-0 md:left-6 lg:left-12 xl:left-24 flex flex-col justify-center items-center transition-all overflow-x-visible"
+            onWheel={(e) => {
+                // onWheel Event handler
+                setWheel((prev) => {
+                    if (prev === 0 && e.deltaY < 0) return prev;
+                    if (prev === maxWheel && e.deltaY > 0) return prev;
+                    return prev + e.deltaY;
+                });
+                props.setFocused(Math.floor(wheel / 200));
+            }}
+            onTouchMove={(e) => {
+                // onTouchMove Evevnt Handler
+                //console.log(e);
+                const touch = e.touches[0];
+                if (prevTouch !== null) {
+                    //e.movementX = touch.pageX - previousTouch.pageX;
+                    // @ts-ignore
+                    const movement = touch.pageY - prevTouch.pageY;
+                    if (props.focused === 0 && movement > 0) return;
+                    if (
+                        props.focused === props.pools.length - 1 &&
+                        movement < 0
+                    )
+                        return;
+                    setMovementY((prev) => prev + movement);
+                    props.setFocused(-Math.floor(movementY / 120));
+                }
+                // @ts-ignore
+                setPrevTouch(touch);
+            }}
+            onTouchEnd={(e) => {
+                // onTouchEnd, set previous touch to null
+                setPrevTouch(null);
+                //setMovementY(0);
+            }}
+        >
             <PoolGrabIndicator />
-            <div className="overflow-y-hidden w-full h-full flex justify-center items-center">
+            <div className="overflow-hidden w-full h-full flex justify-center items-center transform translate-x-16 sm:translate-x-0 z-20">
                 <div
                     ref={ref}
                     className="h-auto transition-all z-20 transform-gpu overflow-visible"
@@ -29,7 +71,7 @@ export function PoolGrabber(props: PoolGrabProps): JSX.Element {
                                   // @ts-ignore
                                   ref.current?.offsetHeight / 2 -
                                   (140 * 0.8 * 1.2) / 2 -
-                                  105 -
+                                  165 -
                                   (70 * 0.8 + 140 * 0.8 * 0.615) * props.focused
                                 : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                   // @ts-ignore
@@ -62,6 +104,8 @@ export function PoolGrabber(props: PoolGrabProps): JSX.Element {
                                     props.setShowGrab(false);
                                 }
                                 props.setFocused(i);
+                                setWheel(i * 200);
+                                setMovementY(-i * 120);
                                 console.log(i);
                             }}
                         >
@@ -98,6 +142,12 @@ function PoolGrabIndicator(): JSX.Element {
                 <div className="absolute w-2/5 h-2/5 bg-black rounded-full flex justify-center items-center">
                     <div className="w-1/3 h-1/3 bg-truegray-500 rounded-full"></div>
                 </div>
+            </div>
+            <div
+                className="absolute -left-12 flex justify-center items-center z-10"
+                style={{ width: "250px", height: "250px" }}
+            >
+                <CustomImage src="/ui/sprite_hightlight_circle.webp" />
             </div>
         </>
     );

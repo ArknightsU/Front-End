@@ -42,12 +42,14 @@ export function Status(): JSX.Element {
         <div className={menuStyle}>
             <div className={insideStyle}>
                 <div className="w-full h-full flex flex-col justify-center items-center">
-                    <div className="w-full h-1/3 flex justify-center items-center">
-                        <p className="font-extrabold text-lg">{"API 서버"}</p>
+                    <div className="w-full h-1/5 flex justify-center items-center bg-truegray-700 rounded-t-lg md:rounded-t-lg">
+                        <p className="font-extrabold text-lg text-white font-ibm-korean">
+                            {"API 서버"}
+                        </p>
                     </div>
-                    <div className="w-full h-1/3 flex justify-center items-center">
+                    <div className="w-full flex-grow flex justify-center items-center">
                         <div className="w-auto h-auto flex flex-row justify-center items-center">
-                            <p className="text-lg font-extrabold text-center">
+                            <p className="text-lg font-extrabold md:text-2xl font-ibm-korean text-center">
                                 {status}
                             </p>
                             <div className="pl-2 w-auto h-auto flex justify-center items-center">
@@ -67,7 +69,7 @@ export function Status(): JSX.Element {
                             className="w-full h-full rounded-lg bg-blue-500 hover:bg-blue-700 active:bg-blue-900 flex justify-center items-center"
                             onClick={() => setToggle(!toggle)}
                         >
-                            <p className="font-extrabold text-xs text-white">
+                            <p className="font-bold text-xs md:text-lg text-white font-ibm-korean">
                                 {"재확인"}
                             </p>
                         </div>
