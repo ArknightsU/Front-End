@@ -2,13 +2,11 @@ export const SERVER_URL_GACHA_POOLS =
     "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/gacha/pools";
 export const SERVER_URL_GACHA =
     "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/gacha";
-export const GET_GACHA_API_URL = (
-    count: number,
-    code: number,
-    stack: number,
-): string => {
+export const GET_GACHA_API_URL = (count: number, code: number): string => {
     return SERVER_URL_GACHA + `?gacha_count=${count}&code=${code}`;
 };
+export const SERVER_URL_RESET_STACK =
+    "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/gacha/reset";
 
 export const CHAR_TABLE_URL =
     "https://static2.arknights.one/json/character_table.json";

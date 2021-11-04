@@ -106,7 +106,6 @@ export function PoolGrabber(props: PoolGrabProps): JSX.Element {
                                 props.setFocused(i);
                                 setWheel(i * 200);
                                 setMovementY(-i * 120);
-                                console.log(i);
                             }}
                         >
                             <PoolComponent pool={v} />

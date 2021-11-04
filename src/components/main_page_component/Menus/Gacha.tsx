@@ -21,10 +21,13 @@ export function Gacha(): JSX.Element {
                             />
                         </div>
                         <div className="w-full h-full flex flex-col justify-end items-end z-10">
-                            <p className="text-lg md:text-xl text-right font-ibm-korean font-bold text-truegray-700 mb-auto mr-4 md:mr-10 mt-5">
-                                {"최근 추가된 배너"}
+                            <p className="text-base md:text-xl text-right font-ibm-korean font-bold text-truegray-700 mb-auto mr-4 md:mr-10 mt-5">
+                                {"현재까지 모집된 대원 수"}
                                 <br />
-                                {"Forget Me Not"}
+                                {"2564250".replace(
+                                    /\B(?=(\d{3})+(?!\d))/g,
+                                    ",",
+                                )}
                             </p>
                             <p className="text-2xl md:text-3xl font-ibm-korean font-bold text-truegray-700 mr-4 md:mr-10 mb-5">
                                 {"가챠 시뮬레이션"}

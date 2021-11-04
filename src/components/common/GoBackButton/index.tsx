@@ -39,12 +39,20 @@ export function GoBackLinkButton(props: GoBackLinkButtonProps): JSX.Element {
 // Goback Normal Button w/ onclick event handler
 interface GoBackButtonProps {
     onClick?: MouseEventHandler<HTMLDivElement>;
+    zIndex?: number;
+    top?: number;
+    left?: number;
 }
 export function GoBackButton(props: GoBackButtonProps): JSX.Element {
     return (
         <div
-            className="absolute top-10 left-10 w-44 h-14 bg-truegray-700 bg-opacity-100 opacity-100 z-50 shadow-xl"
+            className="absolute top-10 left-10 w-20 h-14 md:w-44 md:h-14 bg-truegray-700 bg-opacity-100 opacity-100 z-50 shadow-xl"
             onClick={props.onClick}
+            style={{
+                zIndex: props.zIndex ? props.zIndex : 50,
+                top: props.top ? `${props.top}px` : "40px",
+                left: props.left ? `${props.left}px` : "40px",
+            }}
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,9 +1,10 @@
 import React from "react";
 import { menuStyle, insideStyle } from "./common";
 import Link from "next/link";
-import { CustomImage } from "@components/common";
+import { CustomImage, useCharFilterArray } from "@components/common";
 
 export function Calculation(): JSX.Element {
+    const [chars, loading] = useCharFilterArray([], []);
     return (
         <div className={menuStyle}>
             <Link href="/calc" passHref>
@@ -24,7 +25,9 @@ export function Calculation(): JSX.Element {
                             <p className="text-lg text-right md:text-xl font-ibm-korean font-bold text-truegray-700 mb-auto mr-4 md:mr-10 mt-5">
                                 {"캐릭터 수 총합"}
                                 <br />
-                                {"214"}
+                                {loading || chars.length === 0
+                                    ? "캐릭터 정보 수집 중..."
+                                    : chars.length + " 명"}
                             </p>
                             <p className="text-2xl md:text-3xl font-ibm-korean font-bold text-truegray-700 mr-4 md:mr-10 mb-5">
                                 {"재료 계산"}

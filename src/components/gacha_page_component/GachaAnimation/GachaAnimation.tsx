@@ -91,8 +91,13 @@ const GachaAnimationChild: React.FC<GachaAnimationChildProps> = (props) => {
         props.index % 2 == 1 ? "-100%" : "100%",
     );
     const [expand, setExpand] = useState(false);
+    console.log(translateY);
     useEffect(() => {
-        setTranslateY("0px");
+        console.log("rendered");
+        setTimeout(() => {
+            setTranslateY("0px");
+        }, 250);
+
         if (rarity < 3) {
             props.setIsAnimationEnd(true);
         }

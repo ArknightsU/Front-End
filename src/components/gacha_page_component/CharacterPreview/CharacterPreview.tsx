@@ -14,7 +14,6 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
     const window_size = useWindowSize();
     const charData = props.DEV_featured.map((v) => {
         const [data, loading] = useCharObject(v);
-        console.log(data);
         return { name: v, data: data };
     });
     const featuredSixStars = charData.filter((value) => {

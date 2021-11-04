@@ -16,6 +16,8 @@
     "dependencies": {
         "@headlessui/react": "^1.4.1",
         "@next/bundle-analyzer": "^10.0.5",
+        "@nivo/core": "^0.74.0",
+        "@nivo/pie": "^0.74.0",
         "@tailwindcss/aspect-ratio": "^0.3.0",
         "@types/react-grid-layout": "^1.1.2",
         "@types/react-howler": "^3.7.3",

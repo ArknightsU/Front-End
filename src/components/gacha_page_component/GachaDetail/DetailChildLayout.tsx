@@ -14,12 +14,12 @@ export function DetailChildLayout({
     return (
         <div className="w-full h-auto flex flex-col">
             <div
-                className="w-full h-16 md:h-20 bg-truegray-700 flex flex-col justify-center text-center relative rounded-lg"
+                className="w-full h-12 md:h-16 bg-truegray-700 flex flex-col justify-center text-center relative rounded-lg"
                 onClick={() => {
                     setOpen(!open);
                 }}
             >
-                <span className="ml-5 h-auto w-auto text-white font-sans text-xl md:text-3xl font-bold flex flex-row item-center">
+                <span className="ml-5 h-auto w-auto font-ibm-korean text-white text-xl md:text-2xl font-bold flex flex-row item-center">
                     {title}
                 </span>
                 <div className="absolute w-auto h-full pt-2 pb-2 right-4 transition-all duration-1000">
@@ -27,11 +27,11 @@ export function DetailChildLayout({
                 </div>
             </div>
             <div
-                className={`w-full transition-all bg-white bg-opacity-60 rounded-lg ${
+                className={`w-full transition-all duration-700 bg-white backdrop-filter backdrop-blur-md bg-opacity-60 rounded-lg ${
                     open ? "h-auto p-4" : "h-0 p-0"
                 }`}
             >
-                {children}
+                {open ? children : <></>}
             </div>
         </div>
     );

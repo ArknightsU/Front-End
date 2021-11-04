@@ -7,6 +7,7 @@ import { GachaForeground } from "./GachaForeground";
 import { Transition } from "@headlessui/react";
 import { GachaDetail } from "../GachaDetail";
 import { GachaAnimation } from "../GachaAnimation";
+import { HorizontalGoogleAds } from "@components/common/GoogleAds";
 
 interface GachaMainProps {
     pools: Array<any>;
@@ -21,20 +22,22 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const backButtonOnClickHandler = () => {
-        if (poolSelected && !showGrab) {
-            setShowGrab(true);
-            setPoolSelected(false);
-        }
+        setShowGrab(true);
+        setPoolSelected(false);
     };
+    console.log(props.pools);
     useEffect(() => {
         setShowGrab(true);
     }, []);
     return (
         <div className="w-screen h-screen flex flex-row justify-center items-center overflow-hidden">
+            <div className={`absolute w-full h-auto z-50 top-0`}>
+                <HorizontalGoogleAds />
+            </div>
             {showGrab && !poolSelected ? (
-                <GoBackLinkButton />
+                <GoBackLinkButton top={120} />
             ) : (
-                <GoBackButton onClick={backButtonOnClickHandler} />
+                <GoBackButton top={120} onClick={backButtonOnClickHandler} />
             )}
             {/* Background Images Start */}
             <GachaBackground />
@@ -51,7 +54,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 leaveFrom="left-0"
                 leaveTo="-left-full"
             >
-                <div className="absolute w-screen h-screen flex flex-row justify-center items-center">
+                <div className="absolute w-screen h-screen flex flex-row justify-center items-center overflow-hidden">
                     <PoolGrabber
                         showGrab={showGrab}
                         pools={props.pools}
@@ -68,15 +71,31 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 focused={focused}
                 poolSelected={poolSelected}
             />
-            <GachaDetail
-                poolSelected={poolSelected}
-                pools={props.pools}
-                focused={focused}
-                setDoAnimation={setDoAnimation}
-                setGachaData={setGachaData}
-                setLoading={setLoading}
-                setError={setError}
-            />
+            <Transition
+                appear={true}
+                show={poolSelected}
+                as={Fragment}
+                unmount={true}
+                enter="transition-all top-0 duration-1000"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="transition-all duration-1000"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+            >
+                <div className="absolute w-screen h-screen flex flex-row justify-center items-center overflow-hidden z-20">
+                    <GachaDetail
+                        poolSelected={poolSelected}
+                        pools={props.pools}
+                        focused={focused}
+                        setDoAnimation={setDoAnimation}
+                        setGachaData={setGachaData}
+                        setLoading={setLoading}
+                        setError={setError}
+                    />
+                </div>
+            </Transition>
+
             {/* Foreground Images Start */}
             <GachaForeground />
             {doAnimation ? (
