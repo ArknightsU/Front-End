@@ -26,16 +26,14 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
         { i: "operator", x: 9, y: 0, w: 5, h: 5 },
         { i: "gacha", x: 10, y: 6, w: 9, h: 3 },
         { i: "calc", x: 1, y: 2, w: 8, h: 4 },
-        { i: "music", x: 1, y: 6, w: 9, h: 4 },
-        { i: "login", x: 14, y: 1, w: 3, h: 2 },
+        { i: "music", x: 1, y: 5, w: 9, h: 5 },
+        { i: "login", x: 14, y: 1, w: 3, h: 3 },
         { i: "settings", x: 13, y: 10, w: 3, h: 2 },
         { i: "dev", x: 10, y: 10, w: 3, h: 2 },
         { i: "theme", x: 16, y: 10, w: 3, h: 2 },
-        { i: "status", x: 17, y: 1, w: 2, h: 2 },
+        { i: "status", x: 17, y: 1, w: 2, h: 3 },
         { i: "ui", x: 5, y: 0, w: 3, h: 2 },
-        { i: "dungeon", x: 1, y: 0, w: 5, h: 2 },
-        { i: "weekly", x: 6, y: 0, w: 3, h: 2 },
-        { i: "db", x: 14, y: 3, w: 5, h: 1 },
+        { i: "db", x: 1, y: 0, w: 8, h: 1 },
         { i: "trans", x: 14, y: 4, w: 5, h: 2 },
     ];
     const smallLayout = [
@@ -48,9 +46,7 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
         { i: "dev", x: 6, y: 7, w: 3, h: 1 },
         { i: "theme", x: 6, y: 5, w: 3, h: 1 },
         { i: "status", x: 6, y: 3, w: 3, h: 1 },
-        { i: "dungeon", x: 0, y: 8, w: 5, h: 1 },
-        { i: "weekly", x: 5, y: 8, w: 4, h: 1 },
-        { i: "db", x: 0, y: 9, w: 6, h: 1 },
+        { i: "db", x: 0, y: 9, w: 9, h: 1 },
         { i: "trans", x: 6, y: 4, w: 3, h: 1 },
     ];
     const menuLayout = {

@@ -79,12 +79,6 @@ const Home: React.FC = () => {
                     <GridItem key={"status"}>
                         <Status />
                     </GridItem>
-                    <GridItem key={"dungeon"}>
-                        <DungeonNotify />
-                    </GridItem>
-                    <GridItem key={"weekly"}>
-                        <WeeklyNotify />
-                    </GridItem>
                     <GridItem key={"db"}>
                         <DBStatus
                             loading={!dbLoading}
