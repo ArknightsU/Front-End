@@ -18,7 +18,6 @@ interface VersionData {
 }
 async function getVersion(): Promise<VersionData> {
     const data = (await axios.get(MUSIC_VERSION_URL)).data;
-    console.log(data);
     return {
         version: data["version"],
         songs_length: data["songs_length"],
@@ -27,7 +26,6 @@ async function getVersion(): Promise<VersionData> {
 }
 
 async function setVersion(version_data: any) {
-    console.log(version_data);
     for (const keys of Object.keys(version_data)) {
         await setItem(DB_NAME.music_version, keys, version_data[keys]);
     }
@@ -172,7 +170,6 @@ export async function getBigAlbumArtBlob(key: string): Promise<Blob | null> {
     const album: Blob | null = await getItem(DB_NAME.album_storage, key);
     if (album === null) {
         const album_json = await getAlbum(key);
-        console.log("ALUBM_JSON", album_json);
         if (album_json === null) return new Blob();
         // @ts-ignore
         const album_data_url = album_json.data.coverDeUrl;

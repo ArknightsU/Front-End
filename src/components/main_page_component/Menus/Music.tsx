@@ -29,12 +29,9 @@ export function Music(): JSX.Element {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingText, setLoadingText] = useState<string>("DB 초기 설정 중");
     const [current, setCurrent] = useState<number>(0);
-    console.log(playListAll);
     const playList = currentPlayList ? playListFavorite : playListAll;
     // @ts-ignore
-    console.log(playList);
     const [currentMusic, musicLoading] = useMusicDB(playList[current]);
-    console.log(currentMusic);
     // @ts-ignore
     const [imageBlob, imageLoading] = useBigAlbumArtBlob(currentMusic.albumCid);
     const [imageUrl, setImageUrl] = useState("");
@@ -53,13 +50,10 @@ export function Music(): JSX.Element {
     }, []);
     useEffect(() => {
         // @ts-ignore
-        console.log(typeof imageBlob);
         if (typeof imageBlob === "object") {
             setImageUrl(imageLoading ? "" : URL.createObjectURL(imageBlob));
-            console.log("IS?");
         }
     }, [imageLoading]);
-    console.log("INFINITE");
     return (
         <div className={menuStyle}>
             <div className="w-full h-full flex flew-row justify-center items-center">

@@ -35,7 +35,7 @@ export async function gzDecompress(url: string, failure_url?: string) {
         // print json object
         return JSON.parse(str);
     } catch (err) {
-        console.error("unable to decompress", err);
+        console.log("unable to decompress", err);
         if (failure_url) {
             try {
                 const data = await axios.get(failure_url);
