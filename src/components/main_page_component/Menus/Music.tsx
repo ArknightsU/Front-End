@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from "react";
 import { menuStyle } from "./common";
-import "react-h5-audio-player/lib/styles.css";
 import {
     CustomImage,
     getMusicKeys,
