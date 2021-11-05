@@ -267,6 +267,24 @@ interface ItemProps {
     // eslint-disable-next-line @typescript-eslint/ban-types
     setMap: React.Dispatch<React.SetStateAction<{}>>;
 }
+const chipsets = [
+    "3212",
+    "3222",
+    "3232",
+    "3242",
+    "3252",
+    "3262",
+    "3272",
+    "3282",
+    "3211",
+    "3221",
+    "3231",
+    "3241",
+    "3251",
+    "3261",
+    "3271",
+    "3281",
+];
 function Item(props: ItemProps): JSX.Element {
     const [isHover, setIsHover] = useState(false);
     const Material_Object = getMaterialObject(props.itemId);
@@ -275,6 +293,10 @@ function Item(props: ItemProps): JSX.Element {
     console.log(props.itemId, ":", Material_Object.madeof);
     const isDecomposible = () => {
         if (Material_Object.buildingProductList.roomType === undefined) {
+            return false;
+        } else if (chipsets.includes(Material_Object.itemId)) {
+            return false;
+        } else if (props.itemDetail.count === 0) {
             return false;
         } else return true;
     };
