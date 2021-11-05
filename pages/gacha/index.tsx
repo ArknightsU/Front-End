@@ -28,11 +28,6 @@ const Gacha: NextPage<GachaPageProps> = ({ pools }: GachaPageProps) => {
         <>
             <Head>
                 <title>{"명일방주 가챠 시뮬레이터"}</title>
-                <script
-                    async
-                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6003201576759916"
-                    crossOrigin="anonymous"
-                ></script>
             </Head>
             <Container>
                 <GachaMain pools={pools} />
