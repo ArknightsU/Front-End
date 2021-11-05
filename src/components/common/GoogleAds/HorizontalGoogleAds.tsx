@@ -2,7 +2,11 @@ import React from "react";
 
 // custom horizontal google ads
 export function HorizontalGoogleAds(): JSX.Element {
-    React.useEffect(() => {
+    return <div className="relative h-28 w-full"></div>;
+}
+
+/* 
+React.useEffect(() => {
         document.cookie = "crossCookie=yes; SameSite=None; Secure";
         document.getElementById("adsbygoogle");
         if (typeof window !== "undefined") {
@@ -15,9 +19,13 @@ export function HorizontalGoogleAds(): JSX.Element {
             }
         }
     }, []);
-    return (
-        <div className="relative h-28 w-full">
-            <ins
+
+
+*/
+
+/* 
+
+<ins
                 id="adsbygoogle"
                 className={`adsbygoogle`}
                 style={{
@@ -28,6 +36,5 @@ export function HorizontalGoogleAds(): JSX.Element {
                 data-ad-format={"horizontal"}
                 data-full-width-responsive={"false"}
             ></ins>
-        </div>
-    );
-}
+
+*/
