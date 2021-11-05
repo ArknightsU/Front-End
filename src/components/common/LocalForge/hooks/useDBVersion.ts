@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { getItem } from "../functions";
 import { DB_NAME } from "../db_name";
+import { useCharFilterArray } from "./useCharFilterArray";
 
 export function useDBVersion() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState("");
     const [nullCheck, setNullChekck] = useState({});
+    const [array, arrayloading] = useCharFilterArray([], []);
     useEffect(() => {
         async function get() {
             const data = await getItem(DB_NAME.db_version, "version");
@@ -20,6 +22,6 @@ export function useDBVersion() {
         get().then(() => {
             setLoading(false);
         });
-    }, [nullCheck]);
+    }, [nullCheck, array.length]);
     return [data, loading];
 }

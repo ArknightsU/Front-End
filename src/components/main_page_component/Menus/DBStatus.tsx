@@ -1,6 +1,6 @@
 import { useDBVersion, useWindowSize } from "@components";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
-import React from "react";
+import React, { useEffect } from "react";
 import { menuStyle, insideStyle } from "./common";
 
 interface DBStatusProps {

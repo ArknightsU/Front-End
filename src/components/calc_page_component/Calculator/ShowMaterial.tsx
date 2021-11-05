@@ -2,12 +2,10 @@
 import { CustomImage, useWindowSize } from "@components";
 import { MaterialCalculation } from "@components/common";
 import { useEffect, useState } from "react";
-import {
-    getMaterialObject,
-    getMaterialObjectByCNname,
-} from "./getMaterialObject";
+import { getMaterialObject } from "./getMaterialObject";
 import AKLEVEL from "@public/json/common/aklevel.json";
 import { Flipped, Flipper } from "react-flip-toolkit";
+import { getProcess } from "./getMaterialObject";
 interface ShowMaterialProps {
     open: boolean;
     setClose: () => void;
@@ -208,10 +206,22 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
                                 // sort map into rarity level
                                 Object.keys(map)
                                     .sort((a, b) => {
-                                        return (
-                                            Number(getMaterialObject(b).level) -
-                                            Number(getMaterialObject(a).level)
-                                        );
+                                        const materialA = getMaterialObject(a);
+                                        const materialB = getMaterialObject(b);
+                                        if (
+                                            materialA.rarity ===
+                                            materialB.rarity
+                                        ) {
+                                            return (
+                                                Number(materialB.sortId) -
+                                                Number(materialA.sortId)
+                                            );
+                                        } else {
+                                            return (
+                                                Number(materialB.rarity) -
+                                                Number(materialA.rarity)
+                                            );
+                                        }
                                     })
                                     .map((id, idx) => (
                                         <Flipped flipId={id} key={idx} stagger>
@@ -257,18 +267,14 @@ interface ItemProps {
     // eslint-disable-next-line @typescript-eslint/ban-types
     setMap: React.Dispatch<React.SetStateAction<{}>>;
 }
-const SKILL_BOOKS = ["3303", "3301", "3302"];
 function Item(props: ItemProps): JSX.Element {
     const [isHover, setIsHover] = useState(false);
     const Material_Object = getMaterialObject(props.itemId);
-    const src = SKILL_BOOKS.includes(props.itemId)
-        ? `/img/items/${Material_Object.id}.webp`
-        : `/img/material/${Material_Object.id}.webp`;
-    const rarity_img_src = `/img/material/bg/item-${Material_Object.level}.webp`;
+    const src = `/img/items/${Material_Object.iconId}.webp`;
+    const rarity_img_src = `/img/material/bg/item-${Material_Object.rarity}.webp`;
+    console.log(props.itemId, ":", Material_Object.madeof);
     const isDecomposible = () => {
-        if (Object.keys(Material_Object.madeof).length === 0) {
-            return false;
-        } else if (props.itemDetail.count <= 0) {
+        if (Material_Object.buildingProductList.roomType === undefined) {
             return false;
         } else return true;
     };
@@ -279,26 +285,28 @@ function Item(props: ItemProps): JSX.Element {
         }
         props.setMap((prev) => {
             const newMap = Object.assign({}, prev);
-            const decomposeArray = Material_Object.madeof;
+            const decomposeArray = getProcess(
+                Material_Object.buildingProductList.roomType,
+                Material_Object.buildingProductList.formulaId,
+            );
+            console.log(decomposeArray);
             // @ts-ignore
             newMap[props.itemId].convert =
                 // @ts-ignore
                 Number(newMap[props.itemId].convert) + 1;
             // @ts-ignore
             newMap[props.itemId].count = Number(newMap[props.itemId].count) - 1;
-            for (const itemKeys of Object.keys(decomposeArray)) {
-                const lowMaterialObject = getMaterialObjectByCNname(itemKeys);
-                console.log(lowMaterialObject);
-                if (Object.keys(newMap).includes(lowMaterialObject.itemId)) {
+            for (const itemObject of decomposeArray) {
+                if (Object.keys(newMap).includes(itemObject.id)) {
                     // @ts-ignore
-                    newMap[lowMaterialObject.itemId].count =
+                    newMap[itemObject.id].count =
                         // @ts-ignore
-                        Number(newMap[lowMaterialObject.itemId].count) +
-                        Number(decomposeArray[itemKeys]);
+                        Number(newMap[itemObject.id].count) +
+                        Number(itemObject.count);
                 } else {
                     // @ts-ignore
-                    newMap[lowMaterialObject.itemId] = {
-                        count: decomposeArray[itemKeys],
+                    newMap[itemObject.id] = {
+                        count: itemObject.count,
                         convert: 0,
                         type: "MATERIAL",
                     };
@@ -317,24 +325,26 @@ function Item(props: ItemProps): JSX.Element {
         if (!isSynthisizable()) return;
         props.setMap((prev) => {
             const newMap = Object.assign({}, prev);
-            const synthesizeArray = Material_Object.madeof;
+            const synthesizeArray = getProcess(
+                Material_Object.buildingProductList.roomType,
+                Material_Object.buildingProductList.formulaId,
+            );
             // @ts-ignore
             newMap[props.itemId].convert =
                 // @ts-ignore
                 Number(newMap[props.itemId].convert) - 1;
             // @ts-ignore
             newMap[props.itemId].count = Number(newMap[props.itemId].count) + 1;
-            for (const itemKeys of Object.keys(synthesizeArray)) {
-                const lowMaterialObject = getMaterialObjectByCNname(itemKeys);
+            for (const lowMaterialObject of synthesizeArray) {
                 // @ts-ignore
-                newMap[lowMaterialObject.itemId].count =
+                newMap[lowMaterialObject.id].count =
                     // @ts-ignore
-                    Number(newMap[lowMaterialObject.itemId].count) -
-                    synthesizeArray[itemKeys];
+                    Number(newMap[lowMaterialObject.id].count) -
+                    lowMaterialObject.count;
                 // @ts-ignore
-                if (newMap[lowMaterialObject.itemId].count === 0) {
+                if (newMap[lowMaterialObject.id].count === 0) {
                     // @ts-ignore
-                    delete newMap[lowMaterialObject.itemId];
+                    delete newMap[lowMaterialObject.id];
                 }
             }
             return newMap;
