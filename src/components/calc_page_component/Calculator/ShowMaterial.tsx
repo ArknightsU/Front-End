@@ -289,7 +289,9 @@ function Item(props: ItemProps): JSX.Element {
     const [isHover, setIsHover] = useState(false);
     const Material_Object = getMaterialObject(props.itemId);
     const src = `/img/items/${Material_Object.iconId}.webp`;
-    const rarity_img_src = `/img/material/bg/item-${Material_Object.rarity}.webp`;
+    const rarity_img_src = `/img/material/bg/item-${
+        Number(Material_Object.rarity) + 1
+    }.webp`;
     console.log(props.itemId, ":", Material_Object.madeof);
     const isDecomposible = () => {
         if (Material_Object.buildingProductList.roomType === undefined) {
