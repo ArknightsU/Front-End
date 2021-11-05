@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useWindowSize } from "@components";
 import { CustomImage } from "@components/common";
-import { useCharTable } from "@components/hooks/useCharTable";
 import React, { useEffect, useState } from "react";
-import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
+import { useCharObject } from "@components";
 
 interface GachaAnimationProps {
     setDoAnimation: React.Dispatch<React.SetStateAction<boolean>>;
