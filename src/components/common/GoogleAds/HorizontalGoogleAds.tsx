@@ -1,8 +1,31 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from "react";
 
 // custom horizontal google ads
 export function HorizontalGoogleAds(): JSX.Element {
-    return <div className="relative h-28 w-full"></div>;
+    React.useEffect(() => {
+        try {
+            // @ts-ignore
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (err) {
+            console.log(err);
+        }
+    }, []);
+    return (
+        <div className="relative h-28 w-full">
+            <ins
+                id="adsbygoogle"
+                className={`adsbygoogle`}
+                style={{
+                    display: "block",
+                }}
+                data-ad-client={"ca-pub-6003201576759916"}
+                data-ad-slot="5568687212"
+                data-ad-format={"horizontal"}
+                data-full-width-responsive={"false"}
+            ></ins>
+        </div>
+    );
 }
 
 /* 
@@ -25,16 +48,6 @@ React.useEffect(() => {
 
 /* 
 
-<ins
-                id="adsbygoogle"
-                className={`adsbygoogle`}
-                style={{
-                    display: "block",
-                }}
-                data-ad-client={"ca-pub-6003201576759916"}
-                data-ad-slot="5568687212"
-                data-ad-format={"horizontal"}
-                data-full-width-responsive={"false"}
-            ></ins>
+
 
 */
