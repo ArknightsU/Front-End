@@ -73,6 +73,7 @@ module.exports = {
                 80: 80,
                 animation: 100,
                 gachaSkip: 101,
+                apiloading: 200,
             },
             width: {
                 "1/10": "10%",

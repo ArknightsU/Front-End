@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from "react";
-import { CustomImage, getItem } from "@components/common";
+import { CustomImage, GachaPool, getItem } from "@components/common";
 import { DetailChildLayout } from "./DetailChildLayout";
 import axios from "axios";
 import { GET_GACHA_API_URL, SERVER_URL_RESET_STACK } from "src/constants";
@@ -9,11 +9,13 @@ import { useSessionStorage } from "react-use";
 import { DB_NAME } from "../../common/LocalForge/db_name";
 import { PieChart } from "./PieChar";
 import { EveryOperators } from "./EveryOperators";
+import { getAllfeaturedCharacters } from "../getAllfeaturedCharacters";
+import { EclipseSpinner } from "@components/common/EclipseSpinner";
 
 interface GachaDetailProps {
     poolSelected: boolean;
     focused: number;
-    pools: Array<any>;
+    pools: Array<GachaPool>;
     setDoAnimation: React.Dispatch<React.SetStateAction<boolean>>;
     setGachaData: React.Dispatch<React.SetStateAction<string[]>>;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,17 +24,17 @@ interface GachaDetailProps {
 export function GachaDetail(props: GachaDetailProps): JSX.Element {
     const [loading, setLoading] = useState(false);
     const [gem, setGem] = useSessionStorage(
-        props.pools[props.focused]["code"] + "-gem",
+        props.pools[props.focused].id + "-gem",
         0,
     );
     const [stone, setStone] = useSessionStorage(
-        props.pools[props.focused]["code"] + "-stone",
+        props.pools[props.focused].id + "-stone",
         0,
     );
     const doGacha = (count: number) => {
         props.setLoading(true);
         axios
-            .get(GET_GACHA_API_URL(count, props.pools[props.focused]["code"]))
+            .get(GET_GACHA_API_URL(count, props.pools[props.focused].id))
             .then((res) => {
                 setGem(gem + 600 * count);
                 setStone(Math.ceil((gem + 600 * count) / 180));
@@ -50,9 +52,12 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
             });
     };
     const resetStack = () => {
-        props.setLoading(true);
+        if (loading) {
+            return;
+        }
+        setLoading(true);
         axios
-            .get(SERVER_URL_RESET_STACK)
+            .post(SERVER_URL_RESET_STACK)
             .then((res) => {
                 setLoading(false);
             })
@@ -63,7 +68,7 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
     const type = props.pools[props.focused]["type"];
     // 가챠로 뽑은 오퍼레이터는 세션 스토리지에 저장됨
     const [gachaData, setGachaData] = useSessionStorage(
-        props.pools[props.focused]["code"],
+        props.pools[props.focused].id.toString(),
         [],
     );
     const [graphData, setGraphData] = useState({
@@ -114,7 +119,11 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                 const data = await getItem(DB_NAME.character_table, char);
                 // @ts-ignore
                 returnData[data["rarity"]] = returnData[data["rarity"]] + 1;
-                if (props.pools[props.focused]["featured"].includes(char)) {
+                if (
+                    getAllfeaturedCharacters(
+                        props.pools[props.focused],
+                    ).includes(char)
+                ) {
                     // @ts-ignore
                     returnHitData[data["rarity"]] =
                         // @ts-ignore
@@ -214,14 +223,20 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                         </div>
                         <div className="h-full w-20 flex justify-center items-center">
                             <div
-                                className="w-20 h-20 bg-red-600 ml-3 p-3 flex justify-center items-center rounded-lg"
+                                className={`w-20 h-20 ${
+                                    loading ? "bg-red-300" : "bg-red-600"
+                                } ml-3 p-3 flex justify-center items-center rounded-lg`}
                                 onClick={() => {
                                     resetStack();
                                 }}
                             >
-                                <p className=" whitespace-pre-line text-sm md:text-base text-center text-white leading-none">
-                                    {"스택\n초기화"}
-                                </p>
+                                {loading ? (
+                                    <EclipseSpinner />
+                                ) : (
+                                    <p className=" whitespace-pre-line text-sm md:text-base text-center text-white leading-none transition-all duration-500">
+                                        {"스택\n초기화"}
+                                    </p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -237,14 +252,14 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                                     </p>
                                 </div>
                                 <div className="w-full h-auto flex flex-row items-center justify-start gap-x-4">
-                                    {props.pools[props.focused]["featured"].map(
-                                        (featured: string, idx: number) => (
-                                            <CharMinify
-                                                charName={featured}
-                                                key={idx}
-                                            />
-                                        ),
-                                    )}
+                                    {getAllfeaturedCharacters(
+                                        props.pools[props.focused],
+                                    ).map((featured: string, idx: number) => (
+                                        <CharMinify
+                                            charName={featured}
+                                            key={idx}
+                                        />
+                                    ))}
                                 </div>
                                 <div className="w-full h-10 flex flex-row items-center">
                                     <InfoIcon />
