@@ -1,17 +1,19 @@
 import React, { useRef } from "react";
 import { CustomImage } from "@components/common";
 import { useCharObject } from "@components";
+import { getAllfeaturedCharacters } from "../getAllfeaturedCharacters";
 
 interface PoolCompProps {
     pool: any;
 }
 export function PoolComponent(props: PoolCompProps): JSX.Element {
+    /*
     const DEV_featured = [
         "char_1013_chen2",
         "char_437_mizuki",
         "char_421_crow",
-    ];
-    const charData = DEV_featured.map((v) => {
+    ];*/
+    const charData = getAllfeaturedCharacters(props.pool).map((v) => {
         const [r, l] = useCharObject(v);
         return { name: v, data: r };
     });

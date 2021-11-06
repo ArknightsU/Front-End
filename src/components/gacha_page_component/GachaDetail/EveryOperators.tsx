@@ -9,7 +9,6 @@ interface EveryOperatorsProps {
 }
 export function EveryOperators(props: EveryOperatorsProps): JSX.Element {
     const [data, setData] = useState({});
-    console.log(data);
     useEffect(() => {
         async function Data() {
             const returnData = {};
@@ -36,8 +35,8 @@ export function EveryOperators(props: EveryOperatorsProps): JSX.Element {
                     // @ts-ignore
                     return data[b] - data[a];
                 })
-                .map((char) => (
-                    <div className="w-24 h-auto flex flex-col">
+                .map((char, idx) => (
+                    <div className="w-24 h-auto flex flex-col" key={idx}>
                         <CharMinify charName={char} />
                         <div className="w-24 h-auto flex justify-center items-start">
                             <p className="text-truegray-700 font-ibm-korean font-bold text-base md:text-lg">

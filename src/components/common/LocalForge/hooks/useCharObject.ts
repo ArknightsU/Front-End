@@ -7,6 +7,7 @@ export function useCharObject(name: string) {
     const [data, setData] = useState({});
     const [nullCheck, setNullChekck] = useState({});
     useEffect(() => {
+        if (name === "") return;
         async function getCharObject(name: string) {
             const data = await getItem(DB_NAME.character_table, name);
             if (data === null) {

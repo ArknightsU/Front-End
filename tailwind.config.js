@@ -51,7 +51,6 @@ module.exports = {
                 originite: 'url("/img/items/DIAMOND.webp")',
                 gachaAnimation:
                     'url("/ui/GachaAnimationImage/UI_GACHA_ONE_BACKGROUND_IMG.webp")',
-                noskill: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><line x1='0' y1='100%' x2='100%' y2='0' stroke='#000' /></svg>")`,
                 grid: 'url("/img/rank/bg.webp")',
             },
             dropShadow: {
@@ -74,6 +73,7 @@ module.exports = {
                 80: 80,
                 animation: 100,
                 gachaSkip: 101,
+                apiloading: 200,
             },
             width: {
                 "1/10": "10%",

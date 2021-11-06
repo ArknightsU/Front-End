@@ -82,35 +82,40 @@ export function PoolGrabber(props: PoolGrabProps): JSX.Element {
                         }px) ${screen_size.width < 768 ? " scale(0.8)" : ""}`,
                     }}
                 >
-                    {props.pools.map((v, i) => (
-                        <div
-                            className={`relative transition-all ${
-                                i === props.focused
-                                    ? "mt-10 mb-10"
-                                    : "mt-4 mb-4 filter grayscale"
-                            }`}
-                            style={
-                                i === props.focused
-                                    ? {
-                                          transform:
-                                              "translateX(50px) scale(1.2)",
-                                      }
-                                    : {}
-                            }
-                            key={i}
-                            onClick={() => {
-                                if (i === props.focused) {
-                                    props.setPoolSelected(true);
-                                    props.setShowGrab(false);
+                    {props.pools
+                        .filter((v) => v.code >= 1000)
+                        .sort((a, b) => {
+                            return b.code - a.code;
+                        })
+                        .map((v, i) => (
+                            <div
+                                className={`relative transition-all ${
+                                    i === props.focused
+                                        ? "mt-10 mb-10"
+                                        : "mt-4 mb-4 filter grayscale"
+                                }`}
+                                style={
+                                    i === props.focused
+                                        ? {
+                                              transform:
+                                                  "translateX(50px) scale(1.2)",
+                                          }
+                                        : {}
                                 }
-                                props.setFocused(i);
-                                setWheel(i * 200);
-                                setMovementY(-i * 120);
-                            }}
-                        >
-                            <PoolComponent pool={v} />
-                        </div>
-                    ))}
+                                key={i}
+                                onClick={() => {
+                                    if (i === props.focused) {
+                                        props.setPoolSelected(true);
+                                        props.setShowGrab(false);
+                                    }
+                                    props.setFocused(i);
+                                    setWheel(i * 200);
+                                    setMovementY(-i * 120);
+                                }}
+                            >
+                                <PoolComponent pool={v} />
+                            </div>
+                        ))}
                 </div>
             </div>
         </div>

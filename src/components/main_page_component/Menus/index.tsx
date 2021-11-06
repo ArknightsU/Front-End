@@ -1,4 +1,3 @@
-export { AdjustUI } from "./AdjustUI";
 export { Calculation } from "./Calculation";
 export { Dev } from "./Dev";
 export { Gacha } from "./Gacha";
