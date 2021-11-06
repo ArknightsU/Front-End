@@ -6,10 +6,12 @@ import { useState } from "react";
 import ReactJson from "react-json-view";
 import Input from "./Input";
 import Type, { defineType } from "./Type";
+import dynamic from "next/dynamic";
 
 const POOL_URL = "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/admin/pool";
 const type: Array<defineType> = [{ name: "featured" }, { name: "limited" }];
 export function PoolsMain(): JSX.Element {
+    const DynamicReactJson = dynamic(import("react-json-view"), { ssr: false });
     const [loading, setLoading] = useState(false);
     const [gotData, setGotData] = useState({});
     const [sendData, setSendData] = useState({});
@@ -127,7 +129,7 @@ export function PoolsMain(): JSX.Element {
                     style={{ height: "calc(100vh - 192px)" }}
                 >
                     <div className="w-full h-full bg-white p-8 overflow-auto">
-                        <ReactJson
+                        <DynamicReactJson
                             src={gotData}
                             onSelect={(value) => {
                                 // @ts-ignore
