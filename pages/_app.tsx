@@ -7,6 +7,7 @@ import { appWithTranslation } from "@i18n";
 import { Loading } from "@components";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { Provider } from "next-auth/client";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     const router = useRouter();
@@ -28,7 +29,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             </Head>
             <Loading loading={loading} />
             <RecoilRoot>
-                <Component {...pageProps} />
+                <Provider session={pageProps.session}>
+                    <Component {...pageProps} />
+                </Provider>
             </RecoilRoot>
         </React.Fragment>
     );

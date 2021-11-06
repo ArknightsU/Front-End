@@ -1,35 +1,41 @@
-import { useWindowSize } from "@components";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { getItem, useWindowSize } from "@components";
 import { CustomImage } from "@components/common";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useInterval } from "react-use";
 import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
+import { getAllfeaturedCharacters } from "../getAllfeaturedCharacters";
+import { DB_NAME } from "../../common/LocalForge/db_name";
 
 interface CharacterPreviewProps {
     pools: Array<any>;
     focused: number;
     poolSelected: boolean;
-    DEV_featured: Array<any>;
+    //DEV_featured: Array<any>;
 }
 export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
     const window_size = useWindowSize();
-    const charData = props.DEV_featured.map((v) => {
-        const [data, loading] = useCharObject(v);
-        return { name: v, data: data };
+    const charData = props.pools[props.focused].featured.six;
+    const char_img = charData.map((v: string) => {
+        return "/img/characters/" + v + "_2.webp";
     });
-    const featuredSixStars = charData.filter((value) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return value.data["rarity"] === "six";
-    });
-    const char_img = featuredSixStars.map((v) => {
-        return "/img/characters/" + v.name + "_2.webp";
-    });
-    const returnText = featuredSixStars.map((v) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return v.data["kr_name"];
-    });
+    const [returnText, setReturnText] = useState<string[]>([]);
     const [count, setCount] = React.useState(0);
+    useEffect(() => {
+        setCount(0);
+        setReturnText([]);
+        const getName = async (id: string): Promise<string> => {
+            const name = await getItem(DB_NAME.character_table, id);
+            console.log(name);
+            // @ts-ignore
+            return name.kr_name;
+        };
+        for (const char of charData) {
+            getName(char).then((name) => {
+                setReturnText((prev) => [...prev, name]);
+            });
+        }
+    }, [props.focused, charData]);
     useInterval(() => {
         setCount((count + 1) % char_img.length);
     }, 12000);
@@ -40,7 +46,7 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
         <div
             className={`w-0 md:w-full h-full relative overflow-hidden flex justify-center items-center`}
         >
-            {char_img.map((v, i) => (
+            {char_img.map((v: string, i: number) => (
                 <div
                     className={`absolute w-3/5 h-full transition-all duration-1000`}
                     key={i}
@@ -62,10 +68,6 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
                 </div>
             ))}
             <CharacterText
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                sixstar={featuredSixStars}
-                length={featuredSixStars.length}
                 poolSelected={props.poolSelected}
                 window_size={window_size}
                 returnText={returnText}
