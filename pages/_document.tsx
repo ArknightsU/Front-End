@@ -25,6 +25,16 @@ class CustomDocument extends Document {
                         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6003201576759916"
                         crossOrigin="anonymous"
                     ></script>
+                    <script
+                        dangerouslySetInnerHTML={{
+                            __html: `
+               (adsbygoogle = window.adsbygoogle || []).push({
+                   google_ad_client: "ca-pub-6003201576759916",
+                   enable_page_level_ads: true
+              });
+                `,
+                        }}
+                    />
                 </Head>
                 <body>
                     <Main />

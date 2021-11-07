@@ -64,7 +64,11 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
                         opacity: i === count ? 1 : 0,
                     }}
                 >
-                    {v.includes("undefined") ? <></> : <CustomImage src={v} />}
+                    {v.includes("undefined") ? (
+                        <></>
+                    ) : (
+                        <CustomImage src={v} priority={true} />
+                    )}
                 </div>
             ))}
             <CharacterText

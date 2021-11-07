@@ -2,7 +2,7 @@
 import React from "react";
 
 // custom horizontal google ads
-export function HorizontalGoogleAds(): JSX.Element {
+export function HorizontalGoogleAds2(): JSX.Element {
     React.useEffect(() => {
         if (typeof window !== "undefined") {
             // @ts-ignore
@@ -12,17 +12,12 @@ export function HorizontalGoogleAds(): JSX.Element {
     return (
         <div className="relative h-28 w-full">
             <ins
-                id="adsbygoogle"
-                className={`adsbygoogle`}
-                style={{
-                    display: "inline-block",
-                    width: "728px",
-                    height: "90px",
-                }}
-                data-ad-client={"ca-pub-6003201576759916"}
-                data-ad-slot="1053079914"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
+                className="adsbygoogle"
+                style={{ display: "block" }}
+                data-ad-format="fluid"
+                data-ad-layout-key="-f9+4w+7x-eg+3a"
+                data-ad-client="ca-pub-6003201576759916"
+                data-ad-slot="6283024163"
             ></ins>
         </div>
     );
