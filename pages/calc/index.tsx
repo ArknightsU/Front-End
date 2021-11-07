@@ -19,6 +19,21 @@ const Calc: NextPage<any> = () => {
         <>
             <Head>
                 <title>{"재료 계산기"}</title>
+                <script
+                    async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                    crossOrigin="anonymous"
+                ></script>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+               (adsbygoogle = window.adsbygoogle || []).push({
+                   google_ad_client: "ca-pub-6003201576759916",
+                   enable_page_level_ads: true
+              });
+                `,
+                    }}
+                />
             </Head>
             <CalcMain />
         </>
