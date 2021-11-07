@@ -4,6 +4,7 @@ import Image from "next/image";
 interface ImageProps {
     src: string;
     type?: "stretch" | "contain";
+    priority?: boolean;
 }
 // custom next/image component
 export function CustomImage(props: ImageProps): JSX.Element {
@@ -17,6 +18,9 @@ export function CustomImage(props: ImageProps): JSX.Element {
                     alt="items"
                     layout="fill"
                     objectFit="contain"
+                    priority={
+                        props.priority === undefined ? false : props.priority
+                    }
                 />
             </div>
         );
@@ -30,6 +34,9 @@ export function CustomImage(props: ImageProps): JSX.Element {
                     alt="items"
                     layout="fill"
                     objectFit="fill"
+                    priority={
+                        props.priority === undefined ? false : props.priority
+                    }
                 />
             </div>
         );
