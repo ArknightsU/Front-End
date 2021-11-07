@@ -19,10 +19,6 @@ const Calc: NextPage<any> = () => {
         <>
             <Head>
                 <title>{"재료 계산기"}</title>
-                <script
-                    async
-                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-                ></script>
             </Head>
             <CalcMain />
         </>
