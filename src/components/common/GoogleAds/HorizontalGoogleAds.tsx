@@ -10,7 +10,7 @@ export function HorizontalGoogleAds(): JSX.Element {
         }
     }, []);
     return (
-        <div className="relative h-28 w-full">
+        <div className="relative h-28 w-full flex justify-center items-center">
             <ins
                 id="adsbygoogle"
                 className={`adsbygoogle`}
@@ -19,10 +19,8 @@ export function HorizontalGoogleAds(): JSX.Element {
                     width: "728px",
                     height: "90px",
                 }}
-                data-ad-client={"ca-pub-6003201576759916"}
+                data-ad-client="ca-pub-6003201576759916"
                 data-ad-slot="1053079914"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
             ></ins>
         </div>
     );
