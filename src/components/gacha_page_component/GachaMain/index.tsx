@@ -42,7 +42,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
             <ApiError open={error} setOpen={setError} />
             <div className="w-screen h-screen flex flex-row justify-center items-center overflow-hidden">
                 <div className={`absolute w-full h-auto z-50 top-0`}>
-                    <HorizontalGoogleAds2 />
+                    <HorizontalGoogleAds />
                 </div>
                 {showGrab && !poolSelected ? (
                     <GoBackLinkButton top={120} />

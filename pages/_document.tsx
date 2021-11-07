@@ -21,6 +21,12 @@ class CustomDocument extends Document {
                 <Head>
                     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
                 </Head>
+                <head>
+                    <script
+                        async
+                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                    ></script>
+                </head>
                 <body>
                     <Main />
                     <NextScript />
