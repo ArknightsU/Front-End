@@ -46,7 +46,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         }
         if (response.status === 200) {
             const pools = response.data.pools;
-            return { props: { pools: pools } };
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            return { props: { pools: pools.sort((a, b) => b.code - a.code) } };
         }
     } catch (error) {
         console.log(error);

@@ -7,6 +7,8 @@ export function HorizontalGoogleAds(): JSX.Element {
         try {
             // @ts-ignore
             (window.adsbygoogle = window.adsbygoogle || []).push({});
+            // @ts-ignore
+            (adsbygoogle = window.adsbygoogle || []).push({});
         } catch (err) {
             console.log(err);
         }
@@ -20,9 +22,9 @@ export function HorizontalGoogleAds(): JSX.Element {
                     display: "block",
                 }}
                 data-ad-client={"ca-pub-6003201576759916"}
-                data-ad-slot="5568687212"
-                data-ad-format={"horizontal"}
-                data-full-width-responsive={"false"}
+                data-ad-slot="1053079914"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
             ></ins>
         </div>
     );

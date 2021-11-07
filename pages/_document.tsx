@@ -22,7 +22,8 @@ class CustomDocument extends Document {
                     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
                     <script
                         async
-                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6003201576759916"
+                        crossOrigin="anonymous"
                     ></script>
                 </Head>
                 <body>
