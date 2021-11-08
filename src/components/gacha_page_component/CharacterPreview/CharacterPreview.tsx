@@ -3,8 +3,6 @@ import { getItem, useWindowSize } from "@components";
 import { CustomImage } from "@components/common";
 import React, { useEffect, useState } from "react";
 import { useInterval } from "react-use";
-import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
-import { getAllfeaturedCharacters } from "../getAllfeaturedCharacters";
 import { DB_NAME } from "../../common/LocalForge/db_name";
 
 interface CharacterPreviewProps {
@@ -26,18 +24,26 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
         setReturnText([]);
         const getName = async (id: string): Promise<string> => {
             const name = await getItem(DB_NAME.character_table, id);
-            // @ts-ignore
-            return name.kr_name;
+            try {
+                // @ts-ignore
+                const trans_name = name.kr_name;
+                return trans_name;
+            } catch (e) {
+                return "";
+            }
         };
         for (const char of charData) {
             getName(char).then((name) => {
                 setReturnText((prev) => [...prev, name]);
             });
         }
-    }, [props.focused, charData]);
-    useInterval(() => {
-        setCount((count + 1) % char_img.length);
-    }, 12000);
+    }, [charData]);
+    useInterval(
+        () => {
+            setCount((count + 1) % char_img.length);
+        },
+        props.pools.length === 1 ? null : 12000,
+    );
     if (window_size.width < 768) {
         return <></>;
     }

@@ -16,6 +16,8 @@ import { HorizontalGoogleAds } from "@components/common/GoogleAds";
 import { ApiLoading } from "@components/ApiSync";
 import { ApiError } from "../../ApiSync/ApiError";
 import { HorizontalGoogleAds2 } from "@components/common/GoogleAds/HorizontalGoogleAds2";
+import { CompactGachaAnimation } from "../GachaAnimation/CompactGachaAnimation";
+import { useSettings } from "@recoil/hooks";
 
 interface GachaMainProps {
     pools: Array<GachaPool>;
@@ -33,6 +35,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
         setShowGrab(true);
         setPoolSelected(false);
     };
+    const [settings, settingFunction] = useSettings();
     useEffect(() => {
         setShowGrab(true);
     }, []);
@@ -42,7 +45,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
             <ApiError open={error} setOpen={setError} />
             <div className="w-screen h-screen flex flex-row justify-center items-center overflow-hidden">
                 <div className={`absolute w-full h-auto z-50 top-0`}>
-                    {/*<HorizontalGoogleAds />*/}
+                    {<HorizontalGoogleAds />}
                 </div>
                 {showGrab && !poolSelected ? (
                     <GoBackLinkButton top={120} />
@@ -112,11 +115,19 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 {/* Foreground Images Start */}
                 <GachaForeground />
                 {doAnimation ? (
-                    <GachaAnimation
-                        setGachaData={setGachaData}
-                        setDoAnimation={setDoAnimation}
-                        gachaData={gachaData}
-                    />
+                    settings.USE_COMPACT_GACHA ? (
+                        <CompactGachaAnimation
+                            setGachaData={setGachaData}
+                            setDoAnimation={setDoAnimation}
+                            gachaData={gachaData}
+                        />
+                    ) : (
+                        <GachaAnimation
+                            setGachaData={setGachaData}
+                            setDoAnimation={setDoAnimation}
+                            gachaData={gachaData}
+                        />
+                    )
                 ) : (
                     <></>
                 )}

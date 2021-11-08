@@ -25,7 +25,7 @@ export function CalcMain(): JSX.Element {
         <div className="w-screen h-screen relative flex flex-col">
             {/* Google Ads */}
             <div ref={ads} className="w-full h-auto absolute top-0 z-70">
-                <HorizontalGoogleAds />
+                {<HorizontalGoogleAds />}
             </div>
             {/* Loading Component Start */}
             {Loading ? (

@@ -301,10 +301,18 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                                 <p className="text-lg">{"그래프"}</p>
                             </div>
                             <div className="w-full h-96">
-                                <PieChart
-                                    data={refinedGraphData}
-                                    length={gachaData.length}
-                                />
+                                {gachaData.length === 0 ? (
+                                    <div className="w-full h-full flex justify-center items-center">
+                                        <p className="text-xl">
+                                            {"데이터가 존재하지 않습니다."}
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <PieChart
+                                        data={refinedGraphData}
+                                        length={gachaData.length}
+                                    />
+                                )}
                             </div>
                             <div className="w-full h-10 flex flex-row items-center">
                                 <InfoIcon />
