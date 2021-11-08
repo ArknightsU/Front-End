@@ -1,11 +1,12 @@
 import { CustomImage } from "@components";
 import { PoolsMain } from "@components/admin_page_component/PoolsMain";
 import { GetStaticProps, NextPage } from "next";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 
 const Pools: NextPage<any> = () => {
-    const [session, loading] = useSession();
+    const { data: session, status } = useSession();
+    const loading = status === "loading";
     if (loading) {
         return <p>{"loggin in..."}</p>;
     }
