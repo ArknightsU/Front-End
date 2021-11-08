@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+//import Providers from "next-auth/providers";
+import CredentialProvider from "next-auth/providers/credentials";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -10,7 +11,7 @@ const isCorrectCredentials = (credentials) =>
 const options = {
     theme: { colorScheme: "light" },
     providers: [
-        Providers.Credentials({
+        CredentialProvider({
             name: "Credentials",
             credentials: {
                 username: {
