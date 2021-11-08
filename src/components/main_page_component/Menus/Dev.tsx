@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { menuStyle, insideStyle } from "./common";
 import { SubMenuComp } from "./SubMenuComp";
@@ -18,14 +19,16 @@ export function Dev(): JSX.Element {
         </svg>
     );
     return (
-        <div className={menuStyle}>
-            <div className={insideStyle}>
-                <SubMenuComp
-                    background="bg-gradient-to-tr from-pink-600 via-pink-500 to-pink-300"
-                    text={"개발"}
-                    icon={icon}
-                />
+        <Link href="/dev" passHref>
+            <div className={menuStyle}>
+                <div className={insideStyle}>
+                    <SubMenuComp
+                        background="bg-gradient-to-tr from-pink-600 via-pink-500 to-pink-300"
+                        text={"개발"}
+                        icon={icon}
+                    />
+                </div>
             </div>
-        </div>
+        </Link>
     );
 }

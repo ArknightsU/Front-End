@@ -18,6 +18,8 @@ export function CustomImage(props: ImageProps): JSX.Element {
                     alt="items"
                     layout="fill"
                     objectFit="contain"
+                    placeholder="blur"
+                    blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                     priority={
                         props.priority === undefined ? false : props.priority
                     }
