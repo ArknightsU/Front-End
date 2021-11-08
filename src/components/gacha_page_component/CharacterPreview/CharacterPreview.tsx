@@ -26,7 +26,6 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
         setReturnText([]);
         const getName = async (id: string): Promise<string> => {
             const name = await getItem(DB_NAME.character_table, id);
-            console.log(name);
             // @ts-ignore
             return name.kr_name;
         };
