@@ -32,7 +32,7 @@ export function PlayListItem(props: PlayListItemProps): JSX.Element {
             ) : (
                 <>
                     <div className="w-full h-full flex flex-row justify-start items-center">
-                        <div className="w-2/3 h-full flex justify-start items-center relative">
+                        <div className="flex-grow h-full flex justify-start items-center relative">
                             <p className="w-full font-ibm-sans font-bold text-sm overflow-clip ml-2 truncate text-white">
                                 {
                                     // @ts-ignore
@@ -41,7 +41,7 @@ export function PlayListItem(props: PlayListItemProps): JSX.Element {
                             </p>
                         </div>
                         <div
-                            className={`w-1/3 h-full p-2 flex justify-end items-end transition-all duration-700 ${
+                            className={`w-6 md:w-10 h-full p-0 md:p-1 mr-3 flex justify-end items-end transition-all duration-700 ${
                                 !props.playListFavorite.includes(
                                     props.music_key,
                                 )
@@ -75,13 +75,13 @@ export function PlayListItem(props: PlayListItemProps): JSX.Element {
                             </svg>
                         </div>
                         <div
-                            className="w-2/3 h-full flex justify-center items-center absolute transition-all duration-500 opacity-0 hover:opacity-100 bg-truegray-900 rounded-lg"
+                            className="w-full h-full flex justify-start items-center absolute transition-all duration-500 opacity-0 hover:opacity-100 bg-truegray-900 rounded-lg"
                             onClick={() => {
                                 setCurrentPlayList(props.fav);
                                 props.setCurrent(props.index);
                             }}
                         >
-                            <p className="ml-2 w-full font-ibm-sans font-bold text-sm text-center truncate text-white">
+                            <p className="ml-2 font-ibm-sans font-bold text-sm text-center truncate text-white">
                                 {"재생: " +
                                     // @ts-ignore
                                     value.name}

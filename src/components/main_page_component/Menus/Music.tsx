@@ -27,7 +27,6 @@ export function Music(): JSX.Element {
     const [playListAll, setPlayListAll] = useState<string[]>([]);
     const [playListFavorite, favoriteFunctions] = useFavorite();
     const [loading, setLoading] = useState<boolean>(true);
-    const [loadingText, setLoadingText] = useState<string>("DB 초기 설정 중");
     const [current, setCurrent] = useState<number>(0);
     const playList = currentPlayList ? playListFavorite : playListAll;
     // @ts-ignore
@@ -64,14 +63,14 @@ export function Music(): JSX.Element {
                     {loading ? (
                         <div className="w-full h-full flex flex-col justify-center items-center">
                             <EclipseSpinner />
-                            <p>{loadingText}</p>
+                            <p>{"재생 목록 초기화 중"}</p>
                         </div>
                     ) : (
                         <div className="w-full h-full">
                             {playListAll.length === 0 ? (
                                 <div className="w-fuill h-full flex flex-col justify-center items-center">
                                     <EclipseSpinner />
-                                    <p>{loadingText}</p>
+                                    <p>{"재생 목록 로딩 중"}</p>
                                 </div>
                             ) : (
                                 <PlayList
@@ -95,9 +94,9 @@ export function Music(): JSX.Element {
                 }
                 <div className="w-1/2 h-full bg-gray-200 bg-opacity-70 rounded-lg ml-2 shadow-br">
                     {loading ? (
-                        <div className="w-fuill h-full flex flex-col justify-center items-center overflow-hidden">
+                        <div className="w-fuill h-full flex flex-col justify-center items-center overflow-hidden font-ibm-korean text-white text-md font-bold p-2">
                             <EclipseSpinner />
-                            <p>{loadingText}</p>
+                            <p>{"플레이어 로딩 중"}</p>
                         </div>
                     ) : (
                         <div className="w-full h-full flex flex-col justify-center items-end">
@@ -105,7 +104,10 @@ export function Music(): JSX.Element {
                                 <div className="absolute w-full h-full rounded-t-lg bg-black"></div>
                                 <div className="w-full h-full relative flex justify-center items-center">
                                     {imageLoading || imageUrl === "" ? (
-                                        <EclipseSpinner />
+                                        <div className="w-fuill h-full flex flex-col justify-center items-center overflow-hidden font-ibm-korean text-white text-lg font-bold p-2">
+                                            <EclipseSpinner />
+                                            <p>{"앨범 이미지 로딩 중"}</p>
+                                        </div>
                                     ) : (
                                         <CustomImage src={imageUrl} />
                                     )}

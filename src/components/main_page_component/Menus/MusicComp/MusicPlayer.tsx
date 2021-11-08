@@ -4,6 +4,7 @@ import { SetStateAction, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { EclipseSpinner } from "../../../common/EclipseSpinner/index";
 import {
     FastFoward,
     Loop,
@@ -29,6 +30,7 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
     const [repeat, setRepeat] = useState<number>(0);
     const [random, setRandom] = useState<boolean>(false);
     const [play, setPlay] = useState<boolean>(false);
+    const [memoryState, setMemoryState] = useState(false);
     const [mute, setMute] = useState<boolean>(false);
     const [musicObj, loading] = useMusicBlob(props.playList[props.current]);
     const [url, setUrl] = useState("");
@@ -45,6 +47,25 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
         }
     };
     const ref = useRef<ReactPlayer>(null);
+    // 음악이 변경 될 때 재생 스테이터스를 자동으로 관리
+    useEffect(() => {
+        if (loading === true) {
+            if (play) setMemoryState(true);
+            else setMemoryState(false);
+            setPlay(false);
+        }
+        if (loading === false) {
+            if (memoryState) {
+                setPlay(true);
+                setMemoryState(false);
+                return;
+            } else {
+                setMemoryState(false);
+                return;
+            }
+        }
+    }, [loading]);
+    // 음악이 변경될 때 url을 변경
     useEffect(() => {
         // @ts-ignore
         setUrl(URL.createObjectURL(musicObj));
@@ -86,7 +107,9 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                 <div className="w-full h-1/5 bg-white md:ml-4 md:mr-4 flex flex-row justify-center items-center">
                     <div className="w-1/5 h-full text-truegray-500 flex justify-center items-center">
                         <p>
-                            {currentTime === 0
+                            {loading
+                                ? "Wait.."
+                                : currentTime === 0
                                 ? "--:--"
                                 : Math.floor(currentTime / 60) +
                                   ":" +
@@ -102,54 +125,91 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                         onChange={(value) => {
                             ref.current?.seekTo(value, "seconds");
                         }}
+                        // @ts-ignore
+                        disabled={loading}
                     />
                     <div className="w-1/5 h-full text-truegray-500 flex justify-center items-center">
                         <p className="text-center">
-                            {Math.floor(endTime / 60) +
-                                ":" +
-                                (endTime % 60).toFixed(0)}
+                            {loading
+                                ? "Wait..."
+                                : Math.floor(endTime / 60) +
+                                  ":" +
+                                  (endTime % 60).toFixed(0)}
                         </p>
                     </div>
                 </div>
                 {/* Player Comp */}
-                <div className="w-full h-3/5 bg-white flex flex-row justify-evenly items-center">
-                    <div
-                        className="w-1/6 h-1/2 flex justify-center items-center text-truegray-500 hover:text-truegray-400 transition-all duration-500"
-                        onClick={() => {
-                            setRepeat((prev) => (prev + 1) % 3);
-                        }}
-                    >
-                        {setRepeatComp()}
+                {loading ? (
+                    <div className="w-full h-3/5 flex flex-col justify-center items-center bg-white">
+                        <EclipseSpinner />
+                        <p className=" font-ibm-korean font-bold text-black text-base whitespace-pre-line">
+                            {"음악 준비 중"}
+                        </p>
                     </div>
-                    <div className="w-1/2 h-full flex flex-row justify-center items-center">
-                        <div className="w-1/4 h-full text-truegray-500 hover:text-truegray-400 transition-all duration-500">
-                            <Rewind />
-                        </div>
+                ) : (
+                    <div className="w-full h-3/5 bg-white flex flex-row justify-evenly items-center">
                         <div
-                            className="w-1/2 h-full text-truegray-500 hover:text-truegray-400 transition-all duration-500"
+                            className="w-1/6 h-1/2 flex justify-center items-center text-truegray-500 hover:text-truegray-400 transition-all duration-500"
                             onClick={() => {
-                                setPlay(!play);
+                                setRepeat((prev) => (prev + 1) % 3);
                             }}
                         >
-                            {!play ? <Play /> : <Pause />}
+                            {setRepeatComp()}
                         </div>
-                        <div className="w-1/4 h-full text-truegray-500 hover:text-truegray-400 transition-all duration-500">
-                            <FastFoward />
+                        <div className="w-1/2 h-full flex flex-row justify-center items-center">
+                            <div
+                                className="w-1/4 h-full text-truegray-500 hover:text-truegray-400 transition-all duration-500"
+                                onClick={() => {
+                                    props.setCurrent((prev) => {
+                                        if (prev === 0) {
+                                            return 0;
+                                        } else {
+                                            return (
+                                                (prev - 1) %
+                                                props.playList.length
+                                            );
+                                        }
+                                    });
+                                }}
+                            >
+                                <Rewind />
+                            </div>
+                            <div
+                                className="w-1/2 h-full text-truegray-500 hover:text-truegray-400 transition-all duration-500"
+                                onClick={() => {
+                                    setPlay(!play);
+                                }}
+                            >
+                                {!play ? <Play /> : <Pause />}
+                            </div>
+                            <div
+                                className="w-1/4 h-full text-truegray-500 hover:text-truegray-400 transition-all duration-500"
+                                onClick={() => {
+                                    props.setCurrent((prev) => {
+                                        return (
+                                            (prev + 1) % props.playList.length
+                                        );
+                                    });
+                                }}
+                            >
+                                <FastFoward />
+                            </div>
+                        </div>
+                        <div
+                            className={`w-1/6 h-1/2 flex justify-center items-center ${
+                                random
+                                    ? "text-truegray-500 hover:text-truegray-400"
+                                    : "text-truegray-300 hover:text-truegray-600"
+                            } transition-all duration-500`}
+                            onClick={() => {
+                                setRandom(!random);
+                            }}
+                        >
+                            <Random />
                         </div>
                     </div>
-                    <div
-                        className={`w-1/6 h-1/2 flex justify-center items-center ${
-                            random
-                                ? "text-truegray-500 hover:text-truegray-400"
-                                : "text-truegray-300 hover:text-truegray-600"
-                        } transition-all duration-500`}
-                        onClick={() => {
-                            setRandom(!random);
-                        }}
-                    >
-                        <Random />
-                    </div>
-                </div>
+                )}
+
                 {/* Volume Slider Area */}
                 <div className="w-full h-1/5 flex flex-row justify-center items-center rounded-b-lg bg-white">
                     <div

@@ -14,7 +14,6 @@ export function ApiLoading(props: LoadingProps): JSX.Element {
         },
         props.open ? 500 : null,
     );
-    console.log(number);
     return (
         <Transition
             show={props.open}
