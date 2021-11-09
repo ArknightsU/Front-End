@@ -7,3 +7,4 @@ export * from "./DBInitOver";
 export * from "./CurrentPlayList";
 export * from "./MusicFavorite";
 export * from "./Settings";
+export * from "./RecoilError";
