@@ -33,18 +33,14 @@ export function ServerStats(props: ServerStatsProps): JSX.Element {
     const [length, setLength] = useState(0);
     const [toggleData, setToggleData] = useState(false);
     // Enforce Data fetch
+    const isFirstRenderForForcedUpdate = useRef(false);
     useEffect(() => {
+        if (!isFirstRenderForForcedUpdate.current) {
+            isFirstRenderForForcedUpdate.current = true;
+            return;
+        }
         setLoading(true);
-        axios
-            .get(SERVER_URL_GACHA_STATISTICS(props.pools[props.focused].id))
-            .then((data) => {
-                setGachaData(data.data.statistic);
-                setLoading(false);
-            })
-            .catch((e) => {
-                setLoading(false);
-                console.log(e);
-            });
+        fetchData();
     }, [toggleData]);
     const getDataFromServer = () => {
         if (resetCooldown !== 0) {
@@ -68,24 +64,28 @@ export function ServerStats(props: ServerStatsProps): JSX.Element {
     // First Render Check
     // Statistics Data is big, so if user not activated, do not get data from api server
     const isFirstRender = useRef(false);
+    const fetchData = () => {
+        setLoading(true);
+        axios
+            .get(SERVER_URL_GACHA_STATISTICS(props.pools[props.focused].id))
+            .then((data) => {
+                setGachaData(data.data.statistic);
+                setLoading(false);
+            })
+            .catch((e) => {
+                setLoading(false);
+                console.log(e);
+            });
+    };
     useEffect(() => {
+        console.log(openGraph, openAll);
         if (!isFirstRender.current) {
             isFirstRender.current = true;
             return;
         }
         if (Object.keys(gachaData).length !== 0) return;
         else {
-            setLoading(true);
-            axios
-                .get(SERVER_URL_GACHA_STATISTICS(props.pools[props.focused].id))
-                .then((data) => {
-                    setGachaData(data.data.statistic);
-                    setLoading(false);
-                })
-                .catch((e) => {
-                    setLoading(false);
-                    console.log(e);
-                });
+            fetchData();
         }
     }, [openGraph, openAll]);
     const [graphData, setGraphData] = useState({
@@ -237,6 +237,22 @@ export function ServerStats(props: ServerStatsProps): JSX.Element {
                 ) : (
                     <>
                         <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800 mb-6">
+                            <div className="w-full h-10 flex flex-row items-center">
+                                <InfoIcon />
+                                <p className="text-lg">{"데이터 갱신"}</p>
+                            </div>
+                            <div className="w-full h-auto">
+                                <div
+                                    className="w-32 h-12 bg-red-600 hover:bg-red-700 rounded-lg flex justify-center items-center active:border-2 border-0 border-amber-300"
+                                    onClick={getDataFromServer}
+                                >
+                                    <p className="text-lg text-white">
+                                        {resetCooldown !== 0
+                                            ? `쿨타임 (${resetCooldown}s)`
+                                            : "갱신"}
+                                    </p>
+                                </div>
+                            </div>
                             <div className="w-full h-auto flex flex-row justify-start items-center">
                                 <InfoIcon />
                                 <p className="text-lg">{"정렬 기준"}</p>

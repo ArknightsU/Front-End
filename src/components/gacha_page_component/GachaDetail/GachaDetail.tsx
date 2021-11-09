@@ -190,13 +190,13 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                                 {"10회 진행"}
                             </p>
                         </div>
-                        <div className="h-full w-20 flex justify-center items-center">
+                        <div className="h-full w-24 ml-3 flex justify-center items-center">
                             <div
                                 className={`w-20 h-20 ${
                                     loading && resetCooldown !== 0
                                         ? "bg-red-300"
                                         : "bg-red-600"
-                                } ml-3 p-3 flex justify-center items-center rounded-lg`}
+                                }  p-2 flex justify-center items-center rounded-lg`}
                                 onClick={() => {
                                     resetStack();
                                 }}
