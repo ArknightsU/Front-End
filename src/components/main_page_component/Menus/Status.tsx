@@ -15,8 +15,13 @@ export function Status(): JSX.Element {
     const [status, setStatus] = useState("통신 중");
     const [loading, setLoading] = useState(false);
     const [toggle, setToggle] = useState(false);
+    const [coolDown, setCooldown] = useState(false);
     useEffect(() => {
         setStatus("통신 중");
+        setCooldown(true);
+        setTimeout(() => {
+            setCooldown(false);
+        }, 3000);
         setLoading(true);
         const startTime = new Date();
         axios
@@ -25,9 +30,9 @@ export function Status(): JSX.Element {
                 const endTime = new Date();
                 const rtt: number = Number(endTime) - Number(startTime);
                 console.log("rtt: ", rtt);
-                if (rtt <= 200) {
+                if (rtt <= 600) {
                     setStatus("양호");
-                } else if (rtt <= 600) {
+                } else if (rtt <= 1800) {
                     setStatus("혼잡");
                 } else {
                     setStatus("불안정");
@@ -36,6 +41,7 @@ export function Status(): JSX.Element {
             })
             .catch((e) => {
                 setStatus("에러");
+                setLoading(false);
             });
     }, [toggle]);
     return (
@@ -66,11 +72,18 @@ export function Status(): JSX.Element {
                     </div>
                     <div className="w-full h-1/3 flex justify-center items-center p-2">
                         <div
-                            className="w-full h-full rounded-lg bg-blue-500 hover:bg-blue-700 active:bg-blue-900 flex justify-center items-center"
-                            onClick={() => setToggle(!toggle)}
+                            className={`w-full h-full rounded-lg ${
+                                coolDown
+                                    ? "bg-gray-800"
+                                    : "bg-blue-500 hover:bg-blue-700 active:bg-blue-900"
+                            } flex justify-center items-center`}
+                            onClick={() => {
+                                if (coolDown) return;
+                                setToggle(!toggle);
+                            }}
                         >
-                            <p className="font-bold text-xs md:text-lg text-white font-ibm-korean">
-                                {"재확인"}
+                            <p className="font-bold text-base md:text-lg text-white font-ibm-korean">
+                                {coolDown ? "쿨타임" : "재확인"}
                             </p>
                         </div>
                     </div>
