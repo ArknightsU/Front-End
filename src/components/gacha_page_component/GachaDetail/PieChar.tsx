@@ -11,7 +11,7 @@ interface PieProps {
     data: any;
     length: number;
 }
-export const PieChart = ({ data, length /* see data tab */ }: PieProps) => {
+export const PieChart = ({ data, length }: PieProps) => {
     return (
         <ResponsivePie
             data={data}

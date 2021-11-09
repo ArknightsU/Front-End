@@ -14,7 +14,7 @@ export function CharMinify(props: CharMinifyProps): JSX.Element {
     // @ts-ignore
     const charRarity = loading ? null : charData["rarity"];
     return (
-        <div className="w-24 h-auto flex flex-col">
+        <div className="w-24 h-auto flex flex-col pointer-events-none">
             {Object.keys(rarityDict).includes(charRarity) ? (
                 <div
                     className="w-24 h-24 absolute"

@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 
 interface LayoutType {
     initial?: boolean;
     title?: string;
     children?: React.ReactNode;
+    parentControlOpen?: boolean;
+    setParentControlOpen?: React.Dispatch<SetStateAction<boolean>>;
 }
 export function DetailChildLayout({
     children,
     initial = false,
     title = "SET TITLE",
+    parentControlOpen,
+    setParentControlOpen,
 }: LayoutType): JSX.Element {
-    const [open, setOpen] = useState(initial);
+    const [open, setOpen] =
+        parentControlOpen !== undefined && setParentControlOpen !== undefined
+            ? [parentControlOpen, setParentControlOpen]
+            : useState(initial);
     return (
         <div className="w-full h-auto flex flex-col">
             <div

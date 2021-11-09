@@ -11,6 +11,8 @@ import { PieChart } from "./PieChar";
 import { EveryOperators } from "./EveryOperators";
 import { getAllfeaturedCharacters } from "../getAllfeaturedCharacters";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
+import { ServerStats } from "./ServerStats";
+import { ClientStats } from "./ClientStats";
 
 interface GachaDetailProps {
     poolSelected: boolean;
@@ -31,6 +33,10 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
         props.pools[props.focused].id + "-stone",
         0,
     );
+    const resetUsed = () => {
+        setGem(0);
+        setStone(0);
+    };
     const doGacha = (count: number) => {
         props.setLoading(true);
         axios
@@ -51,7 +57,10 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                 console.error(reason);
             });
     };
+    // reset button state & action
+    const [resetCooldown, setResetCooldown] = useState(0);
     const resetStack = () => {
+        setResetCooldown(3);
         if (loading) {
             return;
         }
@@ -65,78 +74,24 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                 setLoading(false);
             });
     };
+    // reset timer
+    useEffect(() => {
+        if (resetCooldown <= 0) {
+            setResetCooldown(0);
+            return;
+        }
+        setTimeout(() => {
+            setResetCooldown((prev) => prev - 1);
+        }, 1000);
+    }, [resetCooldown]);
     const type = props.pools[props.focused]["type"];
     // 가챠로 뽑은 오퍼레이터는 세션 스토리지에 저장됨
     const [gachaData, setGachaData] = useSessionStorage(
         props.pools[props.focused].id.toString(),
         [],
     );
-    const [graphData, setGraphData] = useState({
-        six: 0,
-        five: 0,
-        four: 0,
-        three: 0,
-    });
-    const [hitData, setHitData] = useState({
-        six: 0,
-        five: 0,
-        four: 0,
-        three: 0,
-    });
-    const colorMap = [
-        "hsl(215, 70%, 50%)",
-        "hsl(153, 70%, 50%)",
-        "hsl(291, 70%, 50%)",
-        "hsl(18, 70%, 50%)",
-    ];
-    const labelMap = ["★6", "★5", "★4", "★3"];
-    const refinedGraphData = Object.keys(graphData).map((v, idx) => {
-        return {
-            id: labelMap[idx],
-            label: labelMap[idx],
-            // @ts-ignore
-            value: graphData[v],
-            color: colorMap[idx],
-        };
-    });
     // first animation initializer
     const [initAnime, setInitAnime] = useState(false);
-    useEffect(() => {
-        async function Data() {
-            const returnData = {
-                six: 0,
-                five: 0,
-                four: 0,
-                three: 0,
-            };
-            const returnHitData = {
-                six: 0,
-                five: 0,
-                four: 0,
-                three: 0,
-            };
-            for (const char of gachaData) {
-                const data = await getItem(DB_NAME.character_table, char);
-                // @ts-ignore
-                returnData[data["rarity"]] = returnData[data["rarity"]] + 1;
-                if (
-                    getAllfeaturedCharacters(
-                        props.pools[props.focused],
-                    ).includes(char)
-                ) {
-                    // @ts-ignore
-                    returnHitData[data["rarity"]] =
-                        // @ts-ignore
-                        returnHitData[data["rarity"]] + 1;
-                }
-            }
-            return [returnData, returnHitData];
-        }
-        Data().then((result) => {
-            setGraphData(result[0]);
-            setHitData(result[1]);
-        });
-    }, [gachaData.length]);
     useEffect(() => {
         setInitAnime(props.poolSelected);
     }, [props.poolSelected]);
@@ -145,7 +100,7 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
             className={`absolute w-screen h-screen flex flex-row justify-center items-center overflow-hidden pt-40 md:pt-32`}
         >
             <div
-                className={`w-11/12 h-full md:w-1/2 pr-2 pb-40 absolute transition-all duration-1000 z-40 flex flex-col items-start pt-12 overflow-y-auto ${
+                className={`w-11/12 h-full md:w-1/2 pr-2 pb-40 absolute transition-all duration-1000 z-40 flex flex-col items-start overflow-y-auto ${
                     initAnime
                         ? "right-6 lg:right-12 xl:right-24"
                         : "-right-full"
@@ -195,9 +150,19 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                             </div>
                         </div>
                     </div>
+                    <div className="w-full h-16 flex justify-center items-center p-1">
+                        <div
+                            className="w-2/4 h-full rounded-lg bg-green-700 hover:bg-green-900 transition-colors duration-500 active:border-2 border-0 border-yellow-300 flex justify-center items-center"
+                            onClick={resetUsed}
+                        >
+                            <p className="font-ibm-korean font-bold text-base md:text-lg text-white">
+                                {"사용한 재화 초기화"}
+                            </p>
+                        </div>
+                    </div>
                     {/* Orundum, Originite Status End */}
                     {/* Button Area Start */}
-                    <div className="w-full h-24 flex flex-row justify-center items-center mt-8 font-ibm-korean font-bold text-truegray-800">
+                    <div className="w-full h-24 flex flex-row justify-center items-center mt-0 font-ibm-korean font-bold text-truegray-800">
                         <div
                             className="h-full w-48 flex justify-center items-center relative"
                             onClick={() => {
@@ -224,7 +189,9 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                         <div className="h-full w-20 flex justify-center items-center">
                             <div
                                 className={`w-20 h-20 ${
-                                    loading ? "bg-red-300" : "bg-red-600"
+                                    loading && resetCooldown !== 0
+                                        ? "bg-red-300"
+                                        : "bg-red-600"
                                 } ml-3 p-3 flex justify-center items-center rounded-lg`}
                                 onClick={() => {
                                     resetStack();
@@ -234,7 +201,9 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                                     <EclipseSpinner />
                                 ) : (
                                     <p className=" whitespace-pre-line text-sm md:text-base text-center text-white leading-none transition-all duration-500">
-                                        {"스택\n초기화"}
+                                        {resetCooldown !== 0
+                                            ? `쿨타임\n${resetCooldown}s`
+                                            : "스택\n초기화"}
                                     </p>
                                 )}
                             </div>
@@ -291,47 +260,12 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                             </div>
                         </div>
                     </DetailChildLayout>
-                    <DetailChildLayout
-                        title="시뮬레이션 확률 정보"
-                        initial={false}
-                    >
-                        <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800">
-                            <div className="w-full h-10 flex flex-row items-center">
-                                <InfoIcon />
-                                <p className="text-lg">{"그래프"}</p>
-                            </div>
-                            <div className="w-full h-96">
-                                {gachaData.length === 0 ? (
-                                    <div className="w-full h-full flex justify-center items-center">
-                                        <p className="text-xl">
-                                            {"데이터가 존재하지 않습니다."}
-                                        </p>
-                                    </div>
-                                ) : (
-                                    <PieChart
-                                        data={refinedGraphData}
-                                        length={gachaData.length}
-                                    />
-                                )}
-                            </div>
-                            <div className="w-full h-10 flex flex-row items-center">
-                                <InfoIcon />
-                                <p className="text-lg">{"상세 정보"}</p>
-                            </div>
-                            <div className="w-full h-40 flex justify-center items-center">
-                                <DataTalbe
-                                    allData={graphData}
-                                    hitData={hitData}
-                                />
-                            </div>
-                        </div>
-                    </DetailChildLayout>
-                    <DetailChildLayout
-                        title="출현한 오퍼레이터"
-                        initial={false}
-                    >
-                        <EveryOperators data={gachaData} />
-                    </DetailChildLayout>
+                    <ClientStats
+                        focused={props.focused}
+                        pools={props.pools}
+                        gachaData={gachaData}
+                    />
+                    <ServerStats focused={props.focused} pools={props.pools} />
                 </div>
             </div>
         </div>
@@ -359,7 +293,7 @@ interface DataProps {
     allData: any;
     hitData: any;
 }
-const DataTalbe = (props: DataProps) => {
+export const DataTalbe = (props: DataProps) => {
     const headMap = ["★6", "★5", "★4", "★3"];
     return (
         <div

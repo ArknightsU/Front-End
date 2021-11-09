@@ -18,6 +18,13 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
         return "/img/characters/" + v + "_2.webp";
     });
     const [returnText, setReturnText] = useState<string[]>([]);
+    const [render, setRender] = useState(false);
+    useEffect(() => {
+        setRender(false);
+        setTimeout(() => {
+            setRender(true);
+        }, 500);
+    }, [props.focused]);
     const [count, setCount] = React.useState(0);
     useEffect(() => {
         setCount(0);
@@ -71,8 +78,10 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
                 >
                     {v.includes("undefined") ? (
                         <></>
-                    ) : (
+                    ) : render ? (
                         <CustomImage src={v} priority={true} />
+                    ) : (
+                        <></>
                     )}
                 </div>
             ))}
