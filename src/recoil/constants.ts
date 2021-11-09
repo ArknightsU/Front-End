@@ -8,4 +8,5 @@ export enum Atoms {
     MusicFavorite = "MusicFavorite",
     CurrentPlayList = "CurrentPlayList",
     Settings = "Settings",
+    Error = "Error",
 }

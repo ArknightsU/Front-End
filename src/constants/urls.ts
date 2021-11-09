@@ -19,6 +19,12 @@ export const CHAR_NAME_DICT_URL =
 export const SERVER_STATUS_URL =
     "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/health";
 
+export const SERVER_URL_GACHA_STATISTICS = (id: string): string => {
+    return `https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/statistic/pool?id=${id}`;
+};
+export const SERVER_URL_GACHA_ALL =
+    "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/statistic/total";
+
 // music
 export const MUSIC_SONGS_URL =
     "https://static2.arknights.one/json/music/songs.json";
