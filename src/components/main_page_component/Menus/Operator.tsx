@@ -4,8 +4,10 @@ import { StarRating } from "../../common/StarRating";
 import { Carousel } from "@components/common";
 import { useInterval } from "react-use";
 import { useRecoilValue } from "recoil";
-import { DBInitOver } from "@recoil/atoms";
+import { DBInitOver, RecoilError } from "@recoil/atoms";
 import { useCharObject } from "../../common/LocalForge/hooks/useCharObject";
+import { UnderConstruct } from "@components/common/UnderConstruct";
+import { useSetRecoilState } from "recoil";
 
 const IMAGE_DIR = "/img/characters/";
 const FILE_NAME_POST_FIX = "_2.webp";
@@ -52,6 +54,7 @@ export function Operator(): JSX.Element {
     const rating = [4.3, 3.1, 5];
     const [count, setCount] = React.useState(0);
     const [hover, setHover] = React.useState(false);
+    const setError = useSetRecoilState(RecoilError);
     useInterval(
         () => {
             setCount((count + 1) % images.length);
@@ -67,6 +70,11 @@ export function Operator(): JSX.Element {
     return (
         <div className={menuStyle}>
             <div className="relative bg-gray-100 dark:bg-gray-700 w-full h-full box-border rounded-lg flex flex-col justify-end items-center shadow-md overflow-hidden">
+                <UnderConstruct
+                    onClick={() => {
+                        setError(true);
+                    }}
+                />
                 {/**
                  * Top side blacked content
                  */}

@@ -20,8 +20,8 @@ export function Translate(): JSX.Element {
     );
     const Languages = [
         { id: 1, name: "한국어" },
-        { id: 2, name: "日本語" },
-        { id: 3, name: "English" },
+        //{ id: 2, name: "日本語" },
+        //{ id: 3, name: "English" },
     ];
     const [selectedLang, setSelectedLang] = useState(Languages[0]);
     return (
@@ -35,11 +35,7 @@ export function Translate(): JSX.Element {
                     />
                 </div>
                 <div className="md:w-1/2 md:h-full h-auto w-full flex flex-col justify-center items-center mt-1">
-                    <Listbox
-                        value={selectedLang}
-                        onChange={setSelectedLang}
-                        disabled
-                    >
+                    <Listbox value={selectedLang} onChange={setSelectedLang}>
                         <div className="relative mt-1">
                             <Listbox.Button className="relative w-full py-2 pl-3 pr-16 text-left text-xs bg-white rounded-lg cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
                                 <span className="block truncate">
