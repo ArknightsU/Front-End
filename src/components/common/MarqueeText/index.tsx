@@ -1,16 +1,37 @@
-import { useRef, useState } from "react";
+import { CSSProperties, useRef, useState } from "react";
 import { useInterval } from "react-use";
+
+/**
+ * Marquee Text Object
+ * Slide text to left and right when text's width overflows from parent's width
+ */
 
 interface MarqueeProps {
     children: string;
     className?: string;
+    style?: CSSProperties;
     textClassName?: string;
+    hover?: boolean;
+    setHover?: () => void;
 }
 
 export function MarqueeText(props: MarqueeProps): JSX.Element {
-    const [hover, setHover] = useState(false);
+    // hover checker
+    // if props contains hover or setHover states refers props first
+    const [hover, setHover] =
+        props.hover !== undefined
+            ? [
+                  props.hover,
+                  (v: boolean) => {
+                      return !v;
+                  },
+              ]
+            : useState(false);
+    // parent size ref
     const parent = useRef<HTMLDivElement>(null);
+    // text size ref
     const text = useRef<HTMLParagraphElement>(null);
+    // difference between parent and text
     const diff =
         parent.current === null || text.current === null
             ? 0
@@ -34,6 +55,7 @@ export function MarqueeText(props: MarqueeProps): JSX.Element {
             className={`${props.className} ${
                 props.className === undefined ? "h-auto w-auto" : ""
             } overflow-hidden`}
+            style={props.style === undefined ? {} : props.style}
             onMouseEnter={() => {
                 setHover(true);
             }}

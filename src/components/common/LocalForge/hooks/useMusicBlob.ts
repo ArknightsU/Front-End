@@ -6,6 +6,7 @@ export function useMusicBlob(key: string) {
     const [data, setData] = useState(new Blob());
     const [nullCheck, setNullChekck] = useState({});
     useEffect(() => {
+        setLoading(true);
         async function get() {
             const data = await getMusicBlob(key);
             if (data === null) {

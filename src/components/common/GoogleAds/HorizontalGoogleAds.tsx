@@ -4,9 +4,14 @@ import React from "react";
 // custom horizontal google ads
 export function HorizontalGoogleAds(): JSX.Element {
     React.useEffect(() => {
-        if (typeof window !== "undefined") {
-            // @ts-ignore
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        try {
+            if (typeof window !== "undefined") {
+                // @ts-ignore
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            }
+        } catch (e) {
+            console.log(e);
+            return;
         }
     }, []);
     return (

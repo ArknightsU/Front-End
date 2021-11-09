@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { CustomImage } from "@components/common";
+
 interface ProfileProps {
     char: string;
     displayNumber: string;
     name: string;
 }
-
 export function Profile(props: ProfileProps): JSX.Element {
     return (
         <div className="h-auto w-auto relative">

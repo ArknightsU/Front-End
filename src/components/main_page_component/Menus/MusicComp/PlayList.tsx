@@ -18,7 +18,7 @@ interface PlayListProps {
 }
 export function PlayList(props: PlayListProps): JSX.Element {
     return (
-        <div className="w-full h-full flex flex-col justify-start items-center">
+        <div className="w-full h-full flex flex-col relative justify-start items-center">
             <div
                 className="w-full flex flex-row items-end"
                 style={{ height: "10%", minHeight: "30px" }}
@@ -58,7 +58,7 @@ export function PlayList(props: PlayListProps): JSX.Element {
                         className="w-full flex justify-start items-start"
                         style={{ height: "85%" }}
                     >
-                        <div className="w-full h-full overflow-auto flex flex-col gap-y-1">
+                        <div className="w-full h-full overflow-y-auto overflow-x-hidden flex flex-col gap-y-1">
                             {(props.fav
                                 ? props.playListFavorite
                                 : props.playListAll

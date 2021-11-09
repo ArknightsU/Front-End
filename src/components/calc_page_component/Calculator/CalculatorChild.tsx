@@ -35,6 +35,8 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
     const window_size = useWindowSize();
     const isMobile = window_size.width < 768 ? true : false;
     const SHOW_DIV_SIZE = 120;
+    // Checke where skill is clicked or not
+    // used for popup
     const checkSkillSelected = (): boolean => {
         const check = [];
         if (props.focus.allSkill !== null) {
@@ -57,6 +59,8 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
         }
         return check.some((v) => v === true);
     };
+    // Check whether upgrade is clicked or not
+    // used for pop up
     const checkUpgradeSelected = (): boolean => {
         const check = [];
         if (props.focus.upgrade !== null) {

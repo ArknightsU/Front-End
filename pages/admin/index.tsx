@@ -1,10 +1,11 @@
 import { CustomImage } from "@components";
 import { NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 const Admin: NextPage<any> = () => {
-    const [session, loading] = useSession();
+    const { data: session, status } = useSession();
+    const loading = status === "loading";
     if (loading) {
         return <p>{"Loading..."}</p>;
     }

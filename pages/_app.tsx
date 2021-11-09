@@ -7,7 +7,7 @@ import { appWithTranslation } from "@i18n";
 import { Loading } from "@components";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { Provider } from "next-auth/client";
+import { SessionProvider } from "next-auth/react";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     const router = useRouter();
@@ -29,9 +29,12 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             </Head>
             <Loading loading={loading} />
             <RecoilRoot>
-                <Provider session={pageProps.session}>
+                <SessionProvider
+                    session={pageProps.session}
+                    refetchInterval={0}
+                >
                     <Component {...pageProps} />
-                </Provider>
+                </SessionProvider>
             </RecoilRoot>
         </React.Fragment>
     );

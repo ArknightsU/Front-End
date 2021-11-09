@@ -1,6 +1,9 @@
+import { UnderConstruct } from "@components/common/UnderConstruct";
 import React from "react";
+import { useSetRecoilState } from "recoil";
 import { menuStyle, insideStyle } from "./common";
 import { SubMenuComp } from "./SubMenuComp";
+import { RecoilError } from "@recoil/atoms";
 
 export function Theme(): JSX.Element {
     const [theme, setTheme] = React.useState("light");
@@ -40,10 +43,13 @@ export function Theme(): JSX.Element {
     const light_background = "bg-gradient-to-tr from-gray-800 to-gray-600";
     const dark_background = "bg-gradient-to-tr from-gray-100 to-white";
     const background = theme === "light" ? light_background : dark_background;
+    const setError = useSetRecoilState(RecoilError);
     return (
         <div
             className={menuStyle}
             onClick={() => {
+                // delete this return state when complete theme change function
+                return;
                 if (!drag) setTheme(theme === "light" ? "dark" : "light");
                 else return;
             }}
@@ -55,6 +61,15 @@ export function Theme(): JSX.Element {
             }}
         >
             <div className={insideStyle}>
+                <div className="w-full h-full absolute p-4 md:p-4">
+                    <div className="w-full h-full relative">
+                        <UnderConstruct
+                            onClick={() => {
+                                setError(true);
+                            }}
+                        />
+                    </div>
+                </div>
                 <SubMenuComp
                     icon={icon}
                     text={"테마 변경"}

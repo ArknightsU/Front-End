@@ -116,7 +116,7 @@ export async function getAlbum(key: string) {
     }
 }
 
-export async function getMusicBlob(key: string): Promise<Blob> {
+export async function getMusicBlob(key: string): Promise<Blob | null> {
     //@ts-ignore
     const music: Blob | null = await getItem(DB_NAME.music_storage, key);
     if (music === null) {
@@ -130,8 +130,13 @@ export async function getMusicBlob(key: string): Promise<Blob> {
                 return new Blob([res.data], {
                     type: res.headers["content-type"],
                 });
+            })
+            .catch((res) => {
+                return null;
             });
-        await setItem(DB_NAME.music_storage, key, data);
+        if (data !== null) {
+            await setItem(DB_NAME.music_storage, key, data);
+        }
         return data;
     } else {
         return music;

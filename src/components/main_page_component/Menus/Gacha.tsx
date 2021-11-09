@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { menuStyle } from "./common";
 import Link from "next/link";
 import { CustomImage } from "@components";
+import axios from "axios";
+import { SERVER_URL_GACHA_ALL } from "@constants";
 
 export function Gacha(): JSX.Element {
+    const [loading, setLoading] = useState(true);
+    const [number, setNumber] = useState(0);
+    const [error, setError] = useState(false);
+    // when render, get all gacha number data from server
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(SERVER_URL_GACHA_ALL)
+            .then((res) => {
+                setNumber(res.data.total);
+                setLoading(false);
+            })
+            .catch((e) => {
+                setError(true);
+                setLoading(false);
+            });
+    }, []);
     return (
         <div className={menuStyle}>
             <Link href={"/gacha"} passHref={true}>
@@ -24,10 +43,14 @@ export function Gacha(): JSX.Element {
                             <p className="text-base md:text-xl text-right font-ibm-korean font-bold text-truegray-700 mb-auto mr-4 md:mr-10 mt-5">
                                 {"현재까지 모집된 대원 수"}
                                 <br />
-                                {"2564250".replace(
-                                    /\B(?=(\d{3})+(?!\d))/g,
-                                    ",",
-                                )}
+                                {loading
+                                    ? "데이터를 읽는 중..."
+                                    : error
+                                    ? "에러 발생 : 페이지를 새로고침 하거나 API서버의 상태를 확인해주세요."
+                                    : String(number).replace(
+                                          /\B(?=(\d{3})+(?!\d))/g,
+                                          ",",
+                                      )}
                             </p>
                             <p className="text-2xl md:text-3xl font-ibm-korean font-bold text-truegray-700 mr-4 md:mr-10 mb-5">
                                 {"가챠 시뮬레이션"}

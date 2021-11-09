@@ -12,6 +12,7 @@ interface UpgradeProps {
 }
 
 export function Upgrade(props: UpgradeProps): JSX.Element {
+    // handle upgrade button clicked
     const handleUpgrade = (n: number) => {
         props.setFocused((prev) => {
             const previous = [...prev];
@@ -98,6 +99,7 @@ interface SkillProps {
     >;
 }
 
+// skill rank file's url
 const RANK_FILE_URL = [
     "/img/rank/2.webp",
     "/img/rank/3.webp",

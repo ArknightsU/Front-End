@@ -74,12 +74,16 @@ async function checkDBStatus(net_version: any) {
     const current_version = await getItem(DB_NAME.db_version, "version");
     const current_db_length = await getCharDBLength();
     if (current_version === null || current_db_length === 0) {
+        console.log("DB NOT EXISTS, INIT DB");
         return true;
     } else if (net_version["version"] !== current_version) {
+        console.log("DB VERSION DEPRECATED, RE-INIT DB");
         return true;
     } else if (net_version["length"] !== current_db_length) {
+        console.log("CHARACTER TABLE DIFFERENCE DETECTED\nRE-INIT DB");
         return true;
     } else {
+        console.log("CORRECT DB INITED");
         return false;
     }
 }

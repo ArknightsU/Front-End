@@ -59,12 +59,15 @@ module.exports = {
             colors: {
                 truegray: colors.trueGray,
                 amber: colors.amber,
+                teal: colors.teal,
             },
             textColor: {
                 amber: colors.amber,
+                teal: colors.teal,
             },
             backgroundColor: {
                 amber: colors.amber,
+                teal: colors.teal,
             },
             zIndex: {
                 bg: -1,
@@ -90,6 +93,7 @@ module.exports = {
     variants: {
         extend: {
             backgroundColor: ["active"],
+            borderWidth: ["active"],
             opacity: ["disabled"],
             filter: ["disabled"],
             grayscale: ["disabled"],
