@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     ResponsiveGrid,
     Operator,
@@ -35,19 +35,28 @@ const Home: React.FC = () => {
     const [isDBinitOver, setDBinitOver] = useRecoilState(DBInitOver);
     const [toggleInitDb, setToggleInitDb] = useState(false);
     const [error, setError] = useRecoilState(RecoilError);
+    const isFirstRender = useRef(false);
     useEffect(() => {
+        if (!isFirstRender.current) {
+            isFirstRender.current = true;
+            return;
+        }
+        console.log("forced");
         setDBLoading(false);
+        forceInitDB().then(() => {
+            setDBLoading(true);
+        });
+    }, [toggleInitDb]);
+    useEffect(() => {
         if (!isDBinitOver) {
             initDB().then(() => {
                 setDBinitOver(true);
                 setDBLoading(true);
             });
         } else {
-            forceInitDB().then(() => {
-                setDBLoading(true);
-            });
+            setDBLoading(true);
         }
-    }, [toggleInitDb]);
+    }, []);
     return (
         <>
             <Head>
