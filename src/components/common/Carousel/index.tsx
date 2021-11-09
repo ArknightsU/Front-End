@@ -1,6 +1,9 @@
 import React, { PropsWithChildren } from "react";
 import Image from "next/image";
-
+/**
+ * Custome Carousel Component
+ * Made it for Main-Operator Component
+ */
 interface CarouselProps {
     parent: React.RefObject<HTMLElement>;
     images: Array<string>;

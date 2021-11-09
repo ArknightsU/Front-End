@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { CustomImage, useCharObject } from "@components";
 import { MarqueeText } from "@components/common/MarqueeText";
-
+/**
+ * Minified char showing component
+ */
 interface CharMinifyProps {
     charName: string;
 }

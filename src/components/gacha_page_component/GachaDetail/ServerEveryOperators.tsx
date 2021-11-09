@@ -4,7 +4,11 @@ import { DB_NAME } from "@components/common";
 import { useEffect, useState } from "react";
 import { CharMinify } from "../GachaAnimation/CharMinify";
 import { StatisticsData } from "./ServerStats";
-
+/**
+ * Server version of EveryOperators.tsx
+ * Refer EveryOperators.tsx
+ * Difference is tiny part of data processing
+ */
 interface ServerEveryOperatorsProps {
     data: StatisticsData;
     sortBy: boolean;
@@ -37,7 +41,7 @@ export function ServerEveryOperators(
         Data().then((result) => {
             setData(result);
         });
-    }, [props.data.length]);
+    }, [Object.keys(props.data).length]);
     return (
         <div className="w-full h-auto flex flex-row items-center justify-start gap-x-4 gap-y-4 flex-wrap font-ibm-korean font-bold text-truegray-800">
             {Object.keys(props.data).length === 0 ? (

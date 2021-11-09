@@ -7,7 +7,7 @@ export function useBigAlbumArtBlob(key: string) {
     const [nullCheck, setNullChekck] = useState({});
     useEffect(() => {
         async function get() {
-            console.log("check ifinite");
+            //console.log("check ifinite");
             setLoading(true);
             const data = await getBigAlbumArtBlob(key);
             if (data === null) {

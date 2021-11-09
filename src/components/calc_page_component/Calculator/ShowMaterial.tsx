@@ -68,7 +68,6 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
                 count: EVOLVE_GOLD_COST[RARITY_KEYS[props.char.rarity]][index],
                 type: "GOLD",
             };
-            console.log(CHAR_KEYS[key][index + 1]);
             return [...CHAR_KEYS[key][index + 1], EVOLVE_GOLD_COST_OBJ];
         } else if (key === "allSkill") {
             return CHAR_KEYS[key][index].lvlUpCost;
@@ -292,7 +291,6 @@ function Item(props: ItemProps): JSX.Element {
     const rarity_img_src = `/img/material/bg/item-${
         Number(Material_Object.rarity) + 1
     }.webp`;
-    console.log(props.itemId, ":", Material_Object.madeof);
     const isDecomposible = () => {
         if (Material_Object.buildingProductList.roomType === undefined) {
             return false;

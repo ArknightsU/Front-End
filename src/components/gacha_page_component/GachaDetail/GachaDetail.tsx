@@ -6,14 +6,13 @@ import axios from "axios";
 import { GET_GACHA_API_URL, SERVER_URL_RESET_STACK } from "src/constants";
 import { CharMinify } from "../GachaAnimation/CharMinify";
 import { useSessionStorage } from "react-use";
-import { DB_NAME } from "../../common/LocalForge/db_name";
-import { PieChart } from "./PieChar";
-import { EveryOperators } from "./EveryOperators";
 import { getAllfeaturedCharacters } from "../getAllfeaturedCharacters";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { ServerStats } from "./ServerStats";
 import { ClientStats } from "./ClientStats";
-
+/**
+ * Gacha Detail Main component
+ */
 interface GachaDetailProps {
     poolSelected: boolean;
     focused: number;
@@ -24,19 +23,24 @@ interface GachaDetailProps {
     setError: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export function GachaDetail(props: GachaDetailProps): JSX.Element {
+    // loading state
     const [loading, setLoading] = useState(false);
+    // session storage for gem
     const [gem, setGem] = useSessionStorage(
         props.pools[props.focused].id + "-gem",
         0,
     );
+    // session storage for stone
     const [stone, setStone] = useSessionStorage(
         props.pools[props.focused].id + "-stone",
         0,
     );
+    // function: reset session storage for this banner
     const resetUsed = () => {
         setGem(0);
         setStone(0);
     };
+    // do Gacha function
     const doGacha = (count: number) => {
         props.setLoading(true);
         axios

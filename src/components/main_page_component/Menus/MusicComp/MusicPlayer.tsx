@@ -24,16 +24,31 @@ interface MusicPlayerProps {
     setCurrent: React.Dispatch<SetStateAction<number>>;
 }
 export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
+    // 현재 시간
     const [currentTime, setCurrentTime] = useState<number>(0);
+    // 음악의 최대 시간
     const [endTime, setEndTime] = useState<number>(0);
+    // 볼륨
     const [volume, setVolume] = useState<number>(50);
+    // 반복 state
+    // 0: 루프 없음
+    // 1: 한곡 반복
+    // 2: 전체 반복
     const [repeat, setRepeat] = useState<number>(0);
+    // 랜덤 state
     const [random, setRandom] = useState<boolean>(false);
+    // 재생
     const [play, setPlay] = useState<boolean>(false);
+    // 재생 스테이스 메모리
+    // 로딩 시 시간이 걸리기 때문에, 일단 일시 정지 후, 이전 스테이트를 복구하기 위함
     const [memoryState, setMemoryState] = useState(false);
+    // 음소거
     const [mute, setMute] = useState<boolean>(false);
+    // 뮤직 Blob 오브젝트
     const [musicObj, loading] = useMusicBlob(props.playList[props.current]);
+    // Blob to Url
     const [url, setUrl] = useState("");
+    // Repeat Icon Setter
     const setRepeatComp = () => {
         switch (repeat) {
             case 0:

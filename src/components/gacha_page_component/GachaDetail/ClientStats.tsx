@@ -14,28 +14,36 @@ interface ClientStatsProps {
     gachaData: any;
 }
 export function ClientStats(props: ClientStatsProps): JSX.Element {
+    // switch state
     const [sortBy, setSortBy] = useState(false);
+    // graph open control
     const [openGraph, setOpenGraph] = useState(false);
+    // all open control
     const [openAll, setOpenAll] = useState(false);
+    // graph data state
     const [graphData, setGraphData] = useState({
         six: 0,
         five: 0,
         four: 0,
         three: 0,
     });
+    // if char is in featured, it's become hitData
     const [hitData, setHitData] = useState({
         six: 0,
         five: 0,
         four: 0,
         three: 0,
     });
+    // color map for graph
     const colorMap = [
         "hsl(215, 70%, 50%)",
         "hsl(153, 70%, 50%)",
         "hsl(291, 70%, 50%)",
         "hsl(18, 70%, 50%)",
     ];
+    // label map for graph
     const labelMap = ["★6", "★5", "★4", "★3"];
+    // Data refiner for graph
     const refinedGraphData = Object.keys(graphData).map((v, idx) => {
         return {
             id: labelMap[idx],
@@ -45,7 +53,7 @@ export function ClientStats(props: ClientStatsProps): JSX.Element {
             color: colorMap[idx],
         };
     });
-
+    // Detects props.gachaData's length and if change, renew every data
     useEffect(() => {
         async function Data() {
             const returnData = {

@@ -12,7 +12,11 @@ import { DB_NAME } from "@components";
 import { ServerEveryOperators } from "./ServerEveryOperators";
 import { ToggleSwitch } from "@components/common/ToggleSwitch";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
-
+/**
+ * Server version of ClientStats.tsx
+ * Refer ClientStats.tsx
+ * Difference is tiny part of data processing
+ */
 interface ServerStatsProps {
     focused: number;
     pools: Array<GachaPool>;

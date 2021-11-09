@@ -21,32 +21,47 @@ interface MusicProps {
     data: string;
 }
 export function Music(): JSX.Element {
+    // 즐겨찾기를 보는지 안보는지
     const [fav, setFav] = useState(false);
+    // 실제 현재 재생하고 있는 재생목록을 결정
     const [currentPlayList, setCurrentPlayList] =
         useRecoilState(CurrentPlayList);
+    // 전체 재생목록 state
     const [playListAll, setPlayListAll] = useState<string[]>([]);
+    // 즐겨찾기 재생목록 state
+    // Recoil-Persist 로 관리
     const [playListFavorite, favoriteFunctions] = useFavorite();
+    // loading state for initial state
+    // changed by init() render useEffect function
     const [loading, setLoading] = useState<boolean>(true);
+    // current number in arrays
     const [current, setCurrent] = useState<number>(0);
+    // defines playList
     const playList = currentPlayList ? playListFavorite : playListAll;
+    // defines current play music
     // @ts-ignore
     const [currentMusic, musicLoading] = useMusicDB(playList[current]);
+    // Album Image Blob and Url
     // @ts-ignore
     const [imageBlob, imageLoading] = useBigAlbumArtBlob(currentMusic.albumCid);
     const [imageUrl, setImageUrl] = useState("");
+    // if loading state changes, getMusic keys
     useEffect(() => {
         getMusicKeys().then((value) => {
             setPlayListAll(value);
         });
     }, [loading]);
+    // if current play list changed, set music number to 0
     useEffect(() => {
         setCurrent(0);
-    }, [fav]);
+    }, [currentPlayList]);
+    // when render, init music db and set loading to false
     useEffect(() => {
         initMusicDB().then(() => {
             setLoading(false);
         });
     }, []);
+    // if image loading finished, set object url
     useEffect(() => {
         // @ts-ignore
         if (typeof imageBlob === "object") {

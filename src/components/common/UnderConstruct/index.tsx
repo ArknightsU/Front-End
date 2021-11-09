@@ -1,6 +1,8 @@
 import { SetStateAction } from "react";
 import { CustomImage } from "..";
-
+/**
+ * On Dev Overlapper
+ */
 interface UnderConstructProps {
     onClick: any;
 }
@@ -15,7 +17,7 @@ export function UnderConstruct(props: UnderConstructProps): JSX.Element {
             >
                 <div className="w-full h-2/5 absolute">
                     <div className="w-full h-full relative flex justify-center items-center">
-                        <div className="w-full h-full absolute bg-red-500">
+                        <div className="w-full h-full absolute bg-red-500 bg-opacity-80 backdrop-filter backdrop-blur-sm">
                             <CustomImage
                                 src="/ui/underconstruct_bg.webp"
                                 type="stretch"

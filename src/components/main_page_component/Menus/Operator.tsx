@@ -12,7 +12,7 @@ import { useSetRecoilState } from "recoil";
 const IMAGE_DIR = "/img/characters/";
 const FILE_NAME_POST_FIX = "_2.webp";
 export function Operator(): JSX.Element {
-    const op = ["char_440_pinecn", "char_365_aprl", "char_400_weedy"];
+    const op = ["char_293_thorns", "char_350_surtr"];
     const [forceUpdate, setForceUpdate] = useState(1);
     const images = op.map((x) => IMAGE_DIR + x + FILE_NAME_POST_FIX);
     const isDBInitOver = useRecoilValue(DBInitOver);
@@ -45,13 +45,9 @@ export function Operator(): JSX.Element {
             return "";
         }
     });
-    const titles = [
-        "일반 환경 성능지수 TOP",
-        "외모 TOP",
-        "제한된 환경 성능지수 TOP",
-    ];
+    const titles = ["일반 환경 성능지수 TOP", "제한 환경 성능지수 TOP"];
     const ref = React.useRef<HTMLDivElement>(null);
-    const rating = [4.3, 3.1, 5];
+    const rating = [4.2, 5];
     const [count, setCount] = React.useState(0);
     const [hover, setHover] = React.useState(false);
     const setError = useSetRecoilState(RecoilError);
@@ -98,7 +94,7 @@ export function Operator(): JSX.Element {
                  */}
                 <div
                     ref={ref}
-                    className="relative w-full h-1/2 lg:h-2/3 transition-transform transform duration-500 hover:scale-150"
+                    className="relative w-full h-1/2 lg:h-2/3 transition-transform transform duration-500 scale-140 hover:scale-150"
                     onMouseEnter={() => {
                         setHover(true);
                     }}

@@ -1,6 +1,9 @@
 import { Switch } from "@headlessui/react";
 import { SetStateAction } from "react";
-
+/**
+ * Custom Switch Component
+ * Using headless ui
+ */
 interface SwitchProps {
     checked: boolean;
     setChecked: React.Dispatch<SetStateAction<boolean>>;

@@ -3,7 +3,10 @@ import { useWindowSize } from "@components";
 import { CustomImage } from "@components/common";
 import React, { useEffect, useState } from "react";
 import { useCharObject } from "@components";
-
+/**
+ * Full sized Gacha Animation
+ * Public's portrait is not perfect, recommend compact version
+ */
 interface GachaAnimationProps {
     setDoAnimation: React.Dispatch<React.SetStateAction<boolean>>;
     setGachaData: React.Dispatch<React.SetStateAction<string[]>>;

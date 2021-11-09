@@ -9,6 +9,7 @@ export function Gacha(): JSX.Element {
     const [loading, setLoading] = useState(true);
     const [number, setNumber] = useState(0);
     const [error, setError] = useState(false);
+    // when render, get all gacha number data from server
     useEffect(() => {
         setLoading(true);
         axios

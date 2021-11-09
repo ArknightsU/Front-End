@@ -4,7 +4,9 @@ import { CustomImage } from "@components/common";
 import React, { useEffect, useState } from "react";
 import { useInterval } from "react-use";
 import { DB_NAME } from "../../common/LocalForge/db_name";
-
+/**
+ * Character Preview Component
+ */
 interface CharacterPreviewProps {
     pools: Array<any>;
     focused: number;
@@ -14,10 +16,14 @@ interface CharacterPreviewProps {
 export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
     const window_size = useWindowSize();
     const charData = props.pools[props.focused].featured.six;
+    // character image's url array
     const char_img = charData.map((v: string) => {
         return "/img/characters/" + v + "_2.webp";
     });
+    // names of character's array
     const [returnText, setReturnText] = useState<string[]>([]);
+    // define render or not
+    // used becuase of performance issue
     const [render, setRender] = useState(false);
     useEffect(() => {
         setRender(false);
@@ -25,7 +31,17 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
             setRender(true);
         }, 500);
     }, [props.focused]);
+
+    // In limited type banner, there's two featured six star.
+    // Used to Show both six star
     const [count, setCount] = React.useState(0);
+    useInterval(
+        () => {
+            setCount((count + 1) % char_img.length);
+        },
+        props.pools.length === 1 ? null : 12000,
+    );
+    // if char data changes get characters name from db
     useEffect(() => {
         setCount(0);
         setReturnText([]);
@@ -45,12 +61,7 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
             });
         }
     }, [charData]);
-    useInterval(
-        () => {
-            setCount((count + 1) % char_img.length);
-        },
-        props.pools.length === 1 ? null : 12000,
-    );
+    // if it's size is MOBILE, then remove
     if (window_size.width < 768) {
         return <></>;
     }

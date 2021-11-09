@@ -4,7 +4,10 @@ import { CustomImage } from "@components/common";
 import React, { useEffect, useState } from "react";
 import { useCharObject } from "@components";
 import { useInterval } from "react-use";
-
+/**
+ * Compact version of Gacha Animation
+ * Reduce's network bandwidth
+ */
 interface CompactGachaAnimationProps {
     setDoAnimation: React.Dispatch<React.SetStateAction<boolean>>;
     setGachaData: React.Dispatch<React.SetStateAction<string[]>>;
@@ -19,10 +22,13 @@ export function CompactGachaAnimation({
     const [isAnimationEnd, setIsAnimationEnd] = useState(false);
     const window_size = useWindowSize();
     const char_image_ratio = (window_size.width * 3) / 4;
+    // if animation is ended, then user clicked anywhere in screen
+    // reset gacha data and turn off animation
     const setAnimationEnd = () => {
-        setDoAnimation(false);
         setGachaData([]);
+        setDoAnimation(false);
     };
+    // animation counter
     const [count, setCount] = useState(-1);
     useInterval(
         () => {
@@ -82,19 +88,23 @@ interface CompactGachaAnimationChildProps {
     count: number;
     setIsAnimationEnd: React.Dispatch<React.SetStateAction<boolean>>;
 }
+// Rarity Map
 const RARITY = { six: 5, five: 4, four: 3, three: 2 };
 const CompactGachaAnimationChild: React.FC<CompactGachaAnimationChildProps> = (
     props,
 ) => {
+    // char data hook
     const [char_obj, loading] = useCharObject(props.char);
     // @ts-ignore
     const rarity = RARITY[char_obj["rarity"]];
     const charImageUrl = `/img/avatars/${props.char}.webp`;
     const bgImageUrl = `/ui/UI_GACHA_STATISTICS_RARITY${rarity}.webp`;
+    // initial transition is from - y 100%
     const [translateY, setTranslateY] = useState("-100%");
     useEffect(() => {
         if (props.count >= props.index) setTranslateY("0px");
     }, [props.count]);
+    // animation cooldown
     useEffect(() => {
         if (rarity < 3) {
             props.setIsAnimationEnd(true);

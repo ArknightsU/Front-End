@@ -24,18 +24,30 @@ interface GachaMainProps {
 }
 //const DEV_featured = ["char_1013_chen2", "char_437_mizuki", "char_421_crow"];
 export function GachaMain(props: GachaMainProps): JSX.Element {
+    // number of banner
     const [focused, setFocused] = useState(0);
+    // grabber show state
     const [showGrab, setShowGrab] = useState(false);
+    // if pool selected, grabber false and move to banner
     const [poolSelected, setPoolSelected] = useState(false);
+    // animation state
     const [doAnimation, setDoAnimation] = useState(false);
+    // gachaData state for animation
+    // get data from  axios
     const [gachaData, setGachaData] = useState<Array<string>>([]);
+    // loading state
+    // changes state in axios
     const [loading, setLoading] = useState(false);
+    // error state
+    // changes state if axios errored
     const [error, setError] = useState(false);
     const backButtonOnClickHandler = () => {
         setShowGrab(true);
         setPoolSelected(false);
     };
+    // using global settings value
     const [settings, settingFunction] = useSettings();
+    // set showGrab to true when rendered
     useEffect(() => {
         setShowGrab(true);
     }, []);

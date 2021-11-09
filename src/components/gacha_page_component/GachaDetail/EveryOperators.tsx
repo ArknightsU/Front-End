@@ -16,7 +16,9 @@ interface RefinedData {
 }
 const RARITY_MAP = { six: 5, five: 4, four: 3, three: 2, two: 1, one: 0 };
 export function EveryOperators(props: EveryOperatorsProps): JSX.Element {
+    // refined data contains numbers and rarity
     const [data, setData] = useState<RefinedData>({});
+    // if data length changes, renew data
     useEffect(() => {
         async function Data() {
             const returnData = {};
