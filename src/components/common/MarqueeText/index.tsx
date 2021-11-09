@@ -4,6 +4,7 @@ import { useInterval } from "react-use";
 interface MarqueeProps {
     children: string;
     className?: string;
+    style?: any;
     textClassName?: string;
 }
 
@@ -34,6 +35,7 @@ export function MarqueeText(props: MarqueeProps): JSX.Element {
             className={`${props.className} ${
                 props.className === undefined ? "h-auto w-auto" : ""
             } overflow-hidden`}
+            style={props.style === undefined ? {} : props.style}
             onMouseEnter={() => {
                 setHover(true);
             }}
