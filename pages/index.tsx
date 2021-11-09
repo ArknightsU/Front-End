@@ -24,6 +24,8 @@ import { DBInitOver } from "@recoil/atoms/DBInitOver/index";
 import { DungeonNotify } from "@components/main_page_component/Menus/DungeonNotify";
 import { DBStatus } from "@components/main_page_component/Menus/DBStatus";
 import Head from "next/head";
+import { RecoilError } from "@recoil/atoms";
+import { ApiError } from "@components/ApiSync";
 
 const Home: React.FC = () => {
     const size = useWindowSize();
@@ -32,6 +34,7 @@ const Home: React.FC = () => {
     const [dbLoading, setDBLoading] = useState(false);
     const [isDBinitOver, setDBinitOver] = useRecoilState(DBInitOver);
     const [toggleInitDb, setToggleInitDb] = useState(false);
+    const [error, setError] = useRecoilState(RecoilError);
     useEffect(() => {
         setDBLoading(false);
         if (!isDBinitOver) {
@@ -92,7 +95,14 @@ const Home: React.FC = () => {
                     </GridItem>
                 </ResponsiveGrid>
             </Container>
-            <GoogleLoginPopUp />
+            {/* Login Popup Component
+            <GoogleLoginPopUp />*/}
+            <ApiError
+                title="기능에 접근할 수 없습니다."
+                description="현재 구현중인 기능입니다. 업데이트 완료 후 접근 가능합니다."
+                open={error}
+                setOpen={setError}
+            />
         </>
     );
 };
