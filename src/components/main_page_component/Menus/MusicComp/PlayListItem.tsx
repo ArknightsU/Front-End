@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useMusicDB } from "@components";
+import { useMusicDB, useWindowSize } from "@components";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
+import { MarqueeText } from "@components/common/MarqueeText";
 import { CurrentPlayList } from "@recoil/atoms";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 
 interface PlayListItemProps {
@@ -17,23 +19,38 @@ interface PlayListItemProps {
     setCurrent: React.Dispatch<React.SetStateAction<number>>;
 }
 export function PlayListItem(props: PlayListItemProps): JSX.Element {
+    const window_size = useWindowSize();
+    const [hover, setHover] = useState(false);
     const [value, loading] = useMusicDB(props.music_key);
     const [currentPlayList, setCurrentPlayList] =
         useRecoilState(CurrentPlayList);
     return (
         <div className="w-full h-6 md:h-10 bg-truegray-900 flex-shrink-0 rounded-lg relative overflow-visible">
-            <div className="w-1/3 h-2 absolute flex justify-start items-center bg-red-700 z-10 opacity-0 md:opacity-100">
-                <p className="font-ibm-mono font-bold text-xxs text-white ml-1 -top-2 -left-2 uppercase">
-                    {"Song Name: "}
-                </p>
-            </div>
             {loading ? (
                 <EclipseSpinner />
             ) : (
                 <>
                     <div className="w-full h-full flex flex-row justify-start items-center">
-                        <div className="flex-grow h-full flex justify-start items-center relative">
-                            <p className="w-full font-ibm-sans font-bold text-sm overflow-clip ml-2 truncate text-white">
+                        <div
+                            className="h-full flex justify-start items-center relative"
+                            style={{
+                                width:
+                                    window_size.width > 768
+                                        ? "calc(100% - 40px)"
+                                        : "calc(100% - 24px)",
+                            }}
+                            onMouseEnter={() => {
+                                setHover(true);
+                            }}
+                            onMouseLeave={() => {
+                                setHover(false);
+                            }}
+                            onClick={() => {
+                                setCurrentPlayList(props.fav);
+                                props.setCurrent(props.index);
+                            }}
+                        >
+                            <p className="w-full font-ibm-sans font-bold text-sm ml-2 truncate text-white pointer-events-none">
                                 {
                                     // @ts-ignore
                                     value.name
@@ -41,7 +58,7 @@ export function PlayListItem(props: PlayListItemProps): JSX.Element {
                             </p>
                         </div>
                         <div
-                            className={`w-6 md:w-10 h-full p-0 md:p-1 mr-3 flex justify-end items-end transition-all duration-700 ${
+                            className={`w-6 md:w-10 h-full p-0 md:p-1 mr-1 flex justify-end items-end transition-all duration-700 flex-shrink-0 ${
                                 !props.playListFavorite.includes(
                                     props.music_key,
                                 )
@@ -74,33 +91,41 @@ export function PlayListItem(props: PlayListItemProps): JSX.Element {
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
                         </div>
-                        <div
-                            className="w-full h-full flex justify-start items-center absolute transition-all duration-500 opacity-0 hover:opacity-100 bg-truegray-900 rounded-lg"
-                            onClick={() => {
-                                setCurrentPlayList(props.fav);
-                                props.setCurrent(props.index);
-                            }}
-                        >
-                            <p className="ml-2 font-ibm-sans font-bold text-sm text-center truncate text-white">
-                                {"재생: " +
-                                    // @ts-ignore
-                                    value.name}
-                            </p>
-                        </div>
+                        {hover ? (
+                            <div
+                                className="w-full h-full flex justify-start items-center absolute transition-all duration-500 opacity-0 hover:opacity-100 bg-truegray-900 rounded-lg pointer-events-none"
+                                style={{ zIndex: 13, opacity: hover ? 1 : 0 }}
+                            >
+                                <MarqueeText className="ml-2 mr-2 font-ibm-sans font-bold text-sm text-center text-white">
+                                    {"재생: " +
+                                        // @ts-ignore
+                                        value.name}
+                                </MarqueeText>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
+
                         {props.current === props.index &&
                         props.fav === currentPlayList ? (
                             <div
-                                className="w-2/3 left-0 h-full flex justify-center items-center absolute transition-all duration-500 bg-truegray-900 rounded-lg"
+                                className="left-0 h-full flex justify-start items-center absolute transition-all duration-500 bg-truegray-900 rounded-lg"
                                 onClick={() => {
                                     props.setCurrent(props.index);
                                 }}
-                                style={{ zIndex: 11 }}
+                                style={{
+                                    zIndex: 11,
+                                    width:
+                                        window_size.width > 768
+                                            ? "calc(100% - 40px)"
+                                            : "calc(100% - 24px)",
+                                }}
                             >
-                                <p className="w-full font-ibm-sans font-bold text-sm text-center truncate text-white">
-                                    {"재생 중 : " +
+                                <MarqueeText className="ml-1 mr-0 font-ibm-sans font-bold text-sm text-center text-yellow-300">
+                                    {"재생 중: " +
                                         // @ts-ignore
                                         value.name}
-                                </p>
+                                </MarqueeText>
                             </div>
                         ) : (
                             <></>

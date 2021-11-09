@@ -59,7 +59,7 @@ export function Music(): JSX.Element {
                 {
                     // PlayList Component
                 }
-                <div className="w-1/2 h-full rounded-lg overflow-hidden shadow-br">
+                <div className="w-1/2 h-full rounded-lg shadow-br">
                     {loading ? (
                         <div className="w-full h-full flex flex-col justify-center items-center">
                             <EclipseSpinner />
@@ -92,7 +92,12 @@ export function Music(): JSX.Element {
                 {
                     // Music Player Component
                 }
-                <div className="w-1/2 h-full bg-gray-200 bg-opacity-70 rounded-lg ml-2 shadow-br">
+                <div className="w-1/2 h-full relative bg-gray-200 bg-opacity-70 rounded-lg ml-2 shadow-br">
+                    <div className="w-24 h-3 absolute flex justify-start items-center bg-red-700 z-10 -left-1 -top-1 opacity-0 md:opacity-100">
+                        <p className="font-ibm-mono font-bold text-xxs text-white ml-1 -top-5 -left-2 uppercase">
+                            {"Music player_"}
+                        </p>
+                    </div>
                     {loading ? (
                         <div className="w-fuill h-full flex flex-col justify-center items-center overflow-hidden font-ibm-korean text-white text-md font-bold p-2">
                             <EclipseSpinner />
