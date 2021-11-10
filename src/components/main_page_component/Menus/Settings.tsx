@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { menuStyle, insideStyle } from "./common";
 import { SubMenuComp } from "./SubMenuComp";
@@ -27,15 +28,17 @@ export function Settings(): JSX.Element {
     );
     return (
         <div className={menuStyle}>
-            <div className={insideStyle}>
-                <SubMenuComp
-                    text={"설정"}
-                    background={
-                        "bg-gradient-to-b from-yellow-600 via-yellow-500 to-yellow-400"
-                    }
-                    icon={icon}
-                />
-            </div>
+            <Link href="/settings" passHref>
+                <div className={insideStyle}>
+                    <SubMenuComp
+                        text={"설정"}
+                        background={
+                            "bg-gradient-to-b from-yellow-600 via-yellow-500 to-yellow-400"
+                        }
+                        icon={icon}
+                    />
+                </div>
+            </Link>
         </div>
     );
 }

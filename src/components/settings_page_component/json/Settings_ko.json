@@ -1,0 +1,39 @@
+{
+    "title": "ARKNIGHTS ONE 설정",
+    "reset": "초기화",
+    "menus": {
+        "db": "데이터 베이스",
+        "gacha": "가챠 시뮬",
+        "calc": "재료 계산",
+        "music": "음악 플레이어",
+        "lang": "언어 설정",
+        "account": "계정",
+        "info": "정보"
+    },
+    "db": {
+        "DB_CHAR_VERSION_CHECK": {
+            "title": "캐릭터 데이터 베이스 버전 체크",
+            "description": "캐릭터 데이터 베이스의 현재 버전과 최신 버전을 비교합니다."
+        },
+        "DB_CHAR_FORCE_UPDATE": {
+            "title": "캐릭터 데이터 베이스 강제 재설정",
+            "description": "캐릭터 데이터 베이스를 강제로 최신 버전으로 갱신합니다."
+        },
+        "DB_MUSIC_VERSION_CHECK": {
+            "title": "음악 데이터 베이스 버전 체크",
+            "description": "음악 데이터 베이스의 현재 버전과 최신 버전을 비교합니다."
+        },
+        "DB_MUSIC_FORCE_UPDATE": {
+            "title": "음악 데이터 베이스 강제 재설정",
+            "description": "음악 데이터 베이스를 강제로 최신 버전으로 갱신합니다."
+        },
+        "DB_MUSIC_RESET": {
+            "title": "음악 데이터 베이스 삭제",
+            "description": "모든 저장된 음악을 삭제합니다. 네트워크 오류 등의 이유로 인해 데이터 베이스에 잘 못된 음악이 저장된 것 같은 경우 사용해주세요."
+        },
+        "DB_ALBUM_RESET": {
+            "title": "앨범 이미지 데이터 삭제",
+            "description": "모든 저장된 앨범아트를 삭제합니다. 네트워크 오류 등의 이유로 인해 데이터 베이스에 잘 못된 앨범 아트가 저장된 것 같은 경우 사용해주세요."
+        }
+    }
+}

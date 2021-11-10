@@ -97,6 +97,14 @@ export async function initMusicDB() {
     }
 }
 
+export async function resetMusicBlob() {
+    await db(DB_NAME.music_storage).clear();
+}
+
+export async function resetBigAlbumBlob() {
+    await db(DB_NAME.album_storage).clear();
+}
+
 export async function getMusic(key: string) {
     if (key === undefined) return null;
     const music_data = (await axios.get(MUSIC_SONG_URL(key))).data;

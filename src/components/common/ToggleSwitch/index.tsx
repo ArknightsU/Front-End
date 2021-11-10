@@ -1,12 +1,13 @@
 import { Switch } from "@headlessui/react";
 import { SetStateAction } from "react";
+import { SetterOrUpdater } from "recoil";
 /**
  * Custom Switch Component
  * Using headless ui
  */
 interface SwitchProps {
     checked: boolean;
-    setChecked: React.Dispatch<SetStateAction<boolean>>;
+    setChecked: React.Dispatch<SetStateAction<boolean>> | any;
 }
 export function ToggleSwitch(props: SwitchProps): JSX.Element {
     return (

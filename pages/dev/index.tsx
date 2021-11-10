@@ -6,7 +6,7 @@ const Dev: NextPage<any> = () => {
     return (
         <>
             <Head>
-                <title>{"재료 계산기"}</title>
+                <title>{"Arknights One 개발"}</title>
             </Head>
             <DevMain />
         </>
