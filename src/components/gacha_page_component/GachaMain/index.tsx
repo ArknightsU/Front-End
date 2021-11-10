@@ -127,7 +127,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 {/* Foreground Images Start */}
                 <GachaForeground />
                 {doAnimation ? (
-                    settings.USE_COMPACT_GACHA ? (
+                    settings.GC_USE_COMPACT_GACHA ? (
                         <CompactGachaAnimation
                             setGachaData={setGachaData}
                             setDoAnimation={setDoAnimation}
