@@ -153,6 +153,11 @@ export function PageDB(): JSX.Element {
     return (
         <div className="relative w-full h-auto flex flex-col gap-y-10">
             <div className="w-full h-auto flex flex-col gap-y-10">
+                <div className="w-full h-auto">
+                    <p className="font-bold text-2xl">
+                        {DisplayText.db.meta.title}
+                    </p>
+                </div>
                 <SettingVersion
                     title={DisplayText.db.DB_CHAR_VERSION_CHECK.title}
                     desciprtion={

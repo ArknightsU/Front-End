@@ -5,11 +5,13 @@ import { DetailChildLayout } from "./DetailChildLayout";
 import axios from "axios";
 import { GET_GACHA_API_URL, SERVER_URL_RESET_STACK } from "src/constants";
 import { CharMinify } from "../GachaAnimation/CharMinify";
-import { useSessionStorage } from "react-use";
+import { useSessionStorage, useLocalStorage } from "react-use";
 import { getAllfeaturedCharacters } from "../getAllfeaturedCharacters";
 import { EclipseSpinner } from "@components/common/EclipseSpinner";
 import { ServerStats } from "./ServerStats";
 import { ClientStats } from "./ClientStats";
+import { useRecoilValue } from "recoil";
+import { Settings } from "@recoil/atoms";
 /**
  * Gacha Detail Main component
  */
@@ -23,18 +25,17 @@ interface GachaDetailProps {
     setError: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export function GachaDetail(props: GachaDetailProps): JSX.Element {
+    const settings = useRecoilValue(Settings);
     // loading state
     const [loading, setLoading] = useState(false);
     // session storage for gem
-    const [gem, setGem] = useSessionStorage(
-        props.pools[props.focused].id + "-gem",
-        0,
-    );
+    const [gem, setGem] = settings.GC_SAVE_GACHA_DATA_IN_LOCAL
+        ? useLocalStorage(props.pools[props.focused].id + "-gem", 0)
+        : useSessionStorage(props.pools[props.focused].id + "-gem", 0);
     // session storage for stone
-    const [stone, setStone] = useSessionStorage(
-        props.pools[props.focused].id + "-stone",
-        0,
-    );
+    const [stone, setStone] = settings.GC_SAVE_GACHA_DATA_IN_LOCAL
+        ? useLocalStorage(props.pools[props.focused].id + "-stone", 0)
+        : useSessionStorage(props.pools[props.focused].id + "-stone", 0);
     // function: reset session storage for this banner
     const resetUsed = () => {
         setGem(0);
@@ -46,7 +47,9 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
         axios
             .get(GET_GACHA_API_URL(count, props.pools[props.focused].id))
             .then((res) => {
+                // @ts-ignore
                 setGem(gem + 600 * count);
+                // @ts-ignore
                 setStone(Math.ceil((gem + 600 * count) / 180));
                 props.setLoading(false);
                 props.setGachaData(res.data.result);
@@ -90,10 +93,9 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
     }, [resetCooldown]);
     const type = props.pools[props.focused]["type"];
     // 가챠로 뽑은 오퍼레이터는 세션 스토리지에 저장됨
-    const [gachaData, setGachaData] = useSessionStorage(
-        props.pools[props.focused].id.toString(),
-        [],
-    );
+    const [gachaData, setGachaData] = settings.GC_SAVE_GACHA_DATA_IN_LOCAL
+        ? useLocalStorage(props.pools[props.focused].id.toString(), [])
+        : useSessionStorage(props.pools[props.focused].id.toString(), []);
     // first animation initializer
     const [initAnime, setInitAnime] = useState(false);
     useEffect(() => {

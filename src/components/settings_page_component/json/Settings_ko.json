@@ -1,6 +1,6 @@
 {
     "title": "ARKNIGHTS ONE 설정",
-    "reset": "초기화",
+    "prev": "홈으로",
     "menus": {
         "db": "데이터 베이스",
         "gacha": "가챠 시뮬",
@@ -11,6 +11,9 @@
         "info": "정보"
     },
     "db": {
+        "meta": {
+            "title": "데이터 베이스 설정"
+        },
         "DB_CHAR_VERSION_CHECK": {
             "title": "캐릭터 데이터 베이스 버전 체크",
             "description": "캐릭터 데이터 베이스의 현재 버전과 최신 버전을 비교합니다."
@@ -34,6 +37,63 @@
         "DB_ALBUM_RESET": {
             "title": "앨범 이미지 데이터 삭제",
             "description": "모든 저장된 앨범아트를 삭제합니다. 네트워크 오류 등의 이유로 인해 데이터 베이스에 잘 못된 앨범 아트가 저장된 것 같은 경우 사용해주세요."
+        }
+    },
+    "gacha": {
+        "meta": {
+            "title": "가챠 시뮬레이터 설정"
+        },
+        "GC_USE_COMPACT_GACHA": {
+            "title": "가챠 애니메이션 형태 설정",
+            "description": "가챠 시뮬레이터의 애니메이션 방식을 정합니다. \n풀 사이즈는 인게임과 같은 형태, 컴팩트 형태는 웹 환경에 맞게 데이터 사용량을 최소화한 버전입니다.\n풀 사이즈의 경우, 이미지가 등록되지 않은 캐릭들이 있어 표시되지 않을 가능성이 있습니다. 최상의 경험을 얻고싶으시면 컴팩트 모드를 이용해주세요. \n이 설정은 가챠 결과에 영향을 주지 않습니다."
+        },
+        "GC_SAVE_GACHA_DATA_IN_LOCAL": {
+            "title": "가챠 결과를 로컬에 저장",
+            "description": "가챠 결과는 기본적으로 세션에 저장되며, 자신의 가챠 결과는 탭을 새로 열 때 초기화됩니다.\n가챠 결과 데이터를 세션에 저장하지 않고, 로컬에 저장하고 싶다면 이 설정을 켜주세요. \n가챠 시행 횟수가 지나치게 누적되면 어플리케이션의 성능에 문제를 끼칠 가능성이 있습니다."
+        }
+    },
+    "calc": {
+        "meta": {
+            "title": "재료 계산기 설정"
+        }
+    },
+    "music": {
+        "meta": {
+            "title": "음악 플레이어 설정"
+        }
+    },
+    "lang": {
+        "meta": {
+            "title": "언어 설정"
+        }
+    },
+    "account": {
+        "meta": {
+            "title": "계정"
+        }
+    },
+    "info": {
+        "meta": {
+            "title": "어플리케이션 정보"
+        },
+        "IF_SERVICE_VERSION": {
+            "title": "서비스 버전 : v"
+        },
+        "IF_BUGREPORT": {
+            "title": "버그 리포팅 및 문의 : "
+        },
+        "IF_BUGREPORT_MAIL_BODY": {
+            "title": "버그 리포트의 경우 발생 경로를 상세하게 알려주세요."
+        },
+        "IF_ALL_SETTING_RESET": {
+            "title": "모든 설정 초기화"
+        },
+        "IF_RESET_BUTTON_TEXT": {
+            "title": "초기화",
+            "description": "정말 초기화 할까요?"
+        },
+        "IF_CANCEL_RESET_BUTTON_TEXT": {
+            "title": "초기화 취소"
         }
     }
 }

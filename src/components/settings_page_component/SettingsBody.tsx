@@ -2,7 +2,13 @@ import { SetStateAction } from "react";
 import { useWindowSize } from "..";
 import DisplayText from "./DisplayValues";
 import { Account, Calc, DB, Gacha, Info, Lang, Music } from "./icons";
+import { PageAccount } from "./SettingsPages/PageAccount";
+import { PageCalc } from "./SettingsPages/PageCalc";
 import { PageDB } from "./SettingsPages/PageDB";
+import { PageGacha } from "./SettingsPages/PageGacha";
+import { PageInfo } from "./SettingsPages/PageInfo";
+import { PageLang } from "./SettingsPages/PageLang";
+import { PageMusic } from "./SettingsPages/PageMusic";
 
 interface BodyProps {
     current: number;
@@ -10,6 +16,26 @@ interface BodyProps {
 }
 export function SettingsBody(props: BodyProps): JSX.Element {
     const window_size = useWindowSize();
+    const bodySetter = () => {
+        switch (props.current) {
+            case 0:
+                return <PageDB />;
+            case 1:
+                return <PageGacha />;
+            case 2:
+                return <PageCalc />;
+            case 3:
+                return <PageMusic />;
+            case 4:
+                return <PageLang />;
+            case 5:
+                return <PageAccount />;
+            case 6:
+                return <PageInfo />;
+            default:
+                return;
+        }
+    };
     return (
         <div className="w-full h-full bg-gray-100 rounded-lg shadow-br flex flex-row justify-start items-center">
             <div className="w-20 md:w-1/5 h-full bg-white flex flex-row justify-start items-center relative overflow-y-auto">
@@ -37,9 +63,7 @@ export function SettingsBody(props: BodyProps): JSX.Element {
                         window_size.width > 768 ? "80%" : "calc(100% - 80px)",
                 }}
             >
-                <div className="w-full h-auto">
-                    <PageDB />
-                </div>
+                <div className="w-full h-auto">{bodySetter()}</div>
             </div>
         </div>
     );
