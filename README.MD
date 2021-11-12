@@ -1,129 +1,29 @@
-# frontend
+# ARKNIGHTS ONE
 
+![icon](https://user-images.githubusercontent.com/43007994/141496533-3ccb79e5-40e8-4e42-83f2-15d08a4cf48d.png)
 
-This project was generated with [superplate](https://github.com/pankod/superplate).
 
-## Getting Started
+![icon](https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white)
+![icon](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![icon](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![icon](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![icon](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![icon](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-superplate is a Next.js all-in-one project generator. Create your project with the tools you need without spending hours on setting them up.
+Front-End Powered By Next.js v12
 
-## Available Scripts
+#### This Repository Is Front End Of Site arknights.one
 
-### Running the development server.
 
-```bash
-    yarn dev
-```
 
-### Building for production.
+## Get Access
+###### Via Browser
+[arknights.one](https:\\arknights.one)
 
-```bash
-    yarn build
-```
+## Contact Admin
+###### Mail Adress
+admin@arknights.one
 
-### Running the production server.
-
-```bash
-    yarn start
-```
-
-## Learn More
-
-To learn more about **superplate**, please check out the [Documentation](https://github.com/pankod/superplate).
-
-
-### **TailwindCSS**
-
-A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.
-
-[Go To Documentation](https://tailwindcss.com/docs)
-
-
-### **CSS / styled-jsx**
-
-Next.js comes with built-in support for CSS and styled-jsx. Styled-jsx is full, scoped and component-friendly CSS support for JSX (rendered on the server or the client).
-
-[Go To Documentation](https://github.com/vercel/styled-jsx)
-
-
-### **Axios**
-
-Promise based HTTP client for the browser and node.js.
-
-[Go To Documentation](https://github.com/axios/axios)
-
-
-### **Storybook**
-
-Storybook is an open source tool for developing UI components in isolation for React, Vue, Angular, and more. It makes building stunning UIs organized and efficient.
-
-[Go To Documentation](https://storybook.js.org/docs/react/get-started/introduction)
-
-
-### **Reverse Proxy**
-
-Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain.
-
-[Go To Documentation](https://webpack.js.org/configuration/dev-server/#devserverproxy)
-
-
-### **Bundle Analyzer**
-
-Use webpack-bundle-analyzer in your Next.js project. Visualize size of webpack output files with an interactive zoomable treemap.
-
-[Go To Documentation](https://github.com/vercel/next.js/tree/canary/packages/next-bundle-analyzer)
-
-
-### **react-use**
-
-A Collection of useful React hooks.
-
-[Go To Documentation](https://github.com/streamich/react-use)
-
-
-### **Recoil**
-
-Recoil works and thinks like React. Add some to your app and get fast and flexible shared state.
-
-[Go To Documentation](https://recoiljs.org/docs/introduction/installation)
-
-
-### **next-i18next**
-
-next-i18next is a plugin for Next.js projects that allows you to get translations up and running quickly and easily, while fully supporting SSR, multiple namespaces with codesplitting, etc.
-
-[Go To Documentation](https://github.com/isaachinman/next-i18next)
-
-
-### **ESLint**
-
-A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript. Maintain your code quality with ease.
-
-[Go To Documentation](https://eslint.org/docs/user-guide/getting-started)
-
-
-### **Prettier**
-
-An opinionated code formatter; Supports many languages; Integrates with most editors.
-
-[Go To Documentation](https://prettier.io/docs/en/index.html)
-
-
-### **Jest**
-
-Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
-
-[Go To Documentation](https://jestjs.io/docs/en/getting-started)
-
-
-### **Github Actions**
-
-GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub.
-
-[Go To Documentation](https://docs.github.com/en/actions)
-
-
-
-## License
-
-MIT
+## Contact to Get In Development
+###### Via E-mail
+admin@arknights.one
