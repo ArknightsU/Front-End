@@ -60,7 +60,7 @@ export function PoolGrabber(props: PoolGrabProps): JSX.Element {
             }}
         >
             <PoolGrabIndicator />
-            <div className="overflow-hidden w-full h-full flex justify-center items-center transform translate-x-16 sm:translate-x-0 z-20">
+            <div className="overflow-visible w-full h-full flex justify-center items-center transform translate-x-16 sm:translate-x-0 z-20">
                 <div
                     ref={ref}
                     className="h-auto transition-all z-20 transform-gpu overflow-visible"
@@ -97,8 +97,11 @@ export function PoolGrabber(props: PoolGrabProps): JSX.Element {
                                 style={
                                     i === props.focused
                                         ? {
-                                              transform:
-                                                  "translateX(50px) scale(1.2)",
+                                              transform: `${
+                                                  screen_size.width > 768
+                                                      ? "translateX(50px)"
+                                                      : ""
+                                              } scale(1.2)`,
                                           }
                                         : {}
                                 }

@@ -33,7 +33,7 @@ export function Status(): JSX.Element {
                 .then((res) => {
                     const endTime = new Date();
                     const rtt: number = Number(endTime) - Number(startTime);
-                    console.log("rtt: ", rtt);
+                    //console.log("rtt: ", rtt);
                     if (rtt <= 600) {
                         setStatus("양호");
                     } else if (rtt <= 1800) {

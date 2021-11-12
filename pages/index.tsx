@@ -41,7 +41,7 @@ const Home: React.FC = () => {
             isFirstRender.current = true;
             return;
         }
-        console.log("forced");
+        //console.log("forced");
         setDBLoading(false);
         forceInitDB().then(() => {
             setDBLoading(true);

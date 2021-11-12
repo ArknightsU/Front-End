@@ -62,10 +62,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 {showGrab && !poolSelected ? (
                     <GoBackLinkButton top={120} />
                 ) : (
-                    <GoBackButton
-                        top={120}
-                        onClick={backButtonOnClickHandler}
-                    />
+                    <></>
                 )}
                 {/* Background Images Start */}
                 <GachaBackground />
@@ -113,6 +110,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 >
                     <div className="absolute w-screen h-screen flex flex-row justify-center items-center overflow-hidden z-20">
                         <GachaDetail
+                            backButtonHandle={backButtonOnClickHandler}
                             poolSelected={poolSelected}
                             pools={props.pools}
                             focused={focused}
@@ -127,7 +125,7 @@ export function GachaMain(props: GachaMainProps): JSX.Element {
                 {/* Foreground Images Start */}
                 <GachaForeground />
                 {doAnimation ? (
-                    settings.USE_COMPACT_GACHA ? (
+                    settings.GC_USE_COMPACT_GACHA ? (
                         <CompactGachaAnimation
                             setGachaData={setGachaData}
                             setDoAnimation={setDoAnimation}

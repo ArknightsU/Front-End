@@ -6,6 +6,7 @@ interface LayoutType {
     children?: React.ReactNode;
     parentControlOpen?: boolean;
     setParentControlOpen?: React.Dispatch<SetStateAction<boolean>>;
+    onOpen?: any;
 }
 export function DetailChildLayout({
     children,
@@ -13,6 +14,7 @@ export function DetailChildLayout({
     title = "SET TITLE",
     parentControlOpen,
     setParentControlOpen,
+    onOpen,
 }: LayoutType): JSX.Element {
     const [open, setOpen] =
         parentControlOpen !== undefined && setParentControlOpen !== undefined
@@ -23,6 +25,9 @@ export function DetailChildLayout({
             <div
                 className="w-full h-12 md:h-16 bg-truegray-700 flex flex-col justify-center text-center relative rounded-lg"
                 onClick={() => {
+                    if (!open && onOpen !== undefined) {
+                        onOpen();
+                    }
                     setOpen(!open);
                 }}
             >

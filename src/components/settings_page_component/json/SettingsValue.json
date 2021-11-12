@@ -1,0 +1,5 @@
+{
+    "title": "title",
+    "reset": "reset",
+    "menus": ["db", "gacha", "calc", "music", "lang", "account", "info"]
+}

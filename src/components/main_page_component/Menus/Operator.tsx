@@ -61,7 +61,7 @@ export function Operator(): JSX.Element {
         if (DBInitOver) {
             setForceUpdate((prev) => prev + 1);
         }
-        console.log(forceUpdate);
+        //console.log(forceUpdate);
     }, [isDBInitOver]);
     return (
         <div className={menuStyle}>
