@@ -33,7 +33,7 @@ export function SubMenuComp(props: SubMenuProps): JSX.Element {
                 </div>
             </div>
             <span
-                className="w-full bottom-3 text-center align-middle font-sans antialiased text-gray-600 dark:text-white flex flex-col justify-center
+                className="w-full bottom-3 text-center align-middle font-ibm-korean antialiased text-gray-600 dark:text-white flex flex-col justify-center
                     text-md lg:text-lg xl:text-xl mt-3 font-extrabold "
             >
                 {props.text}

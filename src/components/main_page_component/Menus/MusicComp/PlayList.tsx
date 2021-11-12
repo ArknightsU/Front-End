@@ -89,7 +89,7 @@ export function PlayList(props: PlayListProps): JSX.Element {
                                 props.setCurrent(0);
                             }}
                         >
-                            <p className="font-ibm-korean font-bold whitespace-nowrap text-xxs md:text-base text-white">
+                            <p className="font-ibm-korean font-bold whitespace-nowrap text-sm md:text-base text-white">
                                 {"현재 재생목록을 재생"}
                             </p>
                         </div>

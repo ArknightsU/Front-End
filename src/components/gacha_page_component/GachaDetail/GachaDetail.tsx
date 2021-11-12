@@ -23,6 +23,7 @@ interface GachaDetailProps {
     setGachaData: React.Dispatch<React.SetStateAction<string[]>>;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setError: React.Dispatch<React.SetStateAction<boolean>>;
+    backButtonHandle: () => void;
 }
 export function GachaDetail(props: GachaDetailProps): JSX.Element {
     const settings = useRecoilValue(Settings);
@@ -106,15 +107,33 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
             className={`absolute w-screen h-screen flex flex-row justify-center items-center overflow-hidden pt-40 md:pt-32`}
         >
             <div
-                className={`w-11/12 h-full md:w-1/2 pr-2 pb-40 absolute transition-all duration-1000 z-40 flex flex-col items-start overflow-y-auto ${
+                className={`w-11/12 h-full md:w-1/2 pr-2 pb-40 absolute transition-all duration-1000 z-40 top-40 flex flex-col items-start overflow-y-auto ${
                     initAnime
                         ? "right-6 lg:right-12 xl:right-24"
                         : "-right-full"
                 }  `}
             >
-                <div className="w-full h-auto transition-all mt-4 duration-1000 z-40 flex flex-col gap-y-2">
+                <div className="w-full h-auto transition-all mt-4 duration-1000 z-40 flex flex-col gap-y-2 mb-12">
                     {/* Orundum, Originite Status Start */}
-                    <div className="w-full h-18 md:h-28 flex flex-row justify-evenly items-center mt-8">
+                    <div className="w-full h-16 flex flex-row justify-center items-center p-1 gap-x-3">
+                        <div
+                            className="w-1/2 h-full rounded-lg bg-truegray-700 hover:bg-truegray-900 transition-colors duration-500 active:border-2 border-0 border-yellow-300 flex justify-center items-center"
+                            onClick={props.backButtonHandle}
+                        >
+                            <p className="font-ibm-korean font-bold text-base md:text-lg text-white">
+                                {"< 배너 목록"}
+                            </p>
+                        </div>
+                        <div
+                            className="w-1/2 h-full rounded-lg bg-green-700 hover:bg-green-900 transition-colors duration-500 active:border-2 border-0 border-yellow-300 flex justify-center items-center"
+                            onClick={resetUsed}
+                        >
+                            <p className="font-ibm-korean font-bold text-base md:text-lg text-white">
+                                {"사용한 재화 초기화"}
+                            </p>
+                        </div>
+                    </div>
+                    <div className="w-full h-18 md:h-28 flex flex-row justify-evenly items-center">
                         <div className="h-18 md:h-28 w-44 md:w-60 bg-white bg-opacity-80 relative rounded-xl overflow-hidden flex flex-row drop-shadow-bottom">
                             <div className="h-full w-full top-0 left-16 md:top-8 md:left-20 bg-orundum bg-no-repeat bg-opacity-50 filter blur absolute bg-top bg-contain"></div>
                             <div className="h-full w-1/4 bg-truegray-800 flex flex-col justify-center items-center">
@@ -156,16 +175,7 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                             </div>
                         </div>
                     </div>
-                    <div className="w-full h-16 flex justify-center items-center p-1">
-                        <div
-                            className="w-2/4 h-full rounded-lg bg-green-700 hover:bg-green-900 transition-colors duration-500 active:border-2 border-0 border-yellow-300 flex justify-center items-center"
-                            onClick={resetUsed}
-                        >
-                            <p className="font-ibm-korean font-bold text-base md:text-lg text-white">
-                                {"사용한 재화 초기화"}
-                            </p>
-                        </div>
-                    </div>
+
                     {/* Orundum, Originite Status End */}
                     {/* Button Area Start */}
                     <div className="w-full h-24 flex flex-row justify-center items-center mt-0 font-ibm-korean font-bold text-truegray-800">

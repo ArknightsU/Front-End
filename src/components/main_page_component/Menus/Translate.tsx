@@ -27,17 +27,17 @@ export function Translate(): JSX.Element {
     return (
         <div className={menuStyle}>
             <div className="w-full h-full flex flex-col md:flex-row justify-center items-center from bg-gray-100 rounded-lg">
-                <div className="md:w-1/2 md:h-full h-1/2 w-full flex justify-center items-center">
+                <div className="md:w-1/3 md:h-full h-1/3 w-full flex justify-center items-center">
                     <SubMenuComp
                         background="bg-gradient-to-tr from-green-500 via-green-400 to-green-300"
                         text={"번역"}
                         icon={icon}
                     />
                 </div>
-                <div className="md:w-1/2 md:h-full h-auto w-full flex flex-col justify-center items-center mt-1">
+                <div className="md:w-2/3 md:h-full h-auto w-full flex flex-col md:justify-center md:items-center mt-6 md:mt-1 relative justify-start items-center">
                     <Listbox value={selectedLang} onChange={setSelectedLang}>
-                        <div className="relative mt-1">
-                            <Listbox.Button className="relative w-full py-2 pl-3 pr-16 text-left text-xs bg-white rounded-lg cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+                        <div className="md:relative md:mt-1 absolute">
+                            <Listbox.Button className="relative w-full py-1 md:py-2 pl-3 pr-10 md:pr-16 text-left text-xs bg-white rounded-lg cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
                                 <span className="block truncate">
                                     {selectedLang.name}
                                 </span>
@@ -64,7 +64,7 @@ export function Translate(): JSX.Element {
                                                         ? "text-amber-900 bg-amber-100"
                                                         : "text-gray-900"
                                                 }
-                          cursor-default select-none relative py-2 pl-10 pr-4`
+                          cursor-default select-none relative py-2 md:pl-10 pl-2 pr-4`
                                             }
                                             value={lang}
                                         >

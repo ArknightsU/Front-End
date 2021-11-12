@@ -37,9 +37,9 @@ export function ResponsiveGrid({ children }: Props): JSX.Element {
         { i: "trans", x: 14, y: 4, w: 5, h: 2 },
     ];
     const smallLayout = [
-        { i: "operator", x: 0, y: 6, w: 6, h: 2 },
+        { i: "operator", x: 0, y: 8, w: 6, h: 2 },
         { i: "gacha", x: 0, y: 4, w: 6, h: 2 },
-        { i: "calc", x: 0, y: 5, w: 6, h: 2 },
+        { i: "calc", x: 0, y: 6, w: 6, h: 2 },
         { i: "music", x: 0, y: 0, w: 9, h: 2 },
         { i: "login", x: 6, y: 3, w: 3, h: 1 },
         { i: "settings", x: 6, y: 5, w: 3, h: 1 },
