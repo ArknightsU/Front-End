@@ -311,7 +311,6 @@ function Item(props: ItemProps): JSX.Element {
                 Material_Object.buildingProductList.roomType,
                 Material_Object.buildingProductList.formulaId,
             );
-            console.log(decomposeArray);
             // @ts-ignore
             newMap[props.itemId].convert =
                 // @ts-ignore

@@ -78,7 +78,7 @@ export function ServerStats(props: ServerStatsProps): JSX.Element {
             });
     };
     useEffect(() => {
-        console.log(openGraph, openAll);
+        //console.log(openGraph, openAll);
         if (!isFirstRender.current) {
             isFirstRender.current = true;
             return;

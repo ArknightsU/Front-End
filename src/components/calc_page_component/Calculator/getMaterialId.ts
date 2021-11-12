@@ -8,6 +8,6 @@ export function getMaterialId(itemId: string): number {
             return materialObj.id;
         }
     }
-    console.log(itemId);
+    //console.log(itemId);
     return -1;
 }

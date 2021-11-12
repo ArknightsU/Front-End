@@ -55,7 +55,7 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                 props.setLoading(false);
                 props.setGachaData(res.data.result);
                 props.setDoAnimation(true);
-                console.log(res);
+                //console.log(res);
                 // @ts-ignore
                 setGachaData([...gachaData, ...res.data.result]);
             })
