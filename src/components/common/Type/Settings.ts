@@ -52,3 +52,10 @@ export interface LanguagePackType {
         };
     };
 }
+
+interface LangExceptMeta {
+    [key: string]: {
+        title: string;
+        description: string;
+    };
+}

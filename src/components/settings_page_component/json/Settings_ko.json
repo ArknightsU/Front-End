@@ -12,7 +12,8 @@
     },
     "db": {
         "meta": {
-            "title": "데이터 베이스 설정"
+            "title": "데이터 베이스 설정",
+            "description": ""
         },
         "DB_CHAR_VERSION_CHECK": {
             "title": "캐릭터 데이터 베이스 버전 체크",
@@ -41,7 +42,8 @@
     },
     "gacha": {
         "meta": {
-            "title": "가챠 시뮬레이터 설정"
+            "title": "가챠 시뮬레이터 설정",
+            "description": ""
         },
         "GC_USE_COMPACT_GACHA": {
             "title": "가챠 애니메이션 형태 설정",
@@ -54,46 +56,56 @@
     },
     "calc": {
         "meta": {
-            "title": "재료 계산기 설정"
+            "title": "재료 계산기 설정",
+            "description": ""
         }
     },
     "music": {
         "meta": {
-            "title": "음악 플레이어 설정"
+            "title": "음악 플레이어 설정",
+            "description": ""
         }
     },
     "lang": {
         "meta": {
-            "title": "언어 설정"
+            "title": "언어 설정",
+            "description": ""
         }
     },
     "account": {
         "meta": {
-            "title": "계정"
+            "title": "계정",
+            "description": ""
         }
     },
     "info": {
         "meta": {
-            "title": "어플리케이션 정보"
+            "title": "어플리케이션 정보",
+            "description": ""
         },
         "IF_SERVICE_VERSION": {
-            "title": "서비스 버전 : v"
+            "title": "서비스 버전 : v",
+            "description": ""
         },
         "IF_BUGREPORT": {
-            "title": "버그 리포팅 및 문의 : "
+            "title": "버그 리포팅 및 문의 : ",
+            "description": ""
         },
         "IF_BUGREPORT_MAIL_BODY": {
-            "title": "버그 리포트의 경우 발생 경로를 상세하게 알려주세요."
+            "title": "버그 리포트의 경우 발생 경로를 상세하게 알려주세요.",
+            "description": ""
         },
         "IF_ALL_SETTING_RESET": {
-            "title": "모든 설정 초기화"
+            "title": "모든 설정 초기화",
+            "description": ""
         },
         "IF_RESET_BUTTON_TEXT": {
             "title": "초기화",
             "description": "정말 초기화 할까요?"
         },
         "IF_CANCEL_RESET_BUTTON_TEXT": {
-            "title": "초기화 취소"
+            "title": "초기화 취소",
+            "description": ""
         }
     }
 }
