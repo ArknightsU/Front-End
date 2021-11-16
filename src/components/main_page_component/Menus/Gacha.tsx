@@ -12,16 +12,18 @@ export function Gacha(): JSX.Element {
     // when render, get all gacha number data from server
     useEffect(() => {
         setLoading(true);
-        axios
-            .get(SERVER_URL_GACHA_ALL)
-            .then((res) => {
-                setNumber(res.data.total);
-                setLoading(false);
-            })
-            .catch((e) => {
-                setError(true);
-                setLoading(false);
-            });
+        setTimeout(() => {
+            axios
+                .get(SERVER_URL_GACHA_ALL)
+                .then((res) => {
+                    setNumber(res.data.total);
+                    setLoading(false);
+                })
+                .catch((e) => {
+                    setError(true);
+                    setLoading(false);
+                });
+        }, 1000);
     }, []);
     return (
         <div className={menuStyle}>
