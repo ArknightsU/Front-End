@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { menuStyle, insideStyle } from "./common";
 import { SERVER_STATUS_URL } from "@constants";
 
@@ -21,33 +21,31 @@ export function Status(): JSX.Element {
         // Api server has cooldown with 0.5s in same ip
         // so delaying api satus function to 1s
         // For Gacha's get pool/total
+        setCooldown(true);
+        setLoading(true);
         setTimeout(() => {
-            setCooldown(true);
-            setTimeout(() => {
-                setCooldown(false);
-            }, 3000);
-            setLoading(true);
-            const startTime = new Date();
-            axios
-                .get(SERVER_STATUS_URL)
-                .then((res) => {
-                    const endTime = new Date();
-                    const rtt: number = Number(endTime) - Number(startTime);
-                    //console.log("rtt: ", rtt);
-                    if (rtt <= 600) {
-                        setStatus("양호");
-                    } else if (rtt <= 1800) {
-                        setStatus("혼잡");
-                    } else {
-                        setStatus("불안정");
-                    }
-                    setLoading(false);
-                })
-                .catch((e) => {
-                    setStatus("에러");
-                    setLoading(false);
-                });
-        }, 1000);
+            setCooldown(false);
+        }, 3000);
+        const startTime = new Date();
+        axios
+            .get(SERVER_STATUS_URL)
+            .then((res) => {
+                const endTime = new Date();
+                const rtt: number = Number(endTime) - Number(startTime);
+                //console.log("rtt: ", rtt);
+                if (rtt <= 600) {
+                    setStatus("양호");
+                } else if (rtt <= 1800) {
+                    setStatus("혼잡");
+                } else {
+                    setStatus("불안정");
+                }
+                setLoading(false);
+            })
+            .catch((e) => {
+                setStatus("에러");
+                setLoading(false);
+            });
     }, [toggle]);
     return (
         <div className={menuStyle}>
