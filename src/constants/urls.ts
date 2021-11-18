@@ -13,6 +13,8 @@ export const SERVER_URL_GACHA_STATISTICS = (id: string): string => {
 };
 export const SERVER_URL_GACHA_ALL = SERVER_URL + "/v1/statistic/total";
 
+export const SERVER_STATUS_URL = SERVER_URL + "/v1/health";
+
 //DEV
 export const DEV_SERVER_URL_GACHA_POOLS = DEV_SERVER_URL + "/v1/gacha/pools";
 export const DEV_SERVER_URL_GACHA = DEV_SERVER_URL + "/v1/gacha";
@@ -25,6 +27,8 @@ export const DEV_SERVER_URL_GACHA_STATISTICS = (id: string): string => {
     return DEV_SERVER_URL + `/v1/statistic/pool?id=${id}`;
 };
 export const DEV_SERVER_URL_GACHA_ALL = DEV_SERVER_URL + "/v1/statistic/total";
+export const DEV_SERVER_STATUS_URL = DEV_SERVER_URL + "/v1/health";
+// DEV END
 
 export const CHAR_TABLE_URL =
     "https://static2.arknights.one/json/character_table.json";
@@ -34,8 +38,6 @@ export const CHAR_TABLE_VERSION_URL =
     "https://static2.arknights.one/json/version.json";
 export const CHAR_NAME_DICT_URL =
     "https://static2.arknights.one/json/name_dict.json";
-export const SERVER_STATUS_URL =
-    "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/health";
 
 // music
 export const MUSIC_SONGS_URL =
