@@ -1,5 +1,5 @@
 const DEV_SERVER_URL = "https://gacha-server-7vnjo7nhlq-du.a.run.app";
-const SERVER_URL = "https://https://servermanager-7vnjo7nhlq-du.a.run.app";
+const SERVER_URL = "https://servermanager-7vnjo7nhlq-du.a.run.app";
 
 export const SERVER_URL_GACHA_POOLS = SERVER_URL + "/v1/gacha/pools";
 export const SERVER_URL_GACHA = SERVER_URL + "/v1/gacha";
@@ -13,6 +13,7 @@ export const SERVER_URL_GACHA_STATISTICS = (id: string): string => {
 };
 export const SERVER_URL_GACHA_ALL = SERVER_URL + "/v1/statistic/total";
 
+//DEV
 export const DEV_SERVER_URL_GACHA_POOLS = DEV_SERVER_URL + "/v1/gacha/pools";
 export const DEV_SERVER_URL_GACHA = DEV_SERVER_URL + "/v1/gacha";
 export const DEV_GET_GACHA_API_URL = (count: number, id: string): string => {
