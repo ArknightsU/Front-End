@@ -1,12 +1,29 @@
-export const SERVER_URL_GACHA_POOLS =
-    "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/gacha/pools";
-export const SERVER_URL_GACHA =
-    "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/gacha";
+const DEV_SERVER_URL = "https://gacha-server-7vnjo7nhlq-du.a.run.app";
+const SERVER_URL = "https://https://servermanager-7vnjo7nhlq-du.a.run.app";
+
+export const SERVER_URL_GACHA_POOLS = SERVER_URL + "/v1/gacha/pools";
+export const SERVER_URL_GACHA = SERVER_URL + "/v1/gacha";
 export const GET_GACHA_API_URL = (count: number, id: string): string => {
     return SERVER_URL_GACHA + `?gacha_count=${count}&id=${id}`;
 };
-export const SERVER_URL_RESET_STACK =
-    "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/gacha/reset";
+export const SERVER_URL_RESET_STACK = SERVER_URL + "/v1/gacha/reset";
+
+export const SERVER_URL_GACHA_STATISTICS = (id: string): string => {
+    return SERVER_URL + `/v1/statistic/pool?id=${id}`;
+};
+export const SERVER_URL_GACHA_ALL = SERVER_URL + "/v1/statistic/total";
+
+export const DEV_SERVER_URL_GACHA_POOLS = DEV_SERVER_URL + "/v1/gacha/pools";
+export const DEV_SERVER_URL_GACHA = DEV_SERVER_URL + "/v1/gacha";
+export const DEV_GET_GACHA_API_URL = (count: number, id: string): string => {
+    return DEV_SERVER_URL_GACHA + `?gacha_count=${count}&id=${id}`;
+};
+export const DEV_SERVER_URL_RESET_STACK = DEV_SERVER_URL + "/v1/gacha/reset";
+
+export const DEV_SERVER_URL_GACHA_STATISTICS = (id: string): string => {
+    return DEV_SERVER_URL + `/v1/statistic/pool?id=${id}`;
+};
+export const DEV_SERVER_URL_GACHA_ALL = DEV_SERVER_URL + "/v1/statistic/total";
 
 export const CHAR_TABLE_URL =
     "https://static2.arknights.one/json/character_table.json";
@@ -18,12 +35,6 @@ export const CHAR_NAME_DICT_URL =
     "https://static2.arknights.one/json/name_dict.json";
 export const SERVER_STATUS_URL =
     "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/health";
-
-export const SERVER_URL_GACHA_STATISTICS = (id: string): string => {
-    return `https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/statistic/pool?id=${id}`;
-};
-export const SERVER_URL_GACHA_ALL =
-    "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/statistic/total";
 
 // music
 export const MUSIC_SONGS_URL =
