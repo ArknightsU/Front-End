@@ -31,7 +31,9 @@ export function PoolGrabber(props: PoolGrabProps): JSX.Element {
                     if (prev === maxWheel && e.deltaY > 0) return prev;
                     return prev + e.deltaY;
                 });
-                props.setFocused(Math.floor(wheel / 200));
+                if (Math.floor(wheel / 200) >= props.pools.length) {
+                    props.setFocused(props.pools.length - 1);
+                } else props.setFocused(Math.floor(wheel / 200));
             }}
             onTouchMove={(e) => {
                 // onTouchMove Evevnt Handler
@@ -116,7 +118,11 @@ export function PoolGrabber(props: PoolGrabProps): JSX.Element {
                                     setMovementY(-i * 120);
                                 }}
                             >
-                                <PoolComponent pool={v} />
+                                <PoolComponent
+                                    pool={v}
+                                    focused={props.focused}
+                                    index={i}
+                                />
                             </div>
                         ))}
                 </div>

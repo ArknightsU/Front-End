@@ -5,6 +5,8 @@ import { getAllfeaturedCharacters } from "../getAllfeaturedCharacters";
 
 interface PoolCompProps {
     pool: any;
+    focused: number;
+    index: number;
 }
 export function PoolComponent(props: PoolCompProps): JSX.Element {
     /*
@@ -48,7 +50,7 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
     });
     const svgref = useRef<HTMLDivElement>(null);
     return (
-        <div className="flex flex-col w-auto h-auto filter drop-shadow-bottom">
+        <div className="flex flex-col w-auto h-auto filter drop-shadow-bottom ">
             <div
                 style={{ height: "40px", width: "360px" }}
                 className="bg-truegray-900"
@@ -109,6 +111,14 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                     </div>
                 ))}
             </div>
+            {props.focused === props.index && (
+                <>
+                    <p className="absolute text-red-500 font-ibm-korean font-bold text-base bottom-2 left-4">
+                        {" "}
+                    </p>
+                    <div className="w-full h-full border-0 active:border-2 border-yellow-300 absolute"></div>
+                </>
+            )}
         </div>
     );
 }
