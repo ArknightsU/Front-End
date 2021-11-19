@@ -15,7 +15,6 @@ interface CharacterPreviewProps {
 }
 export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
     const window_size = useWindowSize();
-    console.log(props.focused);
     const charData =
         props.pools[props.focused].featured.six === undefined
             ? []
@@ -71,7 +70,7 @@ export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
     }
     return (
         <div
-            className={`w-0 md:w-full h-full relative overflow-hidden flex justify-center items-center`}
+            className={`w-0 md:w-full h-full relative overflow-hidden flex justify-center items-center pointer-events-none`}
         >
             {char_img.map((v: string, i: number) => (
                 <div

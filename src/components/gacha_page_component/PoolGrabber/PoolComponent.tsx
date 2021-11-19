@@ -63,7 +63,7 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                 style={{ height: "100px", width: "360px" }}
                 className="bg-truegray-100 relative items-center flex overflow-hidden "
             >
-                <div className="w-full h-full">
+                <div className="w-full h-full pointer-events-none">
                     <CustomImage src="/ui/dot.webp" />
                 </div>
                 {faction_img.map((v, i) => (
@@ -77,7 +77,7 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                             filter: "invert(70%) sepia(15%) saturate(0%) hue-rotate(15deg) brightness(180%) contrast(85%)",
                             left: `${i * 60 - 40}px`,
                         }}
-                        className="absolute"
+                        className="absolute pointer-events-none"
                     />
                 ))}
                 <span
@@ -85,7 +85,7 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                         props.pool.type === "limited"
                             ? "bg-red-700"
                             : "bg-truegray-900"
-                    } text-white flex justify-center items-center font-bold capitalize`}
+                    } text-white flex justify-center items-center font-bold capitalize pointer-events-none`}
                     style={{
                         width: "100px",
                         height: "30px",
@@ -97,7 +97,7 @@ export function PoolComponent(props: PoolCompProps): JSX.Element {
                 </span>
                 {char_img.map((v, i) => (
                     <div
-                        className="absolute"
+                        className="absolute pointer-events-none"
                         key={i}
                         style={{
                             height: "140px",
