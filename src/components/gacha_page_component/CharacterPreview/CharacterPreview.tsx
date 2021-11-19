@@ -15,7 +15,11 @@ interface CharacterPreviewProps {
 }
 export function CharacterPreview(props: CharacterPreviewProps): JSX.Element {
     const window_size = useWindowSize();
-    const charData = props.pools[props.focused].featured.six;
+    console.log(props.focused);
+    const charData =
+        props.pools[props.focused].featured.six === undefined
+            ? []
+            : props.pools[props.focused].featured.six;
     // character image's url array
     const char_img = charData.map((v: string) => {
         return "/img/characters/" + v + "_2.webp";
