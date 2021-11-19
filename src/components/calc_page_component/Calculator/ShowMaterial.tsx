@@ -226,6 +226,7 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
                                         <Flipped flipId={id} key={idx} stagger>
                                             <li className="w-auto h-auto">
                                                 <Item
+                                                    map={map}
                                                     setMap={setMap}
                                                     itemId={id}
                                                     // @ts-ignore
@@ -264,6 +265,8 @@ interface ItemProps {
     itemId: string;
     itemDetail: any;
     // eslint-disable-next-line @typescript-eslint/ban-types
+    map: any;
+    // eslint-disable-next-line @typescript-eslint/ban-types
     setMap: React.Dispatch<React.SetStateAction<{}>>;
 }
 const chipsets = [
@@ -291,32 +294,44 @@ function Item(props: ItemProps): JSX.Element {
     const rarity_img_src = `/img/material/bg/item-${
         Number(Material_Object.rarity) + 1
     }.webp`;
+    // check decomposible
     const isDecomposible = () => {
+        // if roomtype none undecomposible
         if (Material_Object.buildingProductList.roomType === undefined) {
             return false;
+            // if item is chipset, then undecomposible
         } else if (chipsets.includes(Material_Object.itemId)) {
             return false;
-        } else if (props.itemDetail.count === 0) {
+            // if item's count is below 0, then undecomposible
+        } else if (props.itemDetail.count <= 0) {
             return false;
         } else return true;
     };
+    // decompose function
     const handleDecomposition = () => {
+        // if mouse not entered, then return
         if (!isHover) return;
+        // if undecomposible, then return
         if (!isDecomposible()) {
             return;
         }
+        // map change
         props.setMap((prev) => {
             const newMap = Object.assign({}, prev);
+            // Get decompose/synthesize process from json
             const decomposeArray = getProcess(
                 Material_Object.buildingProductList.roomType,
                 Material_Object.buildingProductList.formulaId,
             );
+            // convert ++
             // @ts-ignore
             newMap[props.itemId].convert =
                 // @ts-ignore
                 Number(newMap[props.itemId].convert) + 1;
+            // count --
             // @ts-ignore
             newMap[props.itemId].count = Number(newMap[props.itemId].count) - 1;
+            // child item change convert, count
             for (const itemObject of decomposeArray) {
                 if (Object.keys(newMap).includes(itemObject.id)) {
                     // @ts-ignore
@@ -336,41 +351,81 @@ function Item(props: ItemProps): JSX.Element {
             return newMap;
         });
     };
+    // check synthisizable
     const isSynthisizable = () => {
+        // if convert below 0, return false
         if (props.itemDetail.convert >= 1) {
-            return true;
-        } else return false;
-    };
-    const handleSynthisize = () => {
-        if (!isHover) return;
-        if (!isSynthisizable()) return;
-        props.setMap((prev) => {
-            const newMap = Object.assign({}, prev);
+            // Get decompose/synthesize process from json
             const synthesizeArray = getProcess(
                 Material_Object.buildingProductList.roomType,
                 Material_Object.buildingProductList.formulaId,
             );
+            // If child item is decomposed to below 0, then return false
+            for (const lowMaterialObject of synthesizeArray) {
+                if (props.map[lowMaterialObject.id].count <= 0) {
+                    return false;
+                }
+            }
+            return true;
+        } else return false;
+    };
+    // synthisize function
+    const handleSynthisize = () => {
+        // if mouse not entered, then return
+        if (!isHover) return;
+        // if unsynthisizable, then return
+        if (!isSynthisizable()) return;
+        props.setMap((prev) => {
+            const newMap = Object.assign({}, prev);
+            // Get decompose/synthesize process from json
+            const synthesizeArray = getProcess(
+                Material_Object.buildingProductList.roomType,
+                Material_Object.buildingProductList.formulaId,
+            );
+            // convert --
             // @ts-ignore
             newMap[props.itemId].convert =
                 // @ts-ignore
                 Number(newMap[props.itemId].convert) - 1;
+            // count ++
             // @ts-ignore
             newMap[props.itemId].count = Number(newMap[props.itemId].count) + 1;
             for (const lowMaterialObject of synthesizeArray) {
+                // mother component synthesize, then decrease child component.
                 // @ts-ignore
                 newMap[lowMaterialObject.id].count =
                     // @ts-ignore
                     Number(newMap[lowMaterialObject.id].count) -
                     lowMaterialObject.count;
-                // @ts-ignore
-                if (newMap[lowMaterialObject.id].count === 0) {
+                // if child component's convert and count is 0, then delete item from the map
+                if (
+                    // @ts-ignore
+                    newMap[lowMaterialObject.id].count === 0 &&
+                    // @ts-ignore
+                    newMap[lowMaterialObject.id].convert === 0
+                ) {
                     // @ts-ignore
                     delete newMap[lowMaterialObject.id];
                 }
             }
+            // if parent component's convert and count is 0, then delete item from the map
+            // @ts-ignore
+            if (newMap[props.itemId].count === 0) {
+                // @ts-ignore
+                delete newMap[props.itemId];
+            }
             return newMap;
         });
     };
+    // alter state
+    // notify changes of count, convert
+    const [alert, setAlert] = useState(false);
+    useEffect(() => {
+        setAlert(true);
+        setTimeout(() => {
+            setAlert(false);
+        }, 500);
+    }, [props.itemDetail.convert, props.itemDetail.count]);
     return (
         <div
             className="w-24 md:w-28 relative"
@@ -399,7 +454,13 @@ function Item(props: ItemProps): JSX.Element {
             <div className="w-full h-1/5 flex justify-end flex-row absolute right-0 bottom-0">
                 {props.itemDetail.convert > 0 ? (
                     <div className="w-1/3 h-full bg-red-600 flex justify-center items-center">
-                        <p className="text-white font-extrabold text-lg">
+                        <p
+                            className={`${
+                                alert
+                                    ? "text-yellow-400 "
+                                    : "text-white duration-300"
+                            } font-extrabold text-lg transition-colors`}
+                        >
                             {props.itemDetail.convert}
                         </p>
                     </div>
@@ -407,7 +468,13 @@ function Item(props: ItemProps): JSX.Element {
                     <></>
                 )}
                 <div className="w-2/5 h-full bg-blue-500 flex justify-center items-center">
-                    <p className="text-white font-extrabold text:md md:text-lg">
+                    <p
+                        className={`${
+                            alert
+                                ? "text-yellow-400 "
+                                : "text-white duration-300"
+                        } font-extrabold text-lg transition-colors`}
+                    >
                         {props.itemId === "4001"
                             ? `${props.itemDetail.count / 10000}만` // exception for gold
                             : props.itemDetail.count}
@@ -428,7 +495,7 @@ function Item(props: ItemProps): JSX.Element {
                 {/* Synthesize Button */}
                 <div className="w-full h-1/2 flex flex-row">
                     <div
-                        className="w-1/2 h-full rounded-lg mr-1 bg-black bg-opacity-50 flex justify-center items-center"
+                        className="w-1/2 h-full rounded-lg mr-1 bg-black bg-opacity-50 flex justify-center items-center border-0 border-solid active:border-2 border-amber-300"
                         onClick={handleSynthisize}
                     >
                         <p
@@ -443,7 +510,7 @@ function Item(props: ItemProps): JSX.Element {
                     </div>
                     {/* Decompose Button */}
                     <div
-                        className="w-1/2 h-full rounded-lg bg-black bg-opacity-50 flex justify-center items-center"
+                        className="w-1/2 h-full rounded-lg bg-black bg-opacity-50 flex justify-center items-center border-0 border-solid active:border-2 border-amber-300"
                         onClick={handleDecomposition}
                     >
                         <p
