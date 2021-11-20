@@ -150,7 +150,7 @@ function Rarity(props: RarityProps): JSX.Element {
                 <div className="w-full h-full flex flex-row justify-center items-center">
                     <CustomImage src="/ui/CharacterInfo/UI_STAR_RARITY0.webp" />
                     <p className="text-white font-bold text-lg">
-                        {Rarity_Dict[props.rarity]}
+                        {Rarity_Dict[props.rarity] + 1}
                     </p>
                 </div>
             ) : (
