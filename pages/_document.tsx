@@ -22,10 +22,11 @@ class CustomDocument extends Document {
                     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
                 </Head>
                 <head>
+                    {/*
                     <script
                         async
                         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-                    ></script>
+                    ></script>*/}
                     <meta property="og:title" content="ARKNIGHTS ONE" />
                     <meta property="og:image" content="/icon.png" />
                     <meta
