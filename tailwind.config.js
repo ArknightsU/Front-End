@@ -74,6 +74,7 @@ module.exports = {
                 60: 60,
                 70: 70,
                 80: 80,
+                music: 90,
                 animation: 100,
                 gachaSkip: 101,
                 apiloading: 200,
