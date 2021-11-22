@@ -40,7 +40,6 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
     const window_size = useWindowSize();
     // using map state
     const [map, setMap] = useState<MaterialMap>({});
-    console.log(props.char.kr_name, map);
     // FLIP animation uses text state checker.
     const mapToAnimationKey = () => {
         let text = "";
