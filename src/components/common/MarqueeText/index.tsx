@@ -39,15 +39,17 @@ export function MarqueeText(props: MarqueeProps): JSX.Element {
             ? text.current.offsetWidth - parent.current.offsetWidth
             : 0;
     const [animate, setAnimate] = useState(diff);
+    const [interval, setInterval] = useState(0);
     useInterval(
         () => {
+            if (interval !== 2000) setInterval(2000);
             if (animate === 0) {
                 setAnimate(diff);
             } else {
                 setAnimate(0);
             }
         },
-        hover ? 2000 : null,
+        hover ? interval : null,
     );
     return (
         <div
@@ -58,9 +60,13 @@ export function MarqueeText(props: MarqueeProps): JSX.Element {
             style={props.style === undefined ? {} : props.style}
             onMouseEnter={() => {
                 setHover(true);
+                setInterval(0);
+                setAnimate(0);
             }}
             onMouseLeave={() => {
                 setHover(false);
+                setInterval(0);
+                setAnimate(0);
             }}
         >
             <p

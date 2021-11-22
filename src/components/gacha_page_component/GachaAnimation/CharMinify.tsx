@@ -16,7 +16,7 @@ export function CharMinify(props: CharMinifyProps): JSX.Element {
     // @ts-ignore
     const charRarity = loading ? null : charData["rarity"];
     return (
-        <div className="w-24 h-auto flex flex-col pointer-events-none">
+        <div className="w-24 h-auto flex flex-col">
             {Object.keys(rarityDict).includes(charRarity) ? (
                 <div
                     className="w-24 h-24 absolute"
@@ -36,7 +36,7 @@ export function CharMinify(props: CharMinifyProps): JSX.Element {
                 <></>
             )}
 
-            <div className="w-24 h-24 z-10">
+            <div className="w-24 h-24 z-10 pointer-events-none">
                 <CustomImage src={`/img/avatars/${props.charName}.webp`} />
             </div>
             <MarqueeText className="w-24 h-auto z-10" textClassName="text-xl">

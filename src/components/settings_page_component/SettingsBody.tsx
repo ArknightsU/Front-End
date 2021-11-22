@@ -37,8 +37,8 @@ export function SettingsBody(props: BodyProps): JSX.Element {
         }
     };
     return (
-        <div className="w-full h-full bg-gray-100 rounded-lg shadow-br flex flex-row justify-start items-center">
-            <div className="w-20 md:w-1/5 h-full bg-white flex flex-row justify-start items-center relative overflow-y-auto">
+        <div className="w-full h-full bg-gray-100 dark:bg-gray-700 rounded-lg shadow-br flex flex-row justify-start items-center">
+            <div className="w-20 md:w-1/5 h-full bg-white dark:bg-gray-600 flex flex-row justify-start items-center relative overflow-y-auto">
                 <div className="absolute w-3 h-full flex-shrink-0 flex flex-col justify-start items-center ">
                     {Object.keys(DisplayText.menus).map((v, i) => (
                         <Indicator key={i} index={i} current={props.current} />
@@ -115,8 +115,8 @@ function LeftMenuItem(props: LeftMenuProps): JSX.Element {
         <div
             className={`h-14 flex justify-center items-center rounded-l-lg transition-all duration-700 ${
                 props.current === props.index
-                    ? "bg-gray-100"
-                    : "bg-white hover:bg-gray-300"
+                    ? "bg-gray-100 dark:bg-gray-700"
+                    : "bg-white hover:bg-gray-300 dark:bg-gray-600"
             }`}
             style={{
                 width:

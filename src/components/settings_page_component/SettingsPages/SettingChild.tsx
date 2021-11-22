@@ -17,7 +17,7 @@ interface SettingsSwitchProps extends SettingsProps {
 }
 export function SettingSwitch(props: SettingsSwitchProps): JSX.Element {
     return (
-        <div className="w-full h-auto flex flex-col font-ibm-korean text-truegray-700 gap-y-2">
+        <div className="w-full h-auto flex flex-col font-ibm-korean text-truegray-700 dark:text-white gap-y-2">
             <div className="w-full h-auto flex flex-row justify-start items-start">
                 <div className="flex-grow h-auto flex justify-start items-start">
                     <p className="font-bold text-lg whitespace-pre-line">
@@ -68,7 +68,7 @@ export function SettingButton(props: SettingsButtonProps): JSX.Element {
         coolDown <= 0 ? null : 1000,
     );
     return (
-        <div className="w-full h-auto flex flex-col font-ibm-korean text-truegray-700 gap-y-2">
+        <div className="w-full h-auto flex flex-col font-ibm-korean text-truegray-700 dark:text-white gap-y-2">
             <div className="w-full h-auto flex flex-row justify-start items-start">
                 <div className="flex-grow h-auto flex justify-start items-start">
                     <p className="font-bold text-lg whitespace-pre-line">
@@ -143,7 +143,7 @@ export function SettingVersion(props: SettingsVersionProps): JSX.Element {
         coolDown <= 0 ? null : 1000,
     );
     return (
-        <div className="w-full h-auto flex flex-col font-ibm-korean text-truegray-700 gap-y-2">
+        <div className="w-full h-auto flex flex-col font-ibm-korean text-truegray-700 dark:text-white gap-y-2">
             <div className="w-full h-auto flex flex-row justify-start items-start">
                 <div className="flex-grow h-auto flex justify-start items-start">
                     <p className="font-bold text-lg whitespace-pre-line">

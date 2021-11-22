@@ -28,10 +28,10 @@ export function Loading(props: LoadingProps): JSX.Element {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
         >
-            <div className="w-screen h-screen flex justify-center items-center backdrop-filter backdrop-blur-lg bg-white bg-opacity-25 z-apiloading absolute top-0 left-0">
-                <div className="w-1/2 h-1/2 flex flex-col justify-center items-center bg-white p-3 rounded-lg">
+            <div className="w-screen h-screen flex justify-center items-center backdrop-filter backdrop-blur-lg bg-white dark:bg-gray-900 bg-opacity-25 z-apiloading absolute top-0 left-0">
+                <div className="w-1/2 h-1/2 flex flex-col justify-center items-center bg-white dark:bg-gray-900 p-3 rounded-lg">
                     <div className="h-1/3 w-full flex items-center justify-center">
-                        <p className="font-bold font-ibm-korean text-2xl text-truegray-700">
+                        <p className="font-bold font-ibm-korean text-2xl text-truegray-700 dark:text-white">
                             {"페이지 이동 중..."}
                         </p>
                     </div>

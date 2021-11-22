@@ -119,7 +119,7 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                 // Loading Component
                 <div className="w-full h-full p-5 flex flex-col justify-center items-center">
                     <EclipseSpinner />
-                    <p className="font-bold text-lg text-black text-center">
+                    <p className="font-bold text-lg text-black dark:text-white text-center">
                         {"LOADING"}
                     </p>
                 </div>
@@ -127,7 +127,7 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                 <>
                     {/* Main Component Start */}
                     <div
-                        className="w-full flex flex-row justify-end items-center relative bg-gray-200 rounded-3xl drop-shadow-bottom"
+                        className="w-full flex flex-row justify-end items-center relative bg-gray-200 dark:bg-gray-700 rounded-3xl drop-shadow-bottom"
                         style={{ height: "250px" }}
                     >
                         {/* Character Picture Area */}

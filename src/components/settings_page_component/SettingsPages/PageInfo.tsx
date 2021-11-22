@@ -20,7 +20,7 @@ export function PageInfo(): JSX.Element {
                     <CustomImage src="/icon.png" />
                 </div>
                 <div className="w-full h-auto flex flex-col justify-center items-center gap-y-2">
-                    <p className="text-2xl font-bold text-black">
+                    <p className="text-2xl font-bold text-black dark:text-white">
                         {"ARKNIGHTS ONE"}
                     </p>
                     <p className="text-lg font-bold">{`${DisplayText.info.IF_SERVICE_VERSION.title}${APP_VERSION_VALUE}`}</p>

@@ -33,13 +33,13 @@ export function Profile(props: ProfileProps): JSX.Element {
                 <CustomImage src={`/img/avatars/${props.char}.webp`} />
             </div>
             <div className="h-auto w-24 md:h-auto md:w-40 relative">
-                <p className="top-0 left-0 text-black font-bold text-xxs ml-2">
+                <p className="top-0 left-0 text-black dark:text-white font-bold text-xxs ml-2">
                     {"Operator Name"}
                 </p>
-                <hr className="h-0 border-black" />
+                <hr className="h-0 border-black dark:border-white" />
             </div>
             <div className="h-4 w-24 md:h-6 md:w-40">
-                <p className="h-auto w-auto font-sans text-md md:text-lg font-extrabold leading-none ml-2">
+                <p className="h-auto w-auto font-sans text-md md:text-lg font-extrabold leading-none ml-2 text-black dark:text-white">
                     {
                         // @ts-ignore
                         props.name

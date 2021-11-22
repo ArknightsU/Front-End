@@ -4,7 +4,7 @@ import DisplayText from "./DisplayValues";
 
 export function SettingsHeader(): JSX.Element {
     return (
-        <div className="w-full h-full rounded-lg bg-gray-100 shadow-br flex justify-start items-center pl-5 pr-8">
+        <div className="w-full h-full rounded-lg bg-gray-100 dark:bg-gray-700 shadow-br flex justify-start items-center pl-5 pr-8">
             <div className="w-24 h-full">
                 <CustomImage src="/ui/wolu.webp" />
             </div>

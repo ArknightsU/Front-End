@@ -43,7 +43,7 @@ export function ServerEveryOperators(
         });
     }, [Object.keys(props.data).length]);
     return (
-        <div className="w-full h-auto flex flex-row items-center justify-start gap-x-4 gap-y-4 flex-wrap font-ibm-korean font-bold text-truegray-800">
+        <div className="w-full h-auto flex flex-row items-center justify-start gap-x-4 gap-y-4 flex-wrap font-ibm-korean font-bold text-truegray-800 dark:text-white">
             {Object.keys(props.data).length === 0 ? (
                 <div className="w-full h-auto p-8 flex justify-center items-center">
                     <p className="text-xl font-bold">

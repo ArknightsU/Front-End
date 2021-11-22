@@ -1,6 +1,8 @@
 // install (please make sure versions match peerDependencies)
 // yarn add @nivo/core @nivo/pie
 import { ResponsivePie } from "@nivo/pie";
+import { DarkMode } from "@recoil/atoms";
+import { useRecoilValue } from "recoil";
 
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
@@ -12,9 +14,11 @@ interface PieProps {
     length: number;
 }
 export const PieChart = ({ data, length }: PieProps) => {
+    const darkMode = useRecoilValue(DarkMode);
     return (
         <ResponsivePie
             data={data}
+            fit={true}
             margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
             innerRadius={0.5}
             padAngle={0.7}
@@ -23,7 +27,7 @@ export const PieChart = ({ data, length }: PieProps) => {
             borderWidth={1}
             borderColor={{ theme: "background" }}
             arcLinkLabelsSkipAngle={10}
-            arcLinkLabelsTextColor="#333333"
+            arcLinkLabelsTextColor={darkMode ? "#ffffff" : "#333333"}
             arcLinkLabelsThickness={5}
             arcLinkLabelsColor={{ from: "color", modifiers: [] }}
             arcLabel={function (e) {
@@ -31,7 +35,13 @@ export const PieChart = ({ data, length }: PieProps) => {
             }}
             arcLabelsRadiusOffset={0.55}
             arcLabelsSkipAngle={10}
-            arcLabelsTextColor="black"
+            arcLabelsTextColor={darkMode ? "white" : "black"}
+            theme={{
+                fontSize: 15,
+                tooltip: {
+                    container: { background: darkMode ? "black" : "white" },
+                },
+            }}
             defs={[
                 {
                     id: "dots",

@@ -60,7 +60,7 @@ export function CharSelector(props: FilterProps): JSX.Element {
             </div>
             {/* open drawers */}
             <div
-                className={`w-full absolute bg-gray-200 rounded-2xl transition-all duration-700`}
+                className={`w-full absolute bg-gray-200 dark:bg-gray-700 rounded-2xl transition-all duration-700`}
                 style={{
                     width: open ? "calc(100% - 40px)" : "30%",
                     height: open

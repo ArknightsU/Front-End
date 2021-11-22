@@ -6,7 +6,7 @@ export function PageLang(): JSX.Element {
             <div className="w-full h-auto flex flex-col gap-y-10">
                 <div className="w-full h-auto">
                     <p className="font-bold text-2xl">
-                        {DisplayText.calc.meta.title}
+                        {DisplayText.lang.meta.title}
                     </p>
                 </div>
                 <NoSettings />

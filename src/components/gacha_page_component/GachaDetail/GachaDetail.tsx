@@ -97,6 +97,10 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
     const [gachaData, setGachaData] = settings.GC_SAVE_GACHA_DATA_IN_LOCAL
         ? useLocalStorage(props.pools[props.focused].id.toString(), [])
         : useSessionStorage(props.pools[props.focused].id.toString(), []);
+    const resetSessionData = () => {
+        setGachaData([]);
+        resetUsed();
+    };
     // first animation initializer
     const [initAnime, setInitAnime] = useState(false);
     useEffect(() => {
@@ -228,7 +232,7 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                     {/* Button Area End */}
                     {/* Banner Calculation Inforamtion */}
                     <DetailChildLayout title="배너 확률 정보" initial={false}>
-                        <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800">
+                        <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800 dark:text-white">
                             <div className="w-full h-auto flex flex-col gap-y-2">
                                 <div className="w-full h-10 flex flex-row items-center">
                                     <InfoIcon />
@@ -280,6 +284,7 @@ export function GachaDetail(props: GachaDetailProps): JSX.Element {
                         focused={props.focused}
                         pools={props.pools}
                         gachaData={gachaData}
+                        resetClientData={resetSessionData}
                     />
                     <ServerStats focused={props.focused} pools={props.pools} />
                 </div>
@@ -313,17 +318,17 @@ export const DataTalbe = (props: DataProps) => {
     const headMap = ["★6", "★5", "★4", "★3"];
     return (
         <div
-            className="w-5/6 h-36 justify-center items-center flex flex-col border-black"
+            className="w-5/6 h-36 justify-center items-center flex flex-col border-black dark:border-white"
             style={{ borderWidth: "2px" }}
         >
             <div className="w-full h-1/4 flex flex-row">
                 {headMap.map((v, idx) => (
                     <div
                         key={idx}
-                        className="w-1/4 h-full border-black flex justify-center items-center"
+                        className="w-1/4 h-full border-black dark:border-white flex justify-center items-center"
                         style={{ borderWidth: "1px" }}
                     >
-                        <p className="text-base md:text-xl text-truegray-700 font-bold font-ibm-korean">
+                        <p className="text-base md:text-xl text-truegray-700 dark:text-white font-bold font-ibm-korean">
                             {v}
                         </p>
                     </div>
@@ -333,10 +338,10 @@ export const DataTalbe = (props: DataProps) => {
                 {Object.keys(props.allData).map((v, idx) => (
                     <div
                         key={idx}
-                        className="w-1/4 h-full border-black flex justify-center items-center"
+                        className="w-1/4 h-full border-black dark:border-white flex justify-center items-center"
                         style={{ borderWidth: "1px" }}
                     >
-                        <p className="text-base md:text-xl text-truegray-700 font-bold font-ibm-korean">
+                        <p className="text-base md:text-xl text-truegray-700 dark:text-white font-bold font-ibm-korean">
                             {props.allData[v]}
                         </p>
                     </div>
@@ -346,10 +351,10 @@ export const DataTalbe = (props: DataProps) => {
                 {headMap.map((v, idx) => (
                     <div
                         key={idx}
-                        className="w-1/4 h-full border-black flex justify-center items-center"
+                        className="w-1/4 h-full border-black dark:border-white flex justify-center items-center"
                         style={{ borderWidth: "1px" }}
                     >
-                        <p className="text-base md:text-xl text-truegray-700 font-bold font-ibm-korean">
+                        <p className="text-base md:text-xl text-truegray-700 dark:text-white font-bold font-ibm-korean">
                             {"픽업" + v}
                         </p>
                     </div>
@@ -359,10 +364,10 @@ export const DataTalbe = (props: DataProps) => {
                 {Object.keys(props.hitData).map((v, idx) => (
                     <div
                         key={idx}
-                        className="w-1/4 h-full border-black flex justify-center items-center"
+                        className="w-1/4 h-full border-black dark:border-white flex justify-center items-center"
                         style={{ borderWidth: "1px" }}
                     >
-                        <p className="text-base md:text-xl text-truegray-700 font-bold font-ibm-korean">
+                        <p className="text-base md:text-xl text-truegray-700 dark:text-white font-bold font-ibm-korean">
                             {props.hitData[v]}
                         </p>
                     </div>

@@ -28,10 +28,10 @@ export function Upgrade(props: UpgradeProps): JSX.Element {
     return (
         <div className="w-full h-full flex flex-col justify-end items-center pt-4">
             <div className="w-full h-auto mb-auto">
-                <p className="w-full h-auto font-sans font-bold text-md md:text-lg text-center">
+                <p className="w-full h-auto font-sans font-bold text-md md:text-lg text-center text-black dark:text-white">
                     {"정예화"}
                 </p>
-                <hr className="w-full h-1 bg-gradient-to-r from-transparent via-black to-transparent" />
+                <hr className="w-full h-1 bg-gradient-to-r from-transparent via-black dakr:via-white to-transparent" />
             </div>
             <div className="w-full flex-grow flex flex-col justify-evenly items-center pr-4 pl-4">
                 <button
@@ -128,7 +128,7 @@ export function Skill(props: SkillProps): JSX.Element {
         <div className="w-full h-full flex flex-col justify-end items-center pt-4 ">
             {/* TOP TITLE */}
             <div className="w-full h-auto mb-auto">
-                <p className="w-full h-auto font-sans font-bold text-md md:text-lg text-center">
+                <p className="w-full h-auto font-sans font-bold text-md md:text-lg text-center text-black dark:text-white">
                     {`공통`}
                 </p>
                 <hr className="w-full h-1 bg-gradient-to-r from-transparent via-black to-transparent" />
@@ -142,7 +142,7 @@ export function Skill(props: SkillProps): JSX.Element {
                     >
                         <line x1="0" y1="100%" x2="100%" y2="0" stroke="#000" />
                     </svg>
-                    <p className="absolute bg-gray-200 font-bold text-lg font-mono capitalize pt-1 pb-1">
+                    <p className="absolute bg-gray-200 dark:bg-gray-700 font-bold text-lg font-mono capitalize pt-1 pb-1">
                         {"NO DATA"}
                     </p>
                 </div>

@@ -1,20 +1,20 @@
 import { UnderConstruct } from "@components/common/UnderConstruct";
 import React from "react";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { menuStyle, insideStyle } from "./common";
 import { SubMenuComp } from "./SubMenuComp";
-import { RecoilError } from "@recoil/atoms";
+import { DarkMode, RecoilError } from "@recoil/atoms";
 
 export function Theme(): JSX.Element {
-    const [theme, setTheme] = React.useState("light");
+    const [darkMode, setDarkMode] = useRecoilState(DarkMode);
     const [drag, setDrag] = React.useState(false);
     React.useEffect(() => {
-        if (theme === "light") {
+        if (!darkMode) {
             document.documentElement.classList.remove("dark");
         } else {
             document.documentElement.classList.add("dark");
         }
-    }, [theme]);
+    }, [darkMode]);
     const dark_icon = (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -39,18 +39,16 @@ export function Theme(): JSX.Element {
             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
         </svg>
     );
-    const icon = theme === "light" ? light_icon : dark_icon;
+    const icon = !darkMode ? light_icon : dark_icon;
     const light_background = "bg-gradient-to-tr from-gray-800 to-gray-600";
     const dark_background = "bg-gradient-to-tr from-gray-100 to-white";
-    const background = theme === "light" ? light_background : dark_background;
+    const background = !darkMode ? light_background : dark_background;
     const setError = useSetRecoilState(RecoilError);
     return (
         <div
             className={menuStyle}
             onClick={() => {
-                // delete this return state when complete theme change function
-                return;
-                if (!drag) setTheme(theme === "light" ? "dark" : "light");
+                if (!drag) setDarkMode(!darkMode);
                 else return;
             }}
             onDragStart={() => {
@@ -62,13 +60,7 @@ export function Theme(): JSX.Element {
         >
             <div className={insideStyle}>
                 <div className="w-full h-full absolute p-4 md:p-4">
-                    <div className="w-full h-full relative">
-                        <UnderConstruct
-                            onClick={() => {
-                                setError(true);
-                            }}
-                        />
-                    </div>
+                    <div className="w-full h-full relative"></div>
                 </div>
                 <SubMenuComp
                     icon={icon}

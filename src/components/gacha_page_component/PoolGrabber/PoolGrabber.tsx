@@ -148,11 +148,11 @@ function PoolGrabIndicator(): JSX.Element {
                 }}
             ></div>
             <div
-                className="absolute left-0 border-4 border-black rounded-full flex justify-center items-center z-10"
+                className="absolute left-0 border-4 border-black dark:border-white rounded-full flex justify-center items-center z-10"
                 style={{ width: "150px", height: "150px" }}
             >
-                <div className="absolute h-screen border-2 border-black"></div>
-                <div className="absolute w-2/5 h-2/5 bg-black rounded-full flex justify-center items-center">
+                <div className="absolute h-screen border-2 border-black dark:border-white"></div>
+                <div className="absolute w-2/5 h-2/5 bg-black dark:bg-white rounded-full flex justify-center items-center">
                     <div className="w-1/3 h-1/3 bg-truegray-500 rounded-full"></div>
                 </div>
             </div>

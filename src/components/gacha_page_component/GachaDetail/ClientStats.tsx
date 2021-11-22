@@ -12,6 +12,7 @@ interface ClientStatsProps {
     pools: Array<GachaPool>;
     focused: number;
     gachaData: any;
+    resetClientData: () => void;
 }
 export function ClientStats(props: ClientStatsProps): JSX.Element {
     // switch state
@@ -97,7 +98,19 @@ export function ClientStats(props: ClientStatsProps): JSX.Element {
                 parentControlOpen={openGraph}
                 setParentControlOpen={setOpenGraph}
             >
-                <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800">
+                <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800 dark:text-white">
+                    <div className="w-full h-10 flex flex-row items-center">
+                        <InfoIcon />
+                        <p className="text-lg">{"클라이언트 데이터 초기화"}</p>
+                    </div>
+                    <div className="w-full h-auto">
+                        <div
+                            className="w-32 h-12 bg-red-600 hover:bg-red-700 rounded-lg flex justify-center items-center active:border-2 border-0 border-amber-300"
+                            onClick={props.resetClientData}
+                        >
+                            <p className="text-lg text-white">{"초기화"}</p>
+                        </div>
+                    </div>
                     <div className="w-full h-10 flex flex-row items-center">
                         <InfoIcon />
                         <p className="text-lg">{"그래프"}</p>
@@ -130,7 +143,19 @@ export function ClientStats(props: ClientStatsProps): JSX.Element {
                 parentControlOpen={openAll}
                 setParentControlOpen={setOpenAll}
             >
-                <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800 mb-6">
+                <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800 dark:text-white mb-6">
+                    <div className="w-full h-10 flex flex-row items-center">
+                        <InfoIcon />
+                        <p className="text-lg">{"클라이언트 데이터 초기화"}</p>
+                    </div>
+                    <div className="w-full h-auto">
+                        <div
+                            className="w-32 h-12 bg-red-600 hover:bg-red-700 rounded-lg flex justify-center items-center active:border-2 border-0 border-amber-300"
+                            onClick={props.resetClientData}
+                        >
+                            <p className="text-lg text-white">{"초기화"}</p>
+                        </div>
+                    </div>
                     <div className="w-full h-auto flex flex-row justify-start items-center">
                         <InfoIcon />
                         <p className="text-lg">{"정렬 기준"}</p>
@@ -141,7 +166,7 @@ export function ClientStats(props: ClientStatsProps): JSX.Element {
                         <p className="text-base">{"레어도"}</p>
                     </div>
                 </div>
-                <div className="w-full h-auto flex flex-row justify-start items-center font-ibm-korean font-bold text-truegray-800 mb-6">
+                <div className="w-full h-auto flex flex-row justify-start items-center font-ibm-korean font-bold text-truegray-800 dark:text-white mb-6">
                     <InfoIcon />
                     <p className="text-lg">{"데이터"}</p>
                 </div>

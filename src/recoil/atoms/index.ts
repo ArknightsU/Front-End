@@ -8,4 +8,5 @@ export * from "./CurrentPlayList";
 export * from "./MusicFavorite";
 export * from "./Settings";
 export * from "./RecoilError";
+export * from "./DarkMode";
 export * from "./APP_VERSION";

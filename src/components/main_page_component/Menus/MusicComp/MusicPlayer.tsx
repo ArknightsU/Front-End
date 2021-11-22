@@ -117,10 +117,10 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                     }
                 }}
             />
-            <div className="w-full h-full flex flex-col justify-center items-center border-2 border-solid rounded-lg md:rounded-t-none md:rounded-b-lg border-truegray-300">
+            <div className="w-full h-full flex flex-col justify-center items-center border-2 border-solid rounded-lg md:rounded-t-none md:rounded-b-lg border-truegray-300 dark:border-black">
                 {/* Time Slider */}
-                <div className="w-full h-1/5 bg-white md:ml-4 md:mr-4 flex flex-row justify-center items-center">
-                    <div className="w-1/5 h-full text-truegray-500 flex justify-center items-center">
+                <div className="w-full h-1/5 bg-white dark:bg-gray-700 md:ml-4 md:mr-4 flex flex-row justify-center items-center">
+                    <div className="w-1/5 h-full text-truegray-500 flex justify-center items-center dark:text-white">
                         <p>
                             {loading
                                 ? "Wait.."
@@ -143,7 +143,7 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                         // @ts-ignore
                         disabled={loading}
                     />
-                    <div className="w-1/5 h-full text-truegray-500 flex justify-center items-center">
+                    <div className="w-1/5 h-full text-truegray-500 flex justify-center items-center dark:text-white">
                         <p className="text-center">
                             {loading
                                 ? "Wait..."
@@ -155,16 +155,16 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                 </div>
                 {/* Player Comp */}
                 {loading ? (
-                    <div className="w-full h-3/5 flex flex-col justify-center items-center bg-white">
+                    <div className="w-full h-3/5 flex flex-col justify-center items-center bg-white dark:bg-gray-700">
                         <EclipseSpinner />
-                        <p className=" font-ibm-korean font-bold text-black text-base whitespace-pre-line">
+                        <p className=" font-ibm-korean font-bold text-black dark:text-white text-base whitespace-pre-line">
                             {"음악 준비 중"}
                         </p>
                     </div>
                 ) : (
-                    <div className="w-full h-3/5 bg-white flex flex-row justify-evenly items-center">
+                    <div className="w-full h-3/5 bg-white dark:bg-gray-700 flex flex-row justify-evenly items-center">
                         <div
-                            className="w-1/6 h-1/2 flex justify-center items-center text-truegray-500 hover:text-truegray-400 transition-all duration-500"
+                            className="w-1/6 h-1/2 flex justify-center items-center text-truegray-500 hover:text-truegray-400 dark:text-gray-200 dark:hover:text-gray-500 transition-all duration-500"
                             onClick={() => {
                                 setRepeat((prev) => (prev + 1) % 3);
                             }}
@@ -173,7 +173,7 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                         </div>
                         <div className="w-1/2 h-full flex flex-row justify-center items-center">
                             <div
-                                className="w-1/4 h-full text-truegray-500 hover:text-truegray-400 transition-all duration-500"
+                                className="w-1/4 h-full text-truegray-500  hover:text-truegray-400 dark:text-gray-200 dark:hover:text-gray-500 transition-all duration-500"
                                 onClick={() => {
                                     props.setCurrent((prev) => {
                                         if (prev === 0) {
@@ -190,7 +190,7 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                                 <Rewind />
                             </div>
                             <div
-                                className="w-1/2 h-full text-truegray-500 hover:text-truegray-400 transition-all duration-500"
+                                className="w-1/2 h-full text-truegray-500 hover:text-truegray-400 dark:text-gray-200 dark:hover:text-gray-500 transition-all duration-500"
                                 onClick={() => {
                                     setPlay(!play);
                                 }}
@@ -198,7 +198,7 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                                 {!play ? <Play /> : <Pause />}
                             </div>
                             <div
-                                className="w-1/4 h-full text-truegray-500 hover:text-truegray-400 transition-all duration-500"
+                                className="w-1/4 h-full text-truegray-500 hover:text-truegray-400 dark:text-gray-200 dark:hover:text-gray-500 transition-all duration-500"
                                 onClick={() => {
                                     props.setCurrent((prev) => {
                                         return (
@@ -213,8 +213,8 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                         <div
                             className={`w-1/6 h-1/2 flex justify-center items-center ${
                                 random
-                                    ? "text-truegray-500 hover:text-truegray-400"
-                                    : "text-truegray-300 hover:text-truegray-600"
+                                    ? "text-truegray-500 hover:text-truegray-400 "
+                                    : "text-truegray-300 hover:text-truegray-600 dark:text-gray-200 dark:hover:text-gray-500"
                             } transition-all duration-500`}
                             onClick={() => {
                                 setRandom(!random);
@@ -226,9 +226,9 @@ export function MusicPlayer(props: MusicPlayerProps): JSX.Element {
                 )}
 
                 {/* Volume Slider Area */}
-                <div className="w-full h-1/5 flex flex-row justify-center items-center rounded-b-lg bg-white">
+                <div className="w-full h-1/5 flex flex-row justify-center items-center rounded-b-lg bg-white dark:bg-gray-700">
                     <div
-                        className="w-1/5 h-full text-truegray-500 hover:text-truegray-300 transition-all duration-500"
+                        className="w-1/5 h-full text-truegray-500 hover:text-truegray-300 dark:text-gray-200 dark:hover:text-gray-500 transition-all duration-500"
                         onClick={() => {
                             setMute(!mute);
                         }}

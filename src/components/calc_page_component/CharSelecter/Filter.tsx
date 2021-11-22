@@ -37,10 +37,10 @@ export function Filter(props: FilterProps): JSX.Element {
         <div className="w-full h-auto flex flex-col justify-center items-center gap-y-4">
             {/* Select Rarity */}
             <div className="flex flex-col w-11/12 items-start">
-                <span className="font-sans text-black font-bold text-lg md:text-xl w-full text-left">
+                <span className="font-sans text-black dark:text-white font-bold text-lg md:text-xl w-full text-left">
                     {"레어도 선택"}
                 </span>
-                <hr className="w-full h-0 border-black bg-black" />
+                <hr className="w-full h-0 border-black bg-black dark:border-white" />
             </div>
             <div className="w-11/12 h-auto flex flex-row justify-evenly items-center">
                 {Object.keys(RARITY).map((rare, idx) => (
@@ -55,10 +55,10 @@ export function Filter(props: FilterProps): JSX.Element {
             </div>
             {/* Select Profession */}
             <div className="flex flex-col w-11/12 items-start mt-4 md:mt-10">
-                <span className="font-sans text-black font-bold text-lg md:text-xl w-full text-left">
+                <span className="font-sans text-black dark:text-white font-bold text-lg md:text-xl w-full text-left">
                     {"직군 선택"}
                 </span>
-                <hr className="w-full h-0 border-black bg-black" />
+                <hr className="w-full h-0 border-black dark:border-white bg-black" />
             </div>
             <div className="w-11/12 h-auto flex flex-row justify-evenly items-center">
                 {Object.keys(PROFESSION).map((prof, idx) => (
@@ -73,10 +73,10 @@ export function Filter(props: FilterProps): JSX.Element {
             </div>
             {/* Select Characters */}
             <div className="flex flex-col w-11/12 items-start mt-4 md:mt-10">
-                <span className="font-sans text-black font-bold text-lg md:text-xl w-full text-left">
+                <span className="font-sans text-black dark:text-white font-bold text-lg md:text-xl w-full text-left">
                     {"오퍼레이터 선택"}
                 </span>
-                <hr className="w-full h-0 border-black bg-black" />
+                <hr className="w-full h-0 border-black dark:border-white bg-black" />
             </div>
             <div className="w-11/12 h-auto flex flex-row justify-start items-start flex-wrap gap-x-2 gap-y-2">
                 <Flipper
@@ -257,7 +257,7 @@ function FilterChild(props: FilterChildProps): JSX.Element {
     };
     return (
         <div
-            className="h-auto w-auto p-2 bg-white relative"
+            className="h-auto w-auto p-2 bg-white dark:bg-gray-900 relative"
             onClick={onClickHandle}
         >
             {loading ? (
@@ -294,13 +294,13 @@ function FilterChild(props: FilterChildProps): JSX.Element {
                         <CustomImage src={`/img/avatars/${props.char}.webp`} />
                     </div>
                     <div className="h-auto w-24 md:h-auto md:w-40 relative">
-                        <p className="top-0 left-0 text-black font-bold text-xxs">
+                        <p className="top-0 left-0 text-black dark:text-white font-bold text-xxs">
                             {"Operator Name"}
                         </p>
-                        <hr className="h-0 border-black" />
+                        <hr className="h-0 border-black dark:border-white" />
                     </div>
                     <div className="h-4 w-24 md:h-6 md:w-40">
-                        <p className="h-auto w-auto font-sans text-md md:text-lg font-extrabold">
+                        <p className="h-auto w-auto font-sans text-md md:text-lg font-extrabold text-black dark:text-white">
                             {
                                 // @ts-ignore
                                 char.kr_name
