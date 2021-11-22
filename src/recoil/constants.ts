@@ -10,4 +10,5 @@ export enum Atoms {
     Settings = "Settings",
     Error = "Error",
     DarkMode = "DarkMode",
+    APP_VERSION = "APP_VERSION",
 }
