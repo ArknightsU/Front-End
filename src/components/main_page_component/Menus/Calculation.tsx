@@ -15,21 +15,21 @@ export function Calculation(): JSX.Element {
                         </div>
                     </div>
                     <div className="flex-grow h-full relative flex items-center justify-center bg-truegray-800">
-                        <div className="w-full h-full absolute flex justify-end items-end">
+                        <div className="w-full h-full absolute flex justify-end items-end filter dark:invert">
                             <CustomImage
                                 type="stretch"
                                 src="/ui/dot_bkg.webp"
                             />
                         </div>
                         <div className="w-full h-full flex flex-col justify-end items-end z-10">
-                            <p className="text-lg text-right md:text-xl font-ibm-korean font-bold text-truegray-700 mb-auto mr-4 md:mr-10 mt-5">
+                            <p className="text-lg text-right md:text-xl font-ibm-korean font-bold text-truegray-700 dark:text-white mb-auto mr-4 md:mr-10 mt-5">
                                 {"캐릭터 수 총합"}
                                 <br />
                                 {loading || chars.length === 0
                                     ? "캐릭터 정보 수집 중..."
                                     : chars.length + " 명"}
                             </p>
-                            <p className="text-2xl md:text-3xl font-ibm-korean font-bold text-truegray-700 mr-4 md:mr-10 mb-5">
+                            <p className="text-2xl md:text-3xl font-ibm-korean font-bold text-truegray-700 dark:text-white mr-4 md:mr-10 mb-5">
                                 {"재료 계산"}
                             </p>
                         </div>

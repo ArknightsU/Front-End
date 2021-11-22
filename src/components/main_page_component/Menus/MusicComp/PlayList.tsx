@@ -26,33 +26,36 @@ export function PlayList(props: PlayListProps): JSX.Element {
                 <div
                     className={`w-1/2 flex justify-center items-center rounded-t-lg transition-all duration-700 ${
                         !props.fav
-                            ? "h-full bg-gray-200"
-                            : "h-4/5 bg-truegray-400"
+                            ? "h-full bg-gray-200 dark:bg-gray-700"
+                            : "h-4/5 bg-truegray-400 dark:bg-gray-500"
                     }`}
                     onClick={() => {
                         props.setFav(false);
                     }}
                 >
-                    <p className="font-bold text-sm font-ibm-korean text-truegray-700">
+                    <p className="font-bold text-sm font-ibm-korean text-truegray-700 dark:text-white">
                         {"모든 곡"}
                     </p>
                 </div>
                 <div
                     className={`w-1/2 flex justify-center items-center rounded-t-lg transition-all duration-700 ${
                         props.fav
-                            ? "h-full bg-gray-200"
-                            : "h-4/5 bg-truegray-400"
+                            ? "h-full bg-gray-200 dark:bg-gray-700"
+                            : "h-4/5 bg-truegray-400 dark:bg-gray-500"
                     }`}
                     onClick={() => {
                         props.setFav(true);
                     }}
                 >
-                    <p className="font-bold text-sm font-ibm-korean text-truegray-700">
+                    <p className="font-bold text-sm font-ibm-korean text-truegray-700 dark:text-white">
                         {"즐겨찾기"}
                     </p>
                 </div>
             </div>
-            <div className="w-full bg-gray-200 p-2" style={{ height: "90%" }}>
+            <div
+                className="w-full bg-gray-200 dark:bg-gray-700 p-2"
+                style={{ height: "90%" }}
+            >
                 <div className="w-full h-full flex flex-col justify-end items-end">
                     <div
                         className="w-full flex justify-start items-start"

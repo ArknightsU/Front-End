@@ -9,5 +9,5 @@ export enum Atoms {
     CurrentPlayList = "CurrentPlayList",
     Settings = "Settings",
     Error = "Error",
-    APP_VERSION = "APP_VERSION",
+    DarkMode = "DarkMode",
 }

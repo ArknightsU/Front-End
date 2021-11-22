@@ -34,3 +34,29 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: #a0aec0;
   }
+
+  @media (prefers-color-scheme: dark) {
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 8px;
+      transform: translateX(20px);
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+      border-radius: 100vh;
+      background: #676a6d;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #9bc7f7;
+      border-radius: 100vh;
+      border: 0px solid #edf2f7;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a0aec0;
+    }
+ }

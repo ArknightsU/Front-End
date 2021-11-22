@@ -26,7 +26,7 @@ export function Translate(): JSX.Element {
     const [selectedLang, setSelectedLang] = useState(Languages[0]);
     return (
         <div className={menuStyle}>
-            <div className="w-full h-full flex flex-col md:flex-row justify-center items-center from bg-gray-100 rounded-lg">
+            <div className="w-full h-full flex flex-col md:flex-row justify-center items-center from bg-gray-100 dark:bg-gray-700 rounded-lg">
                 <div className="md:w-1/3 md:h-full h-1/3 w-full flex justify-center items-center">
                     <SubMenuComp
                         background="bg-gradient-to-tr from-green-500 via-green-400 to-green-300"
@@ -37,13 +37,13 @@ export function Translate(): JSX.Element {
                 <div className="md:w-2/3 md:h-full h-auto w-full flex flex-col md:justify-center md:items-center mt-6 md:mt-1 relative justify-start items-center">
                     <Listbox value={selectedLang} onChange={setSelectedLang}>
                         <div className="md:relative md:mt-1 absolute">
-                            <Listbox.Button className="relative w-full py-1 md:py-2 pl-3 pr-10 md:pr-16 text-left text-xs bg-white rounded-lg cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
-                                <span className="block truncate">
+                            <Listbox.Button className="relative w-full py-1 md:py-2 pl-3 pr-10 md:pr-16 text-left text-xs bg-white dark:bg-gray-500 rounded-lg cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+                                <span className="block truncate text-black dark:text-white">
                                     {selectedLang.name}
                                 </span>
                                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                                     <SelectorIcon
-                                        className="w-5 h-5 text-gray-400"
+                                        className="w-5 h-5 text-gray-400 dark:text-white"
                                         aria-hidden="true"
                                     />
                                 </span>
@@ -54,7 +54,7 @@ export function Translate(): JSX.Element {
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none text-xs sm:text-sm">
+                                <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto bg-white dark:bg-gray-500 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none text-xs sm:text-sm">
                                     {Languages.map((lang, langIdx) => (
                                         <Listbox.Option
                                             key={langIdx}
@@ -62,7 +62,7 @@ export function Translate(): JSX.Element {
                                                 `${
                                                     active
                                                         ? "text-amber-900 bg-amber-100"
-                                                        : "text-gray-900"
+                                                        : "text-gray-900 dark:text-white"
                                                 }
                           cursor-default select-none relative py-2 md:pl-10 pl-2 pr-4`
                                             }

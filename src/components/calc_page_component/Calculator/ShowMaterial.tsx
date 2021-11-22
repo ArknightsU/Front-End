@@ -6,12 +6,14 @@ import { getMaterialObject } from "./getMaterialObject";
 import AKLEVEL from "@public/json/common/aklevel.json";
 import { Flipped, Flipper } from "react-flip-toolkit";
 import { getProcess } from "./getMaterialObject";
+import { MaterialMap } from "@components/common/Type";
 interface ShowMaterialProps {
     open: boolean;
     setClose: () => void;
     focus: MaterialCalculation;
     char: any;
     type: "total" | "upgrade" | "skill";
+    check: number;
 }
 // Left title text map
 const TITLE_TEXT = {
@@ -38,7 +40,8 @@ const EVOLVE_GOLD_COST = AKLEVEL.evolveGoldCost;
 export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
     const window_size = useWindowSize();
     // using map state
-    const [map, setMap] = useState({});
+    const [map, setMap] = useState<MaterialMap>({});
+    console.log(props.char.kr_name, map);
     // FLIP animation uses text state checker.
     const mapToAnimationKey = () => {
         let text = "";
@@ -138,10 +141,10 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
             }
         }
         setMap(newState);
-    }, [detectPropsLength()]);
+    }, [detectPropsLength(), props.char.appellation]);
     return (
         <div
-            className="w-full bg-gray-200 rounded-3xl transition-all duration-700 origin-top relative"
+            className="w-full bg-gray-200 dark:bg-gray-700 rounded-3xl transition-all duration-700 origin-top relative"
             style={{
                 marginTop: props.open ? "12px" : "0px",
                 height: props.open ? "auto" : "auto",
@@ -150,7 +153,7 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
             }}
         >
             <div className="w-full h-full flex flex-row justify-end items-center">
-                <div className="absolute top-0 h-14 w-full md:w-24 md:h-full mr-auto bg-gray-300 md:left-0 rounded-t-2xl md:rounded-tr-none md:rounded-l-2xl flex flex-col justify-center items-center md:justify-end md:items-start pb-2 md:shadow-right flex-shrink-0">
+                <div className="absolute top-0 h-14 w-full md:w-24 md:h-full mr-auto bg-gray-300 dark:bg-gray-600 md:left-0 rounded-t-2xl md:rounded-tr-none md:rounded-l-2xl flex flex-col justify-center items-center md:justify-end md:items-start pb-2 md:shadow-right flex-shrink-0">
                     {/* Labeling */}
                     <div
                         className="h-6 w-18 md:h-8 md:w-24 absolute -top-4 -left-1 bg-yellow-300 flex justify-end items-end"
@@ -173,7 +176,7 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
                         </div>
                     </div>
                     {/* TITLE */}
-                    <div className="w-full h-auto flex justify-center md:justify-start items-center pl-2">
+                    <div className="w-full h-auto flex justify-center md:justify-start items-center pl-2 text-black dark:text-white">
                         {window_size.width < 768 ? (
                             <p className="text-md font-bold">
                                 {TITLE_TEXT[props.type]}
@@ -184,9 +187,9 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
                             </pre>
                         )}
                     </div>
-                    <hr className="w-full border-black" />
+                    <hr className="w-full border-black dark:border-white" />
                     <div className="h-auto w-full flex items-end justify-end pr-14 md:pr-1">
-                        <pre className="text-xxs font-mono uppercase leading-none text-right">
+                        <pre className="text-xxs font-mono uppercase leading-none text-right text-black dark:text-white">
                             {`CALCULATION:\n${props.type}`}
                         </pre>
                     </div>
@@ -197,7 +200,7 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
                         <ul className="h-auto w-full flex-row flex gap-x-2 gap-y-2 flex-wrap justify-start items-center pt-14 md:pt-0">
                             {Object.keys(map).length === 0 ? (
                                 <div className="w-full h-24 flex justify-center items-center">
-                                    <p className="text-2xl font-mono uppercase font-extrabold text-truegray-600">
+                                    <p className="text-2xl font-mono uppercase font-extrabold text-truegray-600 dark:text-gray-100">
                                         {"NO DATA"}
                                     </p>
                                 </div>
@@ -223,7 +226,7 @@ export function ShowMaterial(props: ShowMaterialProps): JSX.Element {
                                         }
                                     })
                                     .map((id, idx) => (
-                                        <Flipped flipId={id} key={idx} stagger>
+                                        <Flipped flipId={id} key={idx}>
                                             <li className="w-auto h-auto">
                                                 <Item
                                                     map={map}
@@ -287,7 +290,7 @@ const chipsets = [
     "3271",
     "3281",
 ];
-function Item(props: ItemProps): JSX.Element {
+export function Item(props: ItemProps): JSX.Element {
     const [isHover, setIsHover] = useState(false);
     const Material_Object = getMaterialObject(props.itemId);
     const src = `/img/items/${Material_Object.iconId}.webp`;

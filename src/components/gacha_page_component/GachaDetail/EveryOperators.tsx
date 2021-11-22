@@ -48,7 +48,7 @@ export function EveryOperators(props: EveryOperatorsProps): JSX.Element {
         });
     }, [props.data.length]);
     return (
-        <div className="w-full h-auto flex flex-row items-center justify-start gap-x-4 gap-y-4 flex-wrap font-ibm-korean font-bold text-truegray-800">
+        <div className="w-full h-auto flex flex-row items-center justify-start gap-x-4 gap-y-4 flex-wrap font-ibm-korean font-bold text-truegray-800 dark:text-white">
             {props.data.length === 0 ? (
                 <div className="w-full h-auto p-8 flex justify-center items-center">
                     <p className="text-xl font-bold">
@@ -67,7 +67,7 @@ export function EveryOperators(props: EveryOperatorsProps): JSX.Element {
                     <div className="w-24 h-auto flex flex-col" key={idx}>
                         <CharMinify charName={char} />
                         <div className="w-24 h-auto flex justify-center items-start">
-                            <p className="text-truegray-700 font-ibm-korean font-bold text-base md:text-lg">
+                            <p className="text-truegray-700 dark:text-white font-ibm-korean font-bold text-base md:text-lg">
                                 {
                                     // @ts-ignore
                                     data[char].number + "회"

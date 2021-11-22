@@ -74,12 +74,14 @@ function SkillGroupChild(props: SkillGroupChildProps): JSX.Element {
     return (
         <div
             className={`w-full h-1/3 flex flex-row justify-start md:pl-2 rounded-md ${
-                props.num === 2 ? "bg-gray-300" : "bg-gray-200"
+                props.num === 2
+                    ? "bg-gray-300 dark:bg-gray-600"
+                    : "bg-gray-200 dark:bg-gray-700"
             }`}
         >
             {/* TOP TITLE */}
             <div className="w-auto h-full flex flex-row justify-center items-center flex-shrink-0">
-                <p className="w-auto h-auto font-sans font-bold text:md md:text-lg text-center center">
+                <p className="w-auto h-auto font-sans font-bold text:md md:text-lg text-center center text-black dark:text-white">
                     {`${window_size.width > 768 ? "스킬" : "S"}${props.num}`}
                 </p>
                 <div className="w-1 h-full bg-gradient-to-b from-transparent via-black to-transparent md:ml-2" />
@@ -101,7 +103,9 @@ function SkillGroupChild(props: SkillGroupChildProps): JSX.Element {
                         </svg>
                         <p
                             className={`absolute ${
-                                props.num === 2 ? "bg-gray-300" : "bg-gray-200"
+                                props.num === 2
+                                    ? "bg-gray-300 dark:bg-gray-600"
+                                    : "bg-gray-200 dark:bg-gray-700"
                             } font-bold text-lg font-mono capitalize p-4`}
                         >
                             {"NO DATA"}

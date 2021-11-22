@@ -162,7 +162,7 @@ export function ServerStats(props: ServerStatsProps): JSX.Element {
                 parentControlOpen={openGraph}
                 setParentControlOpen={setOpenGraph}
             >
-                <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800">
+                <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800 dark:text-white">
                     {loading ? (
                         <div className="w-full h-64 flex-col flex justify-center items-center">
                             <EclipseSpinner />
@@ -230,13 +230,13 @@ export function ServerStats(props: ServerStatsProps): JSX.Element {
                 setParentControlOpen={setOpenAll}
             >
                 {loading ? (
-                    <div className="w-full h-64 flex-col flex font-ibm-korean font-bold text-truegray-800 justify-center items-center">
+                    <div className="w-full h-64 flex-col flex font-ibm-korean font-bold text-truegray-800 dark:text-white justify-center items-center">
                         <EclipseSpinner />
                         <p className="text-lg">{"데이터 취득 중..."}</p>
                     </div>
                 ) : (
                     <>
-                        <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800 mb-6">
+                        <div className="w-full h-auto flex flex-col font-ibm-korean font-bold text-truegray-800 dark:text-white mb-6">
                             <div className="w-full h-10 flex flex-row items-center">
                                 <InfoIcon />
                                 <p className="text-lg">{"데이터 갱신"}</p>
@@ -266,7 +266,7 @@ export function ServerStats(props: ServerStatsProps): JSX.Element {
                                 <p className="text-base">{"레어도"}</p>
                             </div>
                         </div>
-                        <div className="w-full h-auto flex flex-row justify-start items-center font-ibm-korean font-bold text-truegray-800 mb-6">
+                        <div className="w-full h-auto flex flex-row justify-start items-center font-ibm-korean font-bold text-truegray-800 dark:text-white mb-6">
                             <InfoIcon />
                             <p className="text-lg">{"데이터"}</p>
                         </div>

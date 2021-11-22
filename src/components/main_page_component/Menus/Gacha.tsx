@@ -35,14 +35,14 @@ export function Gacha(): JSX.Element {
                         </div>
                     </div>
                     <div className="flex-grow h-full relative flex items-center justify-center">
-                        <div className="w-full h-full absolute">
+                        <div className="w-full h-full absolute filter dark:invert">
                             <CustomImage
                                 type="stretch"
                                 src="/ui/alert_bg.webp"
                             />
                         </div>
                         <div className="w-full h-full flex flex-col justify-end items-end z-10">
-                            <p className="text-base md:text-xl text-right font-ibm-korean font-bold text-truegray-700 mb-auto mr-4 md:mr-10 mt-5">
+                            <p className="text-base md:text-xl text-right font-ibm-korean font-bold text-truegray-700 dark:text-white mb-auto mr-4 md:mr-10 mt-5">
                                 {"현재까지 모집된 대원 수"}
                                 <br />
                                 {loading
@@ -54,7 +54,7 @@ export function Gacha(): JSX.Element {
                                           ",",
                                       )}
                             </p>
-                            <p className="text-2xl md:text-3xl font-ibm-korean font-bold text-truegray-700 mr-4 md:mr-10 mb-5">
+                            <p className="text-2xl md:text-3xl font-ibm-korean font-bold text-truegray-700 dark:text-white mr-4 md:mr-10 mb-5">
                                 {"가챠 시뮬레이션"}
                             </p>
                         </div>

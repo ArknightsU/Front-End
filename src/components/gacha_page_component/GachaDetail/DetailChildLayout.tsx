@@ -39,7 +39,7 @@ export function DetailChildLayout({
                 </div>
             </div>
             <div
-                className={`w-full transition-all duration-700 bg-white backdrop-filter backdrop-blur-md bg-opacity-60 rounded-lg ${
+                className={`w-full transition-all duration-700 bg-white dark:bg-gray-700 backdrop-filter backdrop-blur-md bg-opacity-60 rounded-lg ${
                     open ? "h-auto p-4" : "h-0 p-0"
                 }`}
             >

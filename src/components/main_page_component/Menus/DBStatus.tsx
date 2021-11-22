@@ -13,16 +13,16 @@ export function DBStatus(props: DBStatusProps): JSX.Element {
     return (
         <div className={menuStyle}>
             <div className={insideStyle}>
-                <div className="w-full h-full flex flex-row justify-center items-center">
-                    <div className="w-1/4 h-full flex justify-center items-center bg-truegray-700 rounded-l-lg md:rounded-l-lg">
+                <div className="w-full h-full flex flex-row justify-center items-center text-black dark:text-white">
+                    <div className="w-1/4 h-full flex justify-center items-center bg-truegray-700 dark:bg-gray-700 rounded-l-lg md:rounded-l-lg ">
                         <p className="w-auto h-auto fo font-extrabold text-sm md:text-md text-white text-center">
                             {"DB"}
                             <br />
                             {"상태"}
                         </p>
                     </div>
-                    <div className="w-1/4 h-full flex justify-center items-center">
-                        <p className="w-auto h-auto font-extrabold text-md md:text-md text-center font-ibm-korean">
+                    <div className="w-1/4 h-full flex justify-center items-center ">
+                        <p className="w-auto h-auto font-extrabold text-md md:text-md text-center font-ibm-korean ">
                             {props.loading ? "로딩 중" : "정상"}
                         </p>
                         <div className="ml-2 h-auto w-auto relative flex justify-center items-center">

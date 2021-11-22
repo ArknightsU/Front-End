@@ -70,7 +70,7 @@ export function Music(): JSX.Element {
     }, [imageLoading]);
     return (
         <div className={menuStyle}>
-            <div className="w-full h-full flex flew-row justify-center items-center">
+            <div className="w-full h-full flex flew-row justify-center items-center text-black dark:text-white">
                 {
                     // PlayList Component
                 }
@@ -107,7 +107,7 @@ export function Music(): JSX.Element {
                 {
                     // Music Player Component
                 }
-                <div className="w-1/2 h-full relative bg-gray-200 bg-opacity-70 rounded-lg ml-2 shadow-br">
+                <div className="w-1/2 h-full relative dark:bg-gray-700 bg-gray-200 bg-opacity-70 rounded-lg ml-2 shadow-br">
                     <div className="w-24 h-3 absolute flex justify-start items-center bg-red-700 z-10 -left-1 -top-1 opacity-0 md:opacity-100">
                         <p className="font-ibm-mono font-bold text-xxs text-white ml-1 -top-5 -left-2 uppercase">
                             {"Music player_"}

@@ -51,17 +51,17 @@ export function Status(): JSX.Element {
         <div className={menuStyle}>
             <div className={insideStyle}>
                 <div className="w-full h-full flex flex-col justify-center items-center">
-                    <div className="w-full h-1/5 flex justify-center items-center bg-truegray-700 rounded-t-lg md:rounded-t-lg">
+                    <div className="w-full h-1/5 flex justify-center items-center bg-truegray-700 dark:bg-gray-700 rounded-t-lg md:rounded-t-lg">
                         <p className="font-extrabold text-lg text-white font-ibm-korean">
                             {"API 서버"}
                         </p>
                     </div>
                     <div className="w-full flex-grow flex justify-center items-center">
                         <div className="w-auto h-auto flex flex-row justify-center items-center">
-                            <p className="text-lg font-extrabold md:text-2xl font-ibm-korean text-center">
+                            <p className="text-lg font-extrabold md:text-2xl font-ibm-korean text-center text-black dark:text-white">
                                 {status}
                             </p>
-                            <div className="pl-2 w-auto h-auto flex justify-center items-center">
+                            <div className="pl-2 w-auto h-auto flex justify-center items-center ">
                                 <div
                                     // @ts-ignore
                                     className={`absolute p-1 rounded-full animate-ping ${PING_COLORS[status]}`}
