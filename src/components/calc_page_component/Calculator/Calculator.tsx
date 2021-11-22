@@ -12,7 +12,6 @@ interface CalculatorProps {
 }
 
 export function Calculator(props: CalculatorProps): JSX.Element {
-    const check = props.focused.length;
     return props.focused.length === 0 ? (
         <div
             className="h-full w-full md:p-24 p-12"
@@ -47,7 +46,6 @@ export function Calculator(props: CalculatorProps): JSX.Element {
                             >
                                 <li className="h-auto w-auto">
                                     <CalculatorChild
-                                        check={check}
                                         focus={focus}
                                         setFocused={props.setFocused}
                                     />

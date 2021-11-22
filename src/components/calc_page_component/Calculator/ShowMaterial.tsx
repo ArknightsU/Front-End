@@ -13,7 +13,6 @@ interface ShowMaterialProps {
     focus: MaterialCalculation;
     char: any;
     type: "total" | "upgrade" | "skill";
-    check: number;
 }
 // Left title text map
 const TITLE_TEXT = {

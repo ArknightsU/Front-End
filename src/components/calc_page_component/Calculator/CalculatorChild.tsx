@@ -13,7 +13,6 @@ interface CalculatorChildProps {
     setFocused: React.Dispatch<
         React.SetStateAction<Array<MaterialCalculation>>
     >;
-    check: number;
 }
 export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
     const [char, loading] = useCharObject(props.focus.name);
@@ -256,7 +255,6 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                     {/* Bottom Side show result component */}
                     <div className="h-auto w-auto flex flex-col justify-start transition-all duration-700">
                         <ShowMaterial
-                            check={props.check}
                             focus={props.focus}
                             open={show[0]}
                             setClose={() => {
@@ -266,7 +264,6 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                             type="total"
                         />
                         <ShowMaterial
-                            check={props.check}
                             focus={props.focus}
                             open={show[1]}
                             setClose={() => {
@@ -276,7 +273,6 @@ export function CalculatorChild(props: CalculatorChildProps): JSX.Element {
                             type="upgrade"
                         />
                         <ShowMaterial
-                            check={props.check}
                             focus={props.focus}
                             open={show[2]}
                             setClose={() => {
