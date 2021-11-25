@@ -6,6 +6,14 @@ import Link from "next/link";
 const Admin: NextPage<any> = () => {
     const { data: session, status } = useSession();
     const loading = status === "loading";
+    const isSessionRight = () => {
+        if (!session || !session.user) {
+            return false;
+        } else if (session.user.name === "Admin") {
+            return true;
+        }
+        return false;
+    };
     if (loading) {
         return <p>{"Loading..."}</p>;
     }
@@ -42,7 +50,7 @@ const Admin: NextPage<any> = () => {
                         <div
                             className=" w-40 h-20 flex justify-center items-center font-bold font-ibm-korean bg-green-700 text-2xl text-white rounded-lg"
                             onClick={() => {
-                                signIn();
+                                signIn("credentials");
                             }}
                         >
                             {"LOG IN"}
