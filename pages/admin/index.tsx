@@ -50,7 +50,7 @@ const Admin: NextPage<any> = () => {
                         <div
                             className=" w-40 h-20 flex justify-center items-center font-bold font-ibm-korean bg-green-700 text-2xl text-white rounded-lg"
                             onClick={() => {
-                                signIn("credentials");
+                                signIn();
                             }}
                         >
                             {"LOG IN"}
