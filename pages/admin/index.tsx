@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { CustomImage } from "@components";
 import { NextPage } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -9,10 +10,16 @@ const Admin: NextPage<any> = () => {
     const isSessionRight = () => {
         if (!session || !session.user) {
             return false;
-        } else if (session.user.name === "Admin") {
+        } else if (
+            // @ts-ignore
+            session.user.provider ||
+            // @ts-ignore
+            session.user.provider === "google"
+        ) {
+            return false;
+        } else {
             return true;
         }
-        return false;
     };
     if (loading) {
         return <p>{"Loading..."}</p>;
@@ -58,43 +65,75 @@ const Admin: NextPage<any> = () => {
                     </div>
                 </div>
             )}
-            {session && (
-                <div
-                    className="w-full h-full flex flex-col justify-center items-center gap-y-8"
-                    style={{
-                        height: "100vh",
-                        width: "100vw",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
+            {session &&
+                (isSessionRight() ? (
                     <div
-                        className="w-full h-1/2 flex justify-center items-center"
-                        style={{ height: "50vh", width: "100vw" }}
+                        className="w-full h-full flex flex-col justify-center items-center gap-y-8"
+                        style={{
+                            height: "100vh",
+                            width: "100vw",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
                     >
-                        <CustomImage src="/icon.png" />
-                    </div>
-                    <p className="font-bold font-ibm-korean text-2xl whitespace-pre-line text-center">
-                        {"ARKNIGHTS ONE ADMIN PAGE"}
-                    </p>
-                    <div className="h-auto w-auto flex flex-row justify-center items-center gap-x-5">
                         <div
-                            className=" w-40 h-20 flex justify-center items-center font-bold font-ibm-korean bg-red-700 text-2xl text-white rounded-lg"
-                            onClick={() => {
-                                signOut();
-                            }}
+                            className="w-full h-1/2 flex justify-center items-center"
+                            style={{ height: "50vh", width: "100vw" }}
                         >
-                            {"LOG OUT"}
+                            <CustomImage src="/icon.png" />
                         </div>
-                        <Link href={"/admin/pools"} passHref>
-                            <div className=" w-40 h-20 flex justify-center items-center font-bold font-ibm-korea bg-green-700 text-2xl text-white rounded-lg">
-                                {"POOL CONFIG"}
+                        <p className="font-bold font-ibm-korean text-2xl whitespace-pre-line text-center">
+                            {"ARKNIGHTS ONE ADMIN PAGE"}
+                        </p>
+                        <div className="h-auto w-auto flex flex-row justify-center items-center gap-x-5">
+                            <div
+                                className=" w-40 h-20 flex justify-center items-center font-bold font-ibm-korean bg-red-700 text-2xl text-white rounded-lg"
+                                onClick={() => {
+                                    signOut();
+                                }}
+                            >
+                                {"LOG OUT"}
                             </div>
-                        </Link>
+                            <Link href={"/admin/pools"} passHref>
+                                <div className=" w-40 h-20 flex justify-center items-center font-bold font-ibm-korea bg-green-700 text-2xl text-white rounded-lg">
+                                    {"POOL CONFIG"}
+                                </div>
+                            </Link>
+                        </div>
                     </div>
-                </div>
-            )}
+                ) : (
+                    <div
+                        className="w-full h-full flex flex-col justify-center items-center gap-y-8"
+                        style={{
+                            height: "100vh",
+                            width: "100vw",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <div
+                            className="w-full h-1/2 flex justify-center items-center"
+                            style={{ height: "50vh", width: "100vw" }}
+                        >
+                            <CustomImage src="/icon.png" />
+                        </div>
+                        <p className="font-bold font-ibm-korean text-2xl whitespace-pre-line text-center">
+                            {"ARKNIGHTS ONE ADMIN PAGE"}
+                        </p>
+                        <p className="font-bold font-ibm-korean text-2xl whitespace-pre-line text-center">
+                            {"접근할 권한이 없습니다.\nYOU ARE NOT AUTHORIZED"}
+                        </p>
+                        <div className="h-auto w-auto flex flex-row justify-center items-center gap-x-5">
+                            <Link href={"/"} passHref>
+                                <div className=" w-40 h-20 flex justify-center items-center font-bold font-ibm-korea bg-green-700 text-2xl text-white rounded-lg">
+                                    {"Go Main"}
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                ))}
         </>
     );
 };

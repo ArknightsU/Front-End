@@ -53,6 +53,9 @@ export default async function auth(req, res) {
         deleteDoc,
     };
     const normalOptions = {
+        session: {
+            session: "jwt",
+        },
         theme: { colorScheme: "light" },
         providers: [
             GoogleProvider({
@@ -60,7 +63,34 @@ export default async function auth(req, res) {
                     "301249403569-6818astof7ahgagiufg6pl4ls6ja3u7q.apps.googleusercontent.com",
                 clientSecret: "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",
             }),
+            CredentialProvider({
+                name: "Credentials",
+                credentials: {
+                    username: {
+                        label: "Username",
+                        type: "text",
+                        placeholder: "Enter Admin Id",
+                    },
+                    password: { label: "Password", type: "password" },
+                },
+                authorize: async (credentials) => {
+                    if (isCorrectCredentials(credentials)) {
+                        const user = { id: 1, name: "Admin" };
+                        return Promise.resolve(user);
+                    } else {
+                        return Promise.resolve(null);
+                    }
+                },
+            }),
         ],
+        callbacks: {
+            async session({ session, token, user }) {
+                session.user.provider = user.provider;
+                //session.accessToken = token.accessToken;
+                //console.log(token, user, session);
+                return session;
+            },
+        },
         adapter: FirebaseAdapter(firebaseClient),
     };
     const adminOptions = {
@@ -85,15 +115,33 @@ export default async function auth(req, res) {
                     }
                 },
             }),
+            GoogleProvider({
+                clientId:
+                    "301249403569-6818astof7ahgagiufg6pl4ls6ja3u7q.apps.googleusercontent.com",
+                clientSecret: "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",
+                profile(profile) {
+                    return {
+                        name: profile.name,
+                        image: profile.picture,
+                        email: profile.email,
+                        provider: "google",
+                    };
+                },
+            }),
         ],
+        callbacks: {
+            async jwt({ token, account }) {
+                if (account) {
+                    token.accessToken = account.access_token;
+                }
+                return token;
+            },
+        },
     };
-    //console.log(req.headers);
-    if (req.headers.referer && req.headers.referer.includes("admin")) {
-        console.log("ADMIN REQUESTED");
-        return await NextAuth(req, res, adminOptions);
-    } else {
-        return await NextAuth(req, res, normalOptions);
+    if (!(req.headers.referer && req.headers.referer.includes("admin"))) {
+        normalOptions.providers.pop();
     }
+    return await NextAuth(req, res, normalOptions);
 }
 /*
 const options = {

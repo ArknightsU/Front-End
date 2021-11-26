@@ -16,7 +16,7 @@ import type {
     FirestoreDataConverter,
 } from "firebase/firestore";
 
-import type { Account } from "next-auth";
+import type { Account, Awaitable } from "next-auth";
 
 import type {
     Adapter,
@@ -24,6 +24,13 @@ import type {
     AdapterUser,
     VerificationToken,
 } from "next-auth/adapters";
+/*
+interface NewAdapterSession extends AdapterSession {
+    provider: string;
+}*/
+interface NewAdapterUser extends AdapterUser {
+    provider: string;
+}
 
 export const collections = {
     Users: "users",
@@ -54,6 +61,60 @@ export const format: FirestoreDataConverter<any> = {
     },
 };
 
+interface NewAdapter {
+    createUser: (user: Omit<NewAdapterUser, "id">) => Awaitable<NewAdapterUser>;
+    getUser: (id: string) => Awaitable<NewAdapterUser | null>;
+    getUserByEmail: (email: string) => Awaitable<NewAdapterUser | null>;
+    /** Using the provider id and the id of the user for a specific account, get the user. */
+    getUserByAccount: (
+        providerAccountId: Pick<Account, "provider" | "providerAccountId">,
+    ) => Awaitable<NewAdapterUser | null>;
+    updateUser: (user: Partial<NewAdapterUser>) => Awaitable<NewAdapterUser>;
+    /** @todo Implement */
+    deleteUser?: (
+        userId: string,
+    ) => Promise<void> | Awaitable<NewAdapterUser | null | undefined>;
+    linkAccount: (
+        account: Account,
+    ) => Promise<void> | Awaitable<Account | null | undefined>;
+    /** @todo Implement */
+    unlinkAccount?: (
+        providerAccountId: Pick<Account, "provider" | "providerAccountId">,
+    ) => Promise<void> | Awaitable<Account | undefined>;
+    /** Creates a session for the user and returns it. */
+    createSession: (session: {
+        sessionToken: string;
+        userId: string;
+        expires: Date;
+    }) => Awaitable<AdapterSession>;
+    getSessionAndUser: (sessionToken: string) => Awaitable<{
+        session: AdapterSession;
+        user: NewAdapterUser;
+    } | null>;
+    updateSession: (
+        session: Partial<AdapterSession> & Pick<AdapterSession, "sessionToken">,
+    ) => Awaitable<AdapterSession | null | undefined>;
+    /**
+     * Deletes a session from the database.
+     * It is preferred that this method also returns the session
+     * that is being deleted for logging purposes.
+     */
+    deleteSession: (
+        sessionToken: string,
+    ) => Promise<void> | Awaitable<AdapterSession | null | undefined>;
+    createVerificationToken?: (
+        verificationToken: VerificationToken,
+    ) => Awaitable<VerificationToken | null | undefined>;
+    /**
+     * Return verification token from the database
+     * and delete it so it cannot be used again.
+     */
+    useVerificationToken?: (params: {
+        identifier: string;
+        token: string;
+    }) => Awaitable<VerificationToken | null>;
+}
+
 export interface FirebaseClient {
     db: Firestore;
     collection: typeof collection;
@@ -69,7 +130,7 @@ export interface FirebaseClient {
     runTransaction: typeof runTransaction;
 }
 
-export function FirebaseAdapter(client: FirebaseClient): Adapter {
+export function FirebaseAdapter(client: FirebaseClient): NewAdapter {
     const {
         db,
         collection,
@@ -85,9 +146,10 @@ export function FirebaseAdapter(client: FirebaseClient): Adapter {
         runTransaction,
     } = client;
 
-    const Users = collection(db, collections.Users).withConverter<AdapterUser>(
-        format,
-    );
+    const Users = collection(
+        db,
+        collections.Users,
+    ).withConverter<NewAdapterUser>(format);
 
     const Sessions = collection(
         db,
@@ -105,6 +167,7 @@ export function FirebaseAdapter(client: FirebaseClient): Adapter {
 
     return {
         async createUser(user) {
+            user.provider = "google";
             const { id } = await addDoc(Users, user);
             return { ...(user as any), id };
         },
@@ -140,8 +203,7 @@ export function FirebaseAdapter(client: FirebaseClient): Adapter {
         },
 
         async updateUser(partialUser) {
-            // @ts-expect-error
-            await updateDoc(doc(Users, partialUser.id), partialUser);
+            await updateDoc(doc(Users, partialUser.id), { data: partialUser });
             const userDoc = await getDoc(doc(Users, partialUser.id));
             return Users.converter!.fromFirestore(userDoc as any)!;
         },
@@ -185,6 +247,18 @@ export function FirebaseAdapter(client: FirebaseClient): Adapter {
         },
 
         async createSession(session) {
+            const sessionQuery = query(
+                Sessions,
+                where("userId", "==", session.userId),
+                limit(1),
+            );
+            const sessionDocs = await getDocs(sessionQuery);
+            if (!sessionDocs.empty) {
+                const session = Sessions.converter!.fromFirestore(
+                    sessionDocs.docs[0],
+                );
+                await deleteDoc(sessionDocs.docs[0].ref);
+            }
             const { id } = await addDoc(Sessions, session);
             return { ...session, id };
         },
