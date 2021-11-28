@@ -31,7 +31,6 @@ export function Login(): JSX.Element {
         </svg>
     );
     const setError = useSetRecoilState(RecoilError);
-    console.log(session);
     return (
         <div className={menuStyle}>
             <div className={insideStyle}>
@@ -61,15 +60,15 @@ export function Login(): JSX.Element {
                     </div>
                 )}
                 {session && (
-                    <div className="w-full h-full flex justify-center items-center flex-col font-bold font-ibm-korean text-base md:text-2xl gap-y-0 md:gap-y-1 text-black dark:text-white">
-                        <div className="w-12 h-12 md:w-20 md:h-20 xl:w-24 xl:h-24 rounded-full overflow-hidden">
+                    <div className="w-full h-full flex justify-center items-center flex-col font-bold font-ibm-korean text-sm md:text-2xl gap-y-0 md:gap-y-1 text-black dark:text-white">
+                        <div className="w-8 h-8 md:w-20 md:h-20 xl:w-24 xl:h-24 rounded-full overflow-hidden flex-shrink-0 ">
                             {session.user && session.user.image ? (
                                 <CustomImage src={session.user.image} />
                             ) : (
                                 <></>
                             )}
                         </div>
-                        <p className=" whitespace-pre-line text-center">
+                        <p className=" whitespace-pre-line text-center h-auto">
                             {`${
                                 session.user && session.user.name
                                     ? session.user.name
@@ -77,7 +76,7 @@ export function Login(): JSX.Element {
                             }`}
                         </p>
                         <div
-                            className="w-4/5 h-1/5 mt-0 md:mt-3 bg-red-500 rounded-lg text-white hover:bg-red-700 transition-colors duration-700 active:border-2 border-0 border-amber-500 flex justify-center items-center"
+                            className="w-4/5 h-1/5 mt-0 md:mt-1 bg-red-500 rounded-lg text-white hover:bg-red-700 transition-colors duration-700 active:border-2 border-0 border-amber-500 flex justify-center items-center"
                             onClick={() => {
                                 signOut();
                             }}
