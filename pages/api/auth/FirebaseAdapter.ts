@@ -247,6 +247,7 @@ export function FirebaseAdapter(client: FirebaseClient): NewAdapter {
         },
 
         async createSession(session) {
+            /*
             const sessionQuery = query(
                 Sessions,
                 where("userId", "==", session.userId),
@@ -258,7 +259,7 @@ export function FirebaseAdapter(client: FirebaseClient): NewAdapter {
                     sessionDocs.docs[0],
                 );
                 await deleteDoc(sessionDocs.docs[0].ref);
-            }
+            }*/
             const { id } = await addDoc(Sessions, session);
             return { ...session, id };
         },
