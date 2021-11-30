@@ -18,7 +18,7 @@ Front-End Powered By Next.js v12
 
 ## Get Access
 ###### Via Browser
-[arknights.one](https:\\arknights.one)
+[arknights.one](https://arknights.one)
 
 ## Contact Admin
 ###### Mail Adress
