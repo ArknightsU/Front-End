@@ -11,7 +11,7 @@ import dynamic from "next/dynamic";
 const POOL_URL = "https://gacha-server-7vnjo7nhlq-du.a.run.app/v1/admin/pool";
 const type: Array<defineType> = [{ name: "featured" }, { name: "limited" }];
 export function PoolsMain(): JSX.Element {
-    const DynamicReactJson = dynamic(import("react-json-view"), { ssr: false });
+    const DynamicReactJson = dynamic(import("react-json-view"), { ssr: true });
     const [loading, setLoading] = useState(false);
     const [gotData, setGotData] = useState({});
     const [sendData, setSendData] = useState({});
@@ -22,10 +22,18 @@ export function PoolsMain(): JSX.Element {
     const handlePost = () => {
         setLoading(true);
         axios
-            .post(POOL_URL, {
-                name: poolName,
-                type: selected.name,
-            })
+            .post(
+                POOL_URL,
+                {
+                    name: poolName,
+                    type: selected.name,
+                },
+                {
+                    headers: {
+                        Authorization: "kleechankawai",
+                    },
+                },
+            )
             .then((res) => {
                 console.log(res.data);
                 setGotData(res.data.pool);
@@ -41,7 +49,15 @@ export function PoolsMain(): JSX.Element {
         console.log(sendData);
         setLoading(true);
         axios
-            .put(POOL_URL, { pool: sendData })
+            .put(
+                POOL_URL,
+                { pool: sendData },
+                {
+                    headers: {
+                        Authorization: "kleechankawai",
+                    },
+                },
+            )
             .then((res) => {
                 console.log(res);
                 setLoading(false);

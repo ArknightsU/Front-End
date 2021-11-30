@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             <RecoilRoot>
                 <SessionProvider
                     session={pageProps.session}
-                    refetchInterval={0}
+                    refetchInterval={15 * 60}
                 >
                     <Component {...pageProps} />
                 </SessionProvider>

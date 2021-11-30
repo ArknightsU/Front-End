@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { CustomImage } from "@components";
 import { PoolsMain } from "@components/admin_page_component/PoolsMain";
 import { GetStaticProps, NextPage } from "next";
@@ -10,10 +11,23 @@ const Pools: NextPage<any> = () => {
     if (loading) {
         return <p>{"loggin in..."}</p>;
     }
-
+    const isSessionRight = () => {
+        if (!session || !session.user) {
+            return false;
+        } else if (
+            // @ts-ignore
+            session.user.provider ||
+            // @ts-ignore
+            session.user.provider === "google"
+        ) {
+            return false;
+        } else {
+            return true;
+        }
+    };
     return (
         <>
-            {session ? (
+            {isSessionRight() ? (
                 <PoolsMain />
             ) : (
                 <div
