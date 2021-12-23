@@ -52,9 +52,9 @@ export default async function auth(req, res) {
         updateDoc,
         deleteDoc,
     };
-    const normalOptions = {
+    let normalOptions = {
         session: {
-            session: "jwt",
+            strategy: "database",
         },
         theme: { colorScheme: "light" },
         providers: [
@@ -92,7 +92,7 @@ export default async function auth(req, res) {
         },
         adapter: FirebaseAdapter(firebaseClient),
     };
-    const adminOptions = {
+    let adminOptions = {
         theme: { colorScheme: "light" },
         providers: [
             CredentialProvider({
@@ -114,19 +114,6 @@ export default async function auth(req, res) {
                     }
                 },
             }),
-            GoogleProvider({
-                clientId:
-                    "301249403569-6818astof7ahgagiufg6pl4ls6ja3u7q.apps.googleusercontent.com",
-                clientSecret: "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",
-                profile(profile) {
-                    return {
-                        name: profile.name,
-                        image: profile.picture,
-                        email: profile.email,
-                        provider: "google",
-                    };
-                },
-            }),
         ],
         callbacks: {
             async jwt({ token, account }) {
@@ -139,6 +126,9 @@ export default async function auth(req, res) {
     };
     if (!(req.headers.referer && req.headers.referer.includes("admin"))) {
         normalOptions.providers.pop();
+    }
+    if (req.headers.referer && req.headers.referer.includes("admin")) {
+        normalOptions = adminOptions;
     }
     return await NextAuth(req, res, normalOptions);
 }
