@@ -114,21 +114,14 @@ export default async function auth(req, res) {
                     }
                 },
             }),
+            GoogleProvider({
+                clientId: process.env.GOOGLE_CLIENT_ID,
+                clientSecret: process.env.GOOGLE_SECRET,
+            }),
         ],
-        callbacks: {
-            async jwt({ token, account }) {
-                if (account) {
-                    token.accessToken = account.access_token;
-                }
-                return token;
-            },
-        },
     };
     if (!(req.headers.referer && req.headers.referer.includes("admin"))) {
         normalOptions.providers.pop();
-    }
-    if (req.headers.referer && req.headers.referer.includes("admin")) {
-        normalOptions = adminOptions;
     }
     return await NextAuth(req, res, normalOptions);
 }
