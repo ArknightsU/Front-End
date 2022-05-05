@@ -1,16 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { CustomImage } from "@components";
-import axios from "axios";
-import {
-    GetServerSideProps,
-    NextPage,
-    NextPageContext,
-    PreviewData,
-} from "next";
-import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 import Link from "next/link";
-import { ParsedUrlQuery } from "querystring";
-
 interface AdminPageProps {
     isAdmin: boolean;
 }

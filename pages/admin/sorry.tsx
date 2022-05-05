@@ -21,7 +21,7 @@ const Sorry: NextPage = () => {
                 <CustomImage src="/icon.png" />
             </div>
             <p className="font-bold font-ibm-korean text-2xl whitespace-pre-line text-center">
-                {"ARKNIGHTS ONE ADMIN PAGE\nONLY AUTHORIZED USERS CAN LOG IN"}
+                {"ARKNIGHTS ONE ADMIN PAGE\nYOU ARE NOT AUTHORIZED"}
             </p>
             <div className="h-auto w-auto flex flex-row justify-center items-center gap-x-5">
                 <Link href="/" passHref>
