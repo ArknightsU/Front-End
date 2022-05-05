@@ -1,4 +1,4 @@
-import NextAuth, { Account, User } from "next-auth";
+import NextAuth, { Account, Session, User } from "next-auth";
 
 import GoogleProvider from "next-auth/providers/google";
 //import { FirebaseAdapter, FirebaseClient } from "@next-auth/firebase-adapter";
@@ -57,6 +57,20 @@ export default async function auth(req: any, res: any) {
             }),
         ],
         callbacks: {
+            async session({
+                session,
+                token,
+                user,
+            }: {
+                session: Session;
+                token: JWT;
+                user: User;
+            }) {
+                if (user?.email === process.env.NEXTAUTH_ADMIN_ADDRESS) {
+                    session.role = "admin";
+                } else session.role = "user";
+                return session;
+            },
             async jwt({
                 token,
                 user,
