@@ -1,31 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { CustomImage } from "@components";
 import { PoolsMain } from "@components/admin_page_component/PoolsMain";
-import { GetStaticProps, NextPage } from "next";
-import { signIn, useSession } from "next-auth/react";
+import { GetStaticProps, NextPage, NextPageContext } from "next";
+import { getSession, signIn, useSession } from "next-auth/react";
 import Link from "next/link";
-
-const Pools: NextPage<any> = () => {
-    const { data: session, status } = useSession();
-    const loading = status === "loading";
-    if (loading) {
-        return <p>{"loggin in..."}</p>;
-    }
-    const isSessionRight = () => {
-        if (!session || !session.user) {
-            return false;
-        } else if (
-            // @ts-ignore
-            session.user.provider ||
-            // @ts-ignore
-            session.user.provider === "google"
-        ) {
-            return false;
-        } else {
-            return true;
-        }
-    };
+interface AdminPageProps {
+    isAdmin: boolean;
+}
+const Pools: NextPage<AdminPageProps> = ({ isAdmin }) => {
     return (
+        <PoolsMain />
+        /*
         <>
             {isSessionRight() ? (
                 <PoolsMain />
@@ -66,8 +51,29 @@ const Pools: NextPage<any> = () => {
                     </div>
                 </div>
             )}
-        </>
+        </>*/
     );
 };
+
+export async function getServerSideProps(context: NextPageContext) {
+    const session = await getSession(context);
+    const user = session?.user;
+    if (user === null || user === undefined)
+        return {
+            redirect: {
+                destination: "/admin/sorry",
+                permanent: false,
+            },
+        };
+    if (user.email === process.env.NEXTAUTH_ADMIN_ADDRESS) {
+        return { props: { isAdmin: true } };
+    }
+    return {
+        redirect: {
+            destination: "/admin/sorry",
+            permanent: false,
+        },
+    };
+}
 
 export default Pools;
