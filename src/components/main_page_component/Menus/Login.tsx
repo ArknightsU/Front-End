@@ -3,7 +3,6 @@ import React from "react";
 import { menuStyle, insideStyle } from "./common";
 import { SubMenuComp } from "./SubMenuComp";
 import { useLoginPopUp } from "@recoil/hooks";
-import { UnderConstruct } from "@components/common/UnderConstruct";
 import { useSetRecoilState } from "recoil";
 import { RecoilError } from "@recoil/atoms";
 import { signIn, signOut, useSession } from "next-auth/react";
