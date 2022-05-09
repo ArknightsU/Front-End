@@ -1,67 +1,43 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "baseUrl": ".",
-    "paths": {
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@components": [
-        "src/components"
-      ],
-      "@public/*": [
-        "public/*"
-      ],
-      "@public": [
-        "public"
-      ],
-      "@styles/*": [
-        "src/styles/*"
-      ],
-      "@styles": [
-        "src/styles"
-      ],
-      "@recoil/*": [
-        "src/recoil/*"
-      ],
-      "@recoil": [
-        "src/recoil"
-      ],
-      "@i18n": [
-        "./i18n"
-      ],
-      "@constants": [
-        "src/constants"
-      ],
-      "@constants/*": [
-        "src/constants/*"
-      ]
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["src/components/*"],
+            "@components": ["src/components"],
+            "@public/*": ["public/*"],
+            "@public": ["public"],
+            "@styles/*": ["src/styles/*"],
+            "@styles": ["src/styles"],
+            "@recoil/*": ["src/recoil/*"],
+            "@recoil": ["src/recoil"],
+            "@i18n": ["./i18n"],
+            "@constants": ["src/constants"],
+            "@constants/*": ["src/constants/*"]
+        },
+        "incremental": true
     },
-    "incremental": true
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "pages/api/[...nextauth].js"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.jsx",
+        "**/*.js",
+        "pages/api/[...nextauth].js",
+        "src/components/Loading/Vertice.jsx"
+    ],
+    "exclude": ["node_modules"]
 }
