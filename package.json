@@ -40,12 +40,10 @@
     "react-json-view": "^1.21.3",
     "react-player": "^2.9.0",
     "react-rating": "^2.0.5",
-    "react-three-fiber": "^6.0.13",
     "react-use": "^15.3.8",
     "recoil": "^0.1.2",
     "recoil-persist": "^3.0.0",
-    "sharp": "^0.29.2",
-    "three": "^0.140.1"
+    "sharp": "^0.29.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
