@@ -1,6 +1,8 @@
+import useElementSize from "@components/hooks/useElementSize";
 import { NextPage } from "next";
-import { useEffect } from "react";
 const Test: NextPage = () => {
+    const [ref, size] = useElementSize();
+    /*
     useEffect(() => {
         Array.from(document.getElementsByTagName("iframe")).forEach(
             (iframe) => {
@@ -24,7 +26,7 @@ const Test: NextPage = () => {
                 );
             },
         );
-    }, []);
+    }, []);*/
     return (
         <div
             className=" w-screen h-screen"
@@ -37,8 +39,9 @@ const Test: NextPage = () => {
             }}*/
         >
             <iframe
-                src="/loadingFrame.html"
-                sandbox="allow-script allow-forms allow-modals"
+                ref={ref}
+                src={`/loadingFrame.html/?height=${size.height}&width=${size.width}`}
+                sandbox="allow-scripts allow-forms allow-modals allow-same-origin"
                 className="w-full h-full"
             ></iframe>
         </div>
